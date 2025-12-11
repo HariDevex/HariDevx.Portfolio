@@ -1,0 +1,39 @@
+/* Header */
+header {
+  width: 99%;
+  border-radius: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  transition: 0.3s ease;
+}
+
+header h1 {
+  font-size: 30px;
+  color: #ff0000;
+  font-weight: 700;
+  animation: neonGlow 2s infinite alternate ease-in-out;
+}
+
+@keyframes neonGlow {
+  from { text-shadow: 0 0 5px #ff0000; }
+  to { text-shadow: 0 0 20px #ff0000, 0 0 30px #ff0000; }
+}
+
+nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #ff0000;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+nav a:hover {
+  color: cyan;
+  text-shadow: 0 0 10px cyan;
+}
