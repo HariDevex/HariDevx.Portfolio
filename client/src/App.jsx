@@ -5,56 +5,34 @@ import { motion } from 'framer-motion';
 
 const API_BASE = import.meta.env.VITE_API_URL || '';
 
-const Section = ({ id, title, children, accent = 'var(--cyan)' }) => (
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
+};
+
+const Section = ({ children }) => (
   <motion.section 
-    id={id} 
     className="section"
-    initial={{ opacity: 0, y: 40 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: '-50px' }}
-    transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, margin: '-80px' }}
+    variants={fadeInUp}
   >
-    <div className="section__header">
-      <motion.span 
-        className="accent" 
-        style={{ background: accent }}
-        initial={{ width: 0 }}
-        whileInView={{ width: 36 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4, ease: 'easeOut', delay: 0.15 }}
-      />
-      <h2>{title}</h2>
-    </div>
-    <div className="section__body">{children}</div>
+    {children}
   </motion.section>
 );
 
-const pillVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
-};
-
-const Pill = ({ children }) => (
-  <motion.span 
-    className="pill" 
-    variants={pillVariants}
-    whileHover={{ scale: 1.05, y: -2 }}
-  >
-    {children}
-  </motion.span>
-);
-
-const Card = ({ children, index }) => (
-  <motion.article 
-    className="card"
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: '-30px' }}
-    transition={{ duration: 0.5, delay: index * 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-    whileHover={{ y: -6, boxShadow: '0 24px 48px rgba(0, 0, 0, 0.4)' }}
-  >
-    {children}
-  </motion.article>
+const SectionHeader = ({ label, title, desc }) => (
+  <motion.div className="section-header" variants={fadeInUp}>
+    <motion.span className="section-label" variants={fadeInUp}>{label}</motion.span>
+    <motion.h2 className="section-title" variants={fadeInUp}>{title}</motion.h2>
+    {desc && <motion.p className="section-desc" variants={fadeInUp}>{desc}</motion.p>}
+  </motion.div>
 );
 
 export default function App() {
@@ -69,12 +47,10 @@ export default function App() {
         const { data } = await axios.get(`${API_BASE}/api/portfolio`);
         setPortfolio(data);
         setStatus('ready');
-      } catch (err) {
-        console.warn('API unreachable, using bundled data', err);
+      } catch {
         setStatus('offline');
       }
     };
-
     fetchData();
   }, []);
 
@@ -85,278 +61,303 @@ export default function App() {
         const el = document.getElementById(section);
         if (el) {
           const rect = el.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
+          if (rect.top <= 150 && rect.bottom >= 150) {
             setActiveSection(section);
             break;
           }
         }
       }
     };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const { hero, summary, education, skills, skillLogos, gallery, projects, contact } = portfolio;
 
-  const navItems = [
-    { id: 'home', label: 'Home' },
-    { id: 'education', label: 'Education' },
-    { id: 'skills', label: 'Skills' },
-    { id: 'gallery', label: 'Gallery' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'contact', label: 'Contact' },
-  ];
+  const navItems = ['Home', 'Education', 'Skills', 'Gallery', 'Projects', 'Contact'];
+  const navIds = ['home', 'summary', 'education', 'skills', 'gallery', 'projects', 'contact'];
 
-  const staggerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.08, delayChildren: 0.1 },
-    },
+  const groupedSkills = {
+    'Design & Frontend': skills.filter(s => s.includes('Web') || s.includes('Figma') || s.includes('Canva') || s.includes('Photoshop')),
+    'Programming': skills.filter(s => s.includes('Programming') || s.includes('C++') || s.includes('Python')),
+    'Tools & Platforms': skills.filter(s => s.includes('Git') || s.includes('Arduino') || s.includes('Raspberry') || s.includes('Problem') || s.includes('Strong')),
   };
 
   return (
     <div className="page">
-      <motion.header 
+      <motion.nav 
         className="nav"
-        initial={{ y: -20, opacity: 0 }}
+        initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
       >
-        <div className="brand">
-          <motion.img 
-            src={hero.nameLogo} 
-            alt="logo" 
-            height={42}
-            whileHover={{ rotate: 5, scale: 1.05 }}
-            transition={{ type: 'spring', stiffness: 300 }}
-          />
-          <span>Hariharan N</span>
-        </div>
-        <nav>
-          {navItems.map((item) => (
+        <motion.div 
+          className="brand"
+          whileHover={{ scale: 1.02 }}
+        >
+          <img src={hero.nameLogo} alt="logo" height={42} />
+          <span>Mr. Hariharan N</span>
+        </motion.div>
+        <div className="nav-links">
+          {navItems.map((item, i) => (
             <motion.a
-              key={item.id}
-              href={`#${item.id}`}
-              className={activeSection === item.id ? 'active' : ''}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.1 * navItems.indexOf(item) }}
+              key={item}
+              href={`#${navIds[i]}`}
+              className={activeSection === navIds[i] ? 'active' : ''}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 * i }}
               whileHover={{ y: -2 }}
             >
-              {item.label}
+              {item}
             </motion.a>
           ))}
-        </nav>
-      </motion.header>
+        </div>
+      </motion.nav>
 
-      <main>
-        <section id="home" className="hero" style={{ backgroundImage: `url(${hero.bannerImage})` }}>
-          <div className="hero__overlay" />
-          <div className="hero__content">
-            <motion.img 
-              src={hero.nameLogo} 
-              alt="Hariharan" 
-              className="hero__logo"
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-            />
-            <motion.p 
-              className="hero__tag"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              {hero.tagline}
-            </motion.p>
-            {hero.lines.map((line, i) => (
-              <motion.p 
-                key={line} 
-                className="hero__line"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
-              >
-                {line}
-              </motion.p>
-            ))}
-            <motion.div 
-              className="hero__status"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: 0.6 }}
-            >
-              <motion.span 
-                className={`dot ${status === 'ready' ? 'dot--live' : 'dot--offline'}`}
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-              />
-              {status === 'ready' ? 'Live API' : 'Offline sample'}
-            </motion.div>
+      <section id="home" className="hero">
+        <div className="hero-bg" />
+        <div className="hero-overlay" />
+        <div className="hero-glow hero-glow-1" />
+        <div className="hero-glow hero-glow-2" />
+        
+        <motion.div 
+          className="hero-content"
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+        >
+          <motion.div className="hero-badge" variants={fadeInUp}>
+            <span className="hero-badge-dot" />
+            {status === 'ready' ? 'Connected to API' : 'Viewing Portfolio'}
+          </motion.div>
+          
+          <motion.img 
+            src={hero.nameLogo} 
+            alt="Hariharan" 
+            className="hero-logo"
+            variants={fadeInUp}
+            whileHover={{ scale: 1.05, rotate: 2 }}
+            transition={{ type: 'spring', stiffness: 200 }}
+          />
+          
+          <motion.p className="hero-tagline" variants={fadeInUp}>
+            {hero.tagline}
+          </motion.p>
+          
+          <motion.h1 className="hero-title" variants={fadeInUp}>
+            Mr. Hariharan N
+          </motion.h1>
+          
+          <motion.p className="hero-subtitle" variants={fadeInUp}>
+            {hero.lines.join(' ')}
+          </motion.p>
+          
+          <motion.div className="hero-cta" variants={fadeInUp}>
             <motion.a 
-              className="primary" 
               href="#projects"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-              whileHover={{ scale: 1.05, boxShadow: '0 16px 40px rgba(59, 209, 255, 0.3)' }}
+              className="btn btn-primary"
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
               View Projects
             </motion.a>
-          </div>
-        </section>
-
-        <Section id="summary" title="Executive Summary" accent="var(--pink)">
-          <motion.p 
-            className="lede"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            {summary}
-          </motion.p>
-        </Section>
-
-        <Section id="education" title="Education" accent="var(--amber)">
-          <div className="grid two">
-            {education.map((edu, i) => (
-              <Card key={edu.degree} index={i}>
-                <h3>{edu.degree}</h3>
-                <p className="muted">{edu.school}</p>
-                <p>{edu.years}</p>
-                <p className="muted">{edu.score}</p>
-              </Card>
-            ))}
-          </div>
-        </Section>
-
-        <Section id="skills" title="Skills" accent="var(--cyan)">
-          <div className="stack">
-            <motion.div 
-              className="pill-row"
-              variants={staggerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
+            <motion.a 
+              href="#contact"
+              className="btn btn-secondary"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
             >
-              {skills.map((item) => (
-                <Pill key={item}>{item}</Pill>
-              ))}
-            </motion.div>
-            <motion.div 
-              className="marquee"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-            >
-              <div className="marquee__track">
-                {[...skillLogos, ...skillLogos].map((logo, idx) => (
-                  <motion.img 
-                    key={`${logo}-${idx}`} 
-                    src={logo} 
-                    alt="logo"
-                    whileHover={{ scale: 1.1, filter: 'brightness(1.2)' }}
-                    transition={{ type: 'spring', stiffness: 300 }}
-                  />
+              Get in Touch
+            </motion.a>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      <Section>
+        <SectionHeader label="About" title="Executive Summary" />
+        <motion.div className="summary-section" variants={fadeInUp}>
+          <p className="summary-text">{summary}</p>
+        </motion.div>
+      </Section>
+
+      <Section>
+        <SectionHeader 
+          label="Background" 
+          title="Education" 
+          desc="Academic journey and achievements"
+        />
+        <motion.div className="grid-3" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+          {education.map((edu, i) => (
+            <motion.article key={edu.degree} className="card" variants={fadeInUp}>
+              <div className="card-icon">{['🎓', '📚', '🎯'][i]}</div>
+              <h3 className="card-title">{edu.degree}</h3>
+              <p className="card-meta">{edu.school}<br/>{edu.years}</p>
+              <span className="card-score">{edu.score}</span>
+            </motion.article>
+          ))}
+        </motion.div>
+      </Section>
+
+      <Section>
+        <SectionHeader 
+          label="Expertise" 
+          title="Skills & Technologies" 
+          desc="Tools and technologies I work with"
+        />
+        <motion.div className="skills-container" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+          {Object.entries(groupedSkills).filter(([_, v]) => v.length > 0).map(([category, items]) => (
+            <motion.div key={category} className="skill-category" variants={fadeInUp}>
+              <h3 className="skill-category-title">{category}</h3>
+              <div className="skill-list">
+                {items.map((skill) => (
+                  <motion.span 
+                    key={skill} 
+                    className="skill-tag"
+                    whileHover={{ scale: 1.05, y: -3 }}
+                  >
+                    {skill}
+                  </motion.span>
                 ))}
               </div>
             </motion.div>
-          </div>
-        </Section>
-
-        <Section id="gallery" title="Gallery" accent="var(--violet)">
-          <div className="gallery">
-            {gallery.slice(0, 12).map((img, i) => (
-              <motion.img 
-                key={img} 
-                src={img} 
-                alt="Certificate" 
-                loading="lazy"
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: (i % 4) * 0.1 }}
-                whileHover={{ scale: 1.05, zIndex: 10, boxShadow: '0 20px 40px rgba(154, 123, 255, 0.3)' }}
-              />
+          ))}
+        </motion.div>
+        
+        <motion.div className="marquee-container" variants={fadeInUp}>
+          <div className="marquee-track">
+            {[...skillLogos, ...skillLogos].map((logo, idx) => (
+              <img key={`${logo}-${idx}`} src={logo} alt="tech" className="marquee-item" />
             ))}
           </div>
-        </Section>
+        </motion.div>
+      </Section>
 
-        <Section id="projects" title="Projects" accent="var(--green)">
-          <div className="grid two">
-            {projects.map((project, i) => (
-              <Card key={project.title} index={i}>
-                <h3>{project.title}</h3>
-                <p className="muted">{project.description}</p>
-              </Card>
-            ))}
-          </div>
-        </Section>
-
-        <Section id="contact" title="Contact" accent="var(--cyan)">
-          <div className="contact">
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <p><strong>Email</strong> — <a href={`mailto:${contact.email}`}>{contact.email}</a></p>
-              <p><strong>Phone</strong> — {contact.phone}</p>
-              <p>
-                <strong>LinkedIn</strong> — <a href={contact.linkedin} target="_blank" rel="noreferrer">{contact.linkedin}</a>
-              </p>
-              <p>
-                <strong>GitHub</strong> — <a href={contact.github} target="_blank" rel="noreferrer">{contact.github}</a>
-              </p>
-              <p><strong>Discord</strong> — {contact.discord}</p>
-            </motion.div>
+      <Section>
+        <SectionHeader 
+          label="Achievements" 
+          title="Certificate Gallery" 
+          desc="Certifications and accomplishments"
+        />
+        <motion.div className="gallery-grid" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+          {gallery.slice(0, 12).map((img, i) => (
             <motion.div 
-              className="cta-col"
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              key={img} 
+              className="gallery-item"
+              variants={fadeInUp}
+              whileHover={{ scale: 1.02 }}
             >
-              <motion.a 
-                className="secondary" 
-                href={contact.resume} 
-                target="_blank" 
-                rel="noreferrer"
-                whileHover={{ scale: 1.05, background: 'rgba(255, 255, 255, 0.08)' }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Download Resume
-              </motion.a>
-              <motion.a 
-                className="primary" 
-                href="/api/contact" 
-                target="_blank" 
-                rel="noreferrer"
-                whileHover={{ scale: 1.05, boxShadow: '0 16px 40px rgba(59, 209, 255, 0.3)' }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Ping API
-              </motion.a>
+              <img src={img} alt={`Certificate ${i + 1}`} loading="lazy" />
             </motion.div>
-          </div>
-        </Section>
-      </main>
+          ))}
+        </motion.div>
+      </Section>
+
+      <Section>
+        <SectionHeader 
+          label="Work" 
+          title="Featured Projects" 
+          desc="Things I've built and shipped"
+        />
+        <motion.div className="grid-3" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+          {projects.map((project, i) => (
+            <motion.article key={project.title} className="card" variants={fadeInUp}>
+              <div className="card-icon">{['🌐', '📺', '⚡', '🤖'][i] || '💻'}</div>
+              <h3 className="card-title">{project.title}</h3>
+              <p className="card-desc">{project.description}</p>
+            </motion.article>
+          ))}
+        </motion.div>
+      </Section>
+
+      <Section>
+        <SectionHeader 
+          label="Connect" 
+          title="Let's Work Together" 
+          desc="Feel free to reach out"
+        />
+        <motion.div className="contact-grid" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+          <motion.div className="contact-info" variants={fadeInUp}>
+            <div className="contact-item">
+              <div className="contact-icon">📧</div>
+              <div>
+                <p className="contact-label">Email</p>
+                <p className="contact-value">
+                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                </p>
+              </div>
+            </div>
+            <div className="contact-item">
+              <div className="contact-icon">📱</div>
+              <div>
+                <p className="contact-label">Phone</p>
+                <p className="contact-value">{contact.phone}</p>
+              </div>
+            </div>
+            <div className="contact-item">
+              <div className="contact-icon">💼</div>
+              <div>
+                <p className="contact-label">LinkedIn</p>
+                <p className="contact-value">
+                  <a href={contact.linkedin} target="_blank" rel="noreferrer">Connect</a>
+                </p>
+              </div>
+            </div>
+            <div className="contact-item">
+              <div className="contact-icon">🐙</div>
+              <div>
+                <p className="contact-label">GitHub</p>
+                <p className="contact-value">
+                  <a href={contact.github} target="_blank" rel="noreferrer">Follow</a>
+                </p>
+              </div>
+            </div>
+            <div className="contact-item">
+              <div className="contact-icon">🎮</div>
+              <div>
+                <p className="contact-label">Discord</p>
+                <p className="contact-value">{contact.discord}</p>
+              </div>
+            </div>
+          </motion.div>
+          
+          <motion.div variants={fadeInUp}>
+            <div className="contact-info" style={{ marginBottom: '24px' }}>
+              <p className="card-desc" style={{ fontSize: '18px', marginBottom: '16px' }}>
+                I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+              </p>
+              <p className="card-desc">
+                Whether you have a question or just want to say hi, feel free to reach out!
+              </p>
+            </div>
+            <div className="contact-cta">
+              <motion.a 
+                href={contact.resume}
+                className="btn btn-secondary"
+                target="_blank"
+                rel="noreferrer"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                📄 Download Resume
+              </motion.a>
+              <motion.a 
+                href={`mailto:${contact.email}`}
+                className="btn btn-primary"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                ✉️ Send Message
+              </motion.a>
+            </div>
+          </motion.div>
+        </motion.div>
+      </Section>
 
       <footer className="footer">
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          Built with MERN · React + Vite front-end · Express API · Ready for MongoDB
-        </motion.p>
+        <p className="footer-text">
+          Designed & Built by <a href={contact.github}>Mr. Hariharan N</a> · {new Date().getFullYear()}
+        </p>
       </footer>
     </div>
   );
