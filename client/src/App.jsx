@@ -95,7 +95,6 @@ export default function App() {
           className="brand"
           whileHover={{ scale: 1.02 }}
         >
-          <img src={hero.nameLogo} alt="logo" height={42} />
           <span>Mr. Hariharan N</span>
         </motion.div>
         <div className="nav-links">
