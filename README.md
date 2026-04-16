@@ -13,9 +13,7 @@
 
 ## 🎬 Project Showcase
 
-<video src="https://github.com/HarizenCodeDev/harizemcode.dev-Portfolio.dev/raw/main/client/public/vid/HariDevxx.mp4" controls width="100%" style="border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
-  Your browser does not support the video tag.
-</video>
+🎥 [Watch Video](https://github.com/HarizenCodeDev/harizemcode.dev-Portfolio.dev/raw/main/client/public/vid/HariDevxx.mp4)
 
 *🎥 Click play to watch the demo!*
 
