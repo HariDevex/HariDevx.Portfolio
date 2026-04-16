@@ -128,6 +128,7 @@ const MagneticButton = ({ children, href, className }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e) => {
+    if (!ref.current) return;
     const rect = ref.current.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
@@ -145,10 +146,10 @@ const MagneticButton = ({ children, href, className }) => {
       className={className}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      animate={{ x: position.x * 0.2, y: position.y * 0.2 }}
+      animate={{ x: position.x * 0.15, y: position.y * 0.15 }}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
     >
       {children}
     </motion.a>
@@ -351,7 +352,7 @@ export default function App() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
               >
-                {status === 'ready' ? 'Connected to API' : 'Viewing Portfolio'}
+                {status === 'ready' ? 'Connected to API' : 'Available for Hire'}
               </motion.span>
             </AnimatePresence>
           </motion.div>
@@ -522,50 +523,123 @@ export default function App() {
           title="Certificate Gallery" 
           desc="Certifications and accomplishments"
         />
-        <motion.div 
-          className="gallery-grid" 
-          variants={staggerContainer} 
-          initial="hidden" 
-          whileInView="visible" 
-          viewport={{ once: true }}
-        >
-          {gallery.slice(0, 12).map((img, i) => (
-            <motion.div 
-              key={img} 
-              className="gallery-item"
-              variants={scaleIn}
-              whileHover="hover"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <motion.img 
-                src={img} 
-                alt={`Certificate ${i + 1}`} 
-                loading="lazy"
-                variants={{
-                  hidden: { scale: 1.2, opacity: 0 },
-                  visible: { scale: 1, opacity: 1, transition: { delay: i * 0.1 } },
-                  hover: { scale: 1.15 }
+        <div className="gallery-grid">
+          {gallery.slice(0, 12).map((img, i) => {
+            const row = Math.floor(i / 4);
+            const col = i % 4;
+            const delay = (row + col) * 0.1;
+            
+            return (
+              <motion.div
+                key={img}
+                className="gallery-item"
+                initial={{ 
+                  opacity: 0,
+                  scale: 0.5,
+                  rotateX: -30,
+                  y: 80
                 }}
-              />
-              <motion.div 
-                className="gallery-overlay"
-                variants={{
-                  hidden: { opacity: 0 },
-                  hover: { opacity: 1 }
+                whileInView={{ 
+                  opacity: 1,
+                  scale: 1,
+                  rotateX: 0,
+                  y: 0
                 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ 
+                  duration: 0.8,
+                  delay,
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
+                whileHover="hover"
               >
-                <motion.span
-                  animate={{ y: [0, -5, 0] }}
-                  transition={{ duration: 1, repeat: Infinity }}
+                <motion.div
+                  className="gallery-image-container"
+                  variants={{
+                    hover: { scale: 1.08 }
+                  }}
+                  transition={{ duration: 0.4, ease: 'easeOut' }}
                 >
-                  📜 Certificate {i + 1}
-                </motion.span>
+                  <motion.img 
+                    src={img} 
+                    alt={`Certificate ${i + 1}`} 
+                    loading="lazy"
+                    initial={{ filter: 'blur(10px)' }}
+                    whileInView={{ filter: 'blur(0px)' }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: delay + 0.3 }}
+                  />
+                </motion.div>
+                
+                <motion.div 
+                  className="gallery-overlay"
+                  variants={{
+                    initial: { opacity: 0 },
+                    hover: { opacity: 1 }
+                  }}
+                >
+                  <motion.div className="gallery-content">
+                    <motion.div 
+                      className="gallery-icon"
+                      animate={{ 
+                        rotate: [0, 360],
+                        scale: [1, 1.2, 1]
+                      }}
+                      transition={{ 
+                        rotate: { duration: 20, repeat: Infinity, ease: 'linear' },
+                        scale: { duration: 2, repeat: Infinity }
+                      }}
+                    >
+                      📜
+                    </motion.div>
+                    <motion.span 
+                      className="gallery-title"
+                      initial={{ y: 20, opacity: 0 }}
+                      whileHover={{ y: 0, opacity: 1 }}
+                    >
+                      Certificate {i + 1}
+                    </motion.span>
+                    <motion.div 
+                      className="gallery-actions"
+                      initial={{ y: 20, opacity: 0 }}
+                      whileHover={{ y: 0, opacity: 1 }}
+                    >
+                      <motion.span
+                        className="gallery-btn"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        View
+                      </motion.span>
+                    </motion.div>
+                  </motion.div>
+                </motion.div>
+                
+                <motion.div 
+                  className="gallery-glow"
+                  animate={{ 
+                    opacity: [0.3, 0.6, 0.3],
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{ 
+                    duration: 3,
+                    repeat: Infinity,
+                    delay: i * 0.2
+                  }}
+                />
+                
+                <motion.div 
+                  className="gallery-border"
+                  variants={{
+                    initial: { pathLength: 0 },
+                    hover: { pathLength: 1 }
+                  }}
+                  transition={{ duration: 0.5 }}
+                />
               </motion.div>
-            </motion.div>
-          ))}
-        </motion.div>
+            );
+          })}
+        </div>
       </Section>
 
       <Section>
