@@ -1,6 +1,5 @@
 export const mockPortfolio = {
   hero: {
-    nameLogo: '/img/mixmd1.png',
     bannerImage: '/img/1BMW.jpg',
     tagline: 'Electronics and Communication Engineering',
     lines: ['Learn from Yesterday,', 'Live for Today, and', 'Hop for Tomorrow'],
