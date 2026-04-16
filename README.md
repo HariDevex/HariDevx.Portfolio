@@ -11,11 +11,12 @@
 
 ---
 
-## 🎬 Project Showcase
 
-🎥 [![Watch Demo](./thumbnail.png)](https://github.com/HarizenCodeDev/harizemcode.dev-Portfolio.dev/raw/main/client/public/vid/HariDevxx.mp4)
+## 🎬 Live Project Demo
 
-*🎥 Click play to watch the demo!*
+> Click below to watch the full demo video 👇
+
+[![Haridevx Portfolio Demo](https://img.youtube.com/vi/4K8sRLkcjM4/0.jpg)](https://youtu.be/4K8sRLkcjM4)
 
 ---
 
