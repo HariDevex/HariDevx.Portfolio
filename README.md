@@ -11,16 +11,13 @@
 
 ---
 
-
 ## 🎬 Live Project Demo
 
 > Click below to watch the full demo video 👇
 
-## 🎥 Portfolio Demo
+[![🎥 Watch Full Demo on YouTube](https://img.youtube.com/vi/4K8sRLkcjM4/maxresdefault.jpg)](https://youtu.be/4K8sRLkcjM4)
 
-
-
-[![Watch Demo](https://img.youtube.com/vi/4K8sRLkcjM4/0.jpg)](https://youtu.be/4K8sRLkcjM4)
+**👉 [Click here to watch the demo](https://youtu.be/4K8sRLkcjM4)**
 
 ---
 
