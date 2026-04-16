@@ -123,36 +123,22 @@ const AnimatedText = ({ text, className }) => {
   );
 };
 
-const MagneticButton = ({ children, href, className }) => {
-  const ref = useRef(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    setPosition({ x, y });
-  };
-
-  const handleMouseLeave = () => {
-    setPosition({ x: 0, y: 0 });
+const MagneticButton = ({ children, href, className, onClick }) => {
+  const handleClick = (e) => {
+    if (href && href.startsWith('#')) {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+    if (onClick) onClick(e);
   };
 
   return (
-    <motion.a
-      ref={ref}
-      href={href}
-      className={className}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      animate={{ x: position.x * 0.15, y: position.y * 0.15 }}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-    >
+    <a href={href} className={className} onClick={handleClick}>
       {children}
-    </motion.a>
+    </a>
   );
 };
 
@@ -298,7 +284,14 @@ export default function App() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 * i, type: 'spring', stiffness: 300 }}
-              whileHover={{ y: -3, scale: 1.05 }}
+              whileHover={{ y: -3 }}
+              onClick={(e) => {
+                e.preventDefault();
+                const target = document.querySelector(`#${navIds[i]}`);
+                if (target) {
+                  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }}
             >
               <motion.span
                 animate={activeSection === navIds[i] ? { scale: [1, 1.2, 1] } : {}}
