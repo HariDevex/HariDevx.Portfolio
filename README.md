@@ -1,6 +1,6 @@
 <div align="center">
   
-![Banner](https://raw.githubusercontent.com/HarizenCodeDev/harizemcode.dev-Portfolio.dev/main/client/public/img/haridevx.png)
+![Banner](https://raw.githubusercontent.com/HarizenCodeDev/harizemcode.dev-Portfolio.dev/main/client/public/img/logobbg.png)
 
 # 💫 Mr. Hariharan N | Portfolio 💫
 
