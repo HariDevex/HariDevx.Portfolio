@@ -13,7 +13,7 @@
 
 ## 🎬 Project Showcase
 
-🎥 [Watch Video](https://github.com/HarizenCodeDev/harizemcode.dev-Portfolio.dev/raw/main/client/public/vid/HariDevxx.mp4)
+🎥 [![Watch Demo](./thumbnail.png)](https://github.com/HarizenCodeDev/harizemcode.dev-Portfolio.dev/raw/main/client/public/vid/HariDevxx.mp4)
 
 *🎥 Click play to watch the demo!*
 
