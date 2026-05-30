@@ -7,7 +7,7 @@ export default function Footer({ contact }) {
         <a href={`mailto:${contact.email}`} className="footer-link">Email</a>
         <a href="/Doc/Hariharan.pdf" className="footer-link" target="_blank" rel="noreferrer">Resume</a>
       </div>
-      <p className="footer-text">Designed & built by Hariharan N &middot; {new Date().getFullYear()}</p>
+      <p className="footer-text">Hariharan N &middot; {new Date().getFullYear()}</p>
     </footer>
   );
 }

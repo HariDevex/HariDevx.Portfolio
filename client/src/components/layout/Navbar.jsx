@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { NAV_ITEMS } from '../../constants/navigation';
 import { scrollToSection } from '../../utils/scrollTo';
 
-function MobileMenu({ onClose, activeSection }) {
+function MobileMenu({ onClose, activeSection, contact }) {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => { document.body.style.overflow = ''; };
@@ -21,12 +21,15 @@ function MobileMenu({ onClose, activeSection }) {
           {label}
         </a>
       ))}
-      <a href="/Doc/Hariharan.pdf" className="mobile-cta" onClick={onClose} target="_blank" rel="noreferrer">Resume</a>
+      <div style={{ marginTop: 24, display: 'flex', gap: 12 }}>
+        <a href={contact.linkedin} className="mobile-cta" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a href="/Doc/Hariharan.pdf" className="mobile-cta" target="_blank" rel="noreferrer">Resume</a>
+      </div>
     </div>
   );
 }
 
-export default function Navbar({ activeSection }) {
+export default function Navbar({ activeSection, contact }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -44,10 +47,15 @@ export default function Navbar({ activeSection }) {
                 href={`#${id}`}
                 className={`navbar-link ${activeSection === id ? 'navbar-link--active' : ''}`}
                 onClick={(e) => { e.preventDefault(); scrollToSection(id); }}
+                aria-current={activeSection === id ? 'true' : undefined}
               >
                 {label}
               </a>
             ))}
+            <a href={contact.linkedin} className="navbar-social" target="_blank" rel="noreferrer">
+              <span className="navbar-social-icon">in</span>
+              LinkedIn
+            </a>
             <a href="/Doc/Hariharan.pdf" className="navbar-cta" target="_blank" rel="noreferrer">Resume</a>
           </div>
 
@@ -62,7 +70,7 @@ export default function Navbar({ activeSection }) {
         </div>
       </nav>
 
-      {mobileOpen && <MobileMenu onClose={() => setMobileOpen(false)} activeSection={activeSection} />}
+      {mobileOpen && <MobileMenu onClose={() => setMobileOpen(false)} activeSection={activeSection} contact={contact} />}
     </>
   );
 }

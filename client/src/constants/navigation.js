@@ -1,9 +1,9 @@
 export const NAV_ITEMS = [
   { label: 'About', id: 'about' },
   { label: 'Skills', id: 'skills' },
-  { label: 'Education', id: 'education' },
   { label: 'Experience', id: 'experience' },
   { label: 'Projects', id: 'projects' },
+  { label: 'Certs', id: 'certifications' },
   { label: 'Contact', id: 'contact' },
 ];
 

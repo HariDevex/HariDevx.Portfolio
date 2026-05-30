@@ -1,7 +1,8 @@
 import Badge from '../ui/Badge';
 import Button from '../ui/Button';
+import Tag from '../ui/Tag';
 
-export default function Hero({ hero, github }) {
+export default function Hero({ hero, contact }) {
   return (
     <section id="home" className="hero">
       <div className="hero-grid">
@@ -10,10 +11,18 @@ export default function Hero({ hero, github }) {
 
           <h1 className="hero-title text-hero">{hero.name}</h1>
 
+          <div className="hero-tech">
+            {hero.techStack.map((t) => (
+              <Tag key={t} variant="accent">{t}</Tag>
+            ))}
+          </div>
+
           <p className="hero-subtitle">{hero.valueProp}</p>
 
           <p className="hero-meta">
             <span>{hero.title}</span>
+            <span className="hero-meta-sep">/</span>
+            <span>{hero.edu}</span>
             <span className="hero-meta-sep">/</span>
             <span>{hero.location}</span>
             <span className="hero-meta-sep">/</span>
@@ -24,8 +33,11 @@ export default function Hero({ hero, github }) {
             <Button href={hero.resumeUrl} variant="primary" size="large" target="_blank" rel="noreferrer">
               Download Resume
             </Button>
-            <Button href={github} variant="secondary" size="large" target="_blank" rel="noreferrer">
+            <Button href={contact.github} variant="secondary" size="large" target="_blank" rel="noreferrer">
               View GitHub
+            </Button>
+            <Button href={contact.linkedin} variant="secondary" size="large" target="_blank" rel="noreferrer">
+              LinkedIn
             </Button>
             <Button href="#contact" variant="ghost" size="large">
               Get in Touch →

@@ -18,9 +18,12 @@ export default function Skills({ skills }) {
         </div>
 
         <div className="skills-grid">
-          {skills.map(({ category, items }) => (
+          {skills.map(({ category, items, logo }) => (
             <div key={category} className="skill-card">
-              <p className="skill-category">{category}</p>
+              <div className="skill-header">
+                {logo && <img src={logo} alt={category} className="skill-logo" width={24} height={24} />}
+                <p className="skill-category">{category}</p>
+              </div>
               <div className="skill-items">
                 {items.map((item) => (
                   <Tag key={item} variant="accent">{item}</Tag>

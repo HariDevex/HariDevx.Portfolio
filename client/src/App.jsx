@@ -9,10 +9,11 @@ import About from './components/sections/About';
 import Skills from './components/sections/Skills';
 import Education from './components/sections/Education';
 import Experience from './components/sections/Experience';
-import Stats from './components/sections/Stats';
-import FeaturedProject from './components/sections/FeaturedProject';
+import CodingProfiles from './components/sections/CodingProfiles';
+import CertificationGallery from './components/sections/CertificationGallery';
 import Contact from './components/sections/Contact';
 
+const FeaturedProject = lazy(() => import('./components/sections/FeaturedProject'));
 const Projects = lazy(() => import('./components/sections/Projects'));
 
 function Loader() {
@@ -21,24 +22,31 @@ function Loader() {
 
 export default function App() {
   const activeSection = useActiveSection();
-  const { hero, about, skills, education, experience, stats, featuredProject, projects, contact } = portfolioData;
+  const { hero, about, skills, education, experience, featuredProject, projects, certifications, codingProfiles, contact } = portfolioData;
 
   return (
     <div className="app">
-      <Navbar activeSection={activeSection} />
+      <a href="#main" className="skip-link">Skip to content</a>
+      <Navbar activeSection={activeSection} contact={contact} />
 
-      <main>
-        <Hero hero={hero} github={contact.github} />
+      <main id="main">
+        <Hero hero={hero} contact={contact} />
         <About about={about} />
         <Skills skills={skills} />
         <Education education={education} />
         <Experience experience={experience} />
-        <Stats stats={stats} />
-        <FeaturedProject project={featuredProject} />
+
+        <CodingProfiles profiles={codingProfiles} />
+
+        <Suspense fallback={<Loader />}>
+          <FeaturedProject project={featuredProject} />
+        </Suspense>
 
         <Suspense fallback={<Loader />}>
           <Projects projects={projects} />
         </Suspense>
+
+        <CertificationGallery certifications={certifications} />
 
         <Contact contact={contact} resumeUrl={hero.resumeUrl} />
       </main>
