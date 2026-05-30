@@ -1,6 +1,20 @@
 import { motion } from 'framer-motion';
 import Section from '../ui/Section';
-import Tag from '../ui/Tag';
+
+const profColors = {
+  proficient: 'var(--green)',
+  familiar: 'var(--accent)',
+  learning: 'var(--text-muted)',
+};
+
+function SkillTag({ name, proficiency }) {
+  return (
+    <span className="tag tag--accent skill-tag">
+      <span className="skill-proficiency" style={{ background: profColors[proficiency] || 'var(--text-muted)' }} />
+      {name}
+    </span>
+  );
+}
 
 export default function Skills({ skills }) {
   return (
@@ -26,7 +40,7 @@ export default function Skills({ skills }) {
               </div>
               <div className="skill-items">
                 {items.map((item) => (
-                  <Tag key={item} variant="accent">{item}</Tag>
+                  <SkillTag key={item.name || item} name={item.name || item} proficiency={item.proficiency} />
                 ))}
               </div>
             </div>

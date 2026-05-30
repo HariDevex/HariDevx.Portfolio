@@ -5,15 +5,16 @@ import { useActiveSection } from './hooks/useActiveSection';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
+import FeaturedProject from './components/sections/FeaturedProject';
 import About from './components/sections/About';
 import Skills from './components/sections/Skills';
-import Education from './components/sections/Education';
 import Experience from './components/sections/Experience';
+import Education from './components/sections/Education';
+import Stats from './components/sections/Stats';
 import CodingProfiles from './components/sections/CodingProfiles';
 import CertificationGallery from './components/sections/CertificationGallery';
-import Contact from './components/sections/Contact';
+import ContactForm from './components/sections/ContactForm';
 
-const FeaturedProject = lazy(() => import('./components/sections/FeaturedProject'));
 const Projects = lazy(() => import('./components/sections/Projects'));
 
 function Loader() {
@@ -22,7 +23,7 @@ function Loader() {
 
 export default function App() {
   const activeSection = useActiveSection();
-  const { hero, about, skills, education, experience, featuredProject, projects, certifications, codingProfiles, contact } = portfolioData;
+  const { hero, about, skills, education, experience, stats, featuredProject, projects, certifications, codingProfiles, contact } = portfolioData;
 
   return (
     <div className="app">
@@ -31,24 +32,20 @@ export default function App() {
 
       <main id="main">
         <Hero hero={hero} contact={contact} />
+        <FeaturedProject project={featuredProject} />
         <About about={about} />
         <Skills skills={skills} />
-        <Education education={education} />
         <Experience experience={experience} />
-
+        <Education education={education} />
+        <Stats stats={stats} />
         <CodingProfiles profiles={codingProfiles} />
-
-        <Suspense fallback={<Loader />}>
-          <FeaturedProject project={featuredProject} />
-        </Suspense>
 
         <Suspense fallback={<Loader />}>
           <Projects projects={projects} />
         </Suspense>
 
         <CertificationGallery certifications={certifications} />
-
-        <Contact contact={contact} resumeUrl={hero.resumeUrl} />
+        <ContactForm contact={contact} resumeUrl={hero.resumeUrl} />
       </main>
 
       <Footer contact={contact} />

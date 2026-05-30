@@ -47,7 +47,7 @@ export default function Hero({ hero, contact }) {
 
         <div className="hero-image">
           <div className="hero-image-frame">
-            <span className="hero-image-placeholder">HN</span>
+            <img src="/img/hero-photo.webp" alt="Hariharan N" width="280" height="280" />
           </div>
         </div>
       </div>

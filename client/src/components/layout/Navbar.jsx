@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { NAV_ITEMS } from '../../constants/navigation';
 import { scrollToSection } from '../../utils/scrollTo';
 
@@ -9,7 +10,15 @@ function MobileMenu({ onClose, activeSection, contact }) {
   }, []);
 
   return (
-    <div className="mobile-menu" role="dialog" aria-modal="true">
+    <motion.div
+      className="mobile-menu"
+      role="dialog"
+      aria-modal="true"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+    >
       <button className="mobile-menu-close" onClick={onClose} aria-label="Close menu">✕</button>
       {NAV_ITEMS.map(({ label, id }) => (
         <a
@@ -25,7 +34,7 @@ function MobileMenu({ onClose, activeSection, contact }) {
         <a href={contact.linkedin} className="mobile-cta" target="_blank" rel="noreferrer">LinkedIn</a>
         <a href="/Doc/Hariharan.pdf" className="mobile-cta" target="_blank" rel="noreferrer">Resume</a>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -70,7 +79,9 @@ export default function Navbar({ activeSection, contact }) {
         </div>
       </nav>
 
-      {mobileOpen && <MobileMenu onClose={() => setMobileOpen(false)} activeSection={activeSection} contact={contact} />}
+      <AnimatePresence>
+        {mobileOpen && <MobileMenu onClose={() => setMobileOpen(false)} activeSection={activeSection} contact={contact} />}
+      </AnimatePresence>
     </>
   );
 }

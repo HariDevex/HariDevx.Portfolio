@@ -30,11 +30,11 @@ export default function Experience({ experience }) {
                 <span className="exp-period">{exp.period}</span>
               </div>
               <p className="exp-company">{exp.company}</p>
-              <div className="exp-list">
+              <ul className="exp-list">
                 {exp.achievements.map((a) => (
-                  <p key={a} className="exp-item">{a}</p>
+                  <li key={a} className="exp-item">{a}</li>
                 ))}
-              </div>
+              </ul>
             </motion.div>
           ))}
         </div>
