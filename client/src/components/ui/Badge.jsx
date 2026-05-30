@@ -1,9 +1,3 @@
-export default function Badge({ children, variant = 'default', className = '' }) {
-  const variants = {
-    default: 'badge',
-    accent: 'badge badge--accent',
-    highlight: 'badge badge--highlight',
-  };
-
-  return <span className={`${variants[variant]} ${className}`}>{children}</span>;
+export default function Badge({ children, className = '' }) {
+  return <span className={`hero-badge ${className}`}><span className="hero-dot" />{children}</span>;
 }

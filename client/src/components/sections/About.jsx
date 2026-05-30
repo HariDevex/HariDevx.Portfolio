@@ -1,31 +1,30 @@
 import { motion } from 'framer-motion';
 import Section from '../ui/Section';
-import { fadeInUp } from '../../utils/animations';
 
-export default function About({ summary }) {
+export default function About({ about }) {
   return (
     <Section id="about">
-      <div className="section-header">
-        <span className="section-label">
-          <span className="section-label-icon">✦</span> About
-        </span>
-        <h2 className="section-title">About Me</h2>
-      </div>
-      <motion.div className="about-card" variants={fadeInUp}>
-        <div className="about-card-glow" />
-        <p className="about-text">{summary}</p>
-        <div className="about-stats">
-          <div className="about-stat">
-            <span className="about-stat-value">3+</span>
-            <span className="about-stat-label">Years Coding</span>
-          </div>
-          <div className="about-stat">
-            <span className="about-stat-value">10+</span>
-            <span className="about-stat-label">Projects Built</span>
-          </div>
-          <div className="about-stat">
-            <span className="about-stat-value">15+</span>
-            <span className="about-stat-label">Technologies</span>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="section-header">
+          <span className="text-label section-label">About</span>
+          <h2 className="section-title text-display">Background & Focus</h2>
+        </div>
+
+        <div className="about-grid">
+          <p className="about-text">{about.summary}</p>
+
+          <div className="about-highlights">
+            {about.highlights.map((h) => (
+              <div key={h} className="about-highlight">
+                <span className="about-highlight-marker">→</span>
+                <span className="about-highlight-text">{h}</span>
+              </div>
+            ))}
           </div>
         </div>
       </motion.div>

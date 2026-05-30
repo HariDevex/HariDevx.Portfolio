@@ -1,48 +1,44 @@
 import { motion } from 'framer-motion';
 import Section from '../ui/Section';
-import SectionHeader from '../ui/SectionHeader';
-import { fadeInUp, slideInLeft } from '../../utils/animations';
-
-function TimelineItem({ role, company, period, type, achievements, index }) {
-  return (
-    <motion.div
-      className="timeline-item"
-      variants={slideInLeft}
-      custom={index}
-    >
-      <div className="timeline-dot" />
-      <div className="timeline-card">
-        <div className="timeline-meta">
-          <span className="timeline-type">{type}</span>
-          <span className="timeline-period">{period}</span>
-        </div>
-        <h3 className="timeline-role">{role}</h3>
-        <p className="timeline-company">{company}</p>
-        <ul className="timeline-achievements">
-          {achievements.map((a) => (
-            <li key={a} className="timeline-achievement">
-              {a}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </motion.div>
-  );
-}
 
 export default function Experience({ experience }) {
   return (
     <Section id="experience">
-      <SectionHeader
-        label="Career"
-        title="Experience"
-        desc="My professional journey and key achievements"
-      />
-      <div className="timeline">
-        {experience.map((item, i) => (
-          <TimelineItem key={item.id} {...item} index={i} />
-        ))}
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="section-header">
+          <span className="text-label section-label">Experience</span>
+          <h2 className="section-title text-display">Work & Projects</h2>
+        </div>
+
+        <div className="exp-grid">
+          {experience.map((exp, i) => (
+            <motion.div
+              key={i}
+              className="exp-card"
+              initial={{ opacity: 0, x: -10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.4 }}
+            >
+              <div className="exp-header">
+                <h3 className="exp-role">{exp.role}</h3>
+                <span className="exp-period">{exp.period}</span>
+              </div>
+              <p className="exp-company">{exp.company}</p>
+              <div className="exp-list">
+                {exp.achievements.map((a) => (
+                  <p key={a} className="exp-item">{a}</p>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
     </Section>
   );
 }

@@ -1,10 +1,10 @@
 export const NAV_ITEMS = [
-  { label: 'Home', id: 'home' },
   { label: 'About', id: 'about' },
-  { label: 'Experience', id: 'experience' },
   { label: 'Skills', id: 'skills' },
+  { label: 'Education', id: 'education' },
+  { label: 'Experience', id: 'experience' },
   { label: 'Projects', id: 'projects' },
   { label: 'Contact', id: 'contact' },
 ];
 
-export const SECTION_IDS = NAV_ITEMS.map((item) => item.id);
+export const SECTION_IDS = ['home', ...NAV_ITEMS.map((n) => n.id)];

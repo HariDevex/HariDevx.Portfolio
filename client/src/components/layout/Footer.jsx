@@ -1,35 +1,13 @@
-const socialLinks = [
-  { label: 'GitHub', href: 'https://github.com/HariDevex', icon: '🖥️' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mrnobody1305', icon: '💼' },
-  { label: 'Email', href: 'mailto:052005hari@gmail.com', icon: '✉️' },
-];
-
-export default function Footer() {
+export default function Footer({ contact }) {
   return (
     <footer className="footer">
-      <div className="footer-inner">
-        <div className="footer-socials">
-          {socialLinks.map(({ label, href, icon }) => (
-            <a
-              key={label}
-              href={href}
-              className="footer-social"
-              target="_blank"
-              rel="noreferrer"
-              aria-label={label}
-            >
-              {icon}
-            </a>
-          ))}
-        </div>
-        <p className="footer-text">
-          Designed & Built by{' '}
-          <a href="https://github.com/HariDevex" target="_blank" rel="noreferrer">
-            Mr. Hariharan N
-          </a>{' '}
-          &middot; {new Date().getFullYear()}
-        </p>
+      <div className="footer-links">
+        <a href={contact.github} className="footer-link" target="_blank" rel="noreferrer">GitHub</a>
+        <a href={contact.linkedin} className="footer-link" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a href={`mailto:${contact.email}`} className="footer-link">Email</a>
+        <a href="/Doc/Hariharan.pdf" className="footer-link" target="_blank" rel="noreferrer">Resume</a>
       </div>
+      <p className="footer-text">Designed & built by Hariharan N &middot; {new Date().getFullYear()}</p>
     </footer>
   );
 }
