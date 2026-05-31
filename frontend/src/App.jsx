@@ -66,7 +66,7 @@ export default function App() {
             bendStrength={-0.6}
             parallaxStrength={0.15}
             animationSpeed={0.8}
-            mixBlendMode="screen"
+            mixBlendMode={theme === 'dark' ? 'screen' : 'normal'}
           />
         </div>
         <ChromaGrid />
