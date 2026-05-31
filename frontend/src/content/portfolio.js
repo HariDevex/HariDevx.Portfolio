@@ -167,8 +167,6 @@ export const portfolioData = {
   },
   codingProfiles: [
     { platform: 'GitHub', username: 'HariDevex', url: 'https://github.com/HariDevex', icon: '🖥️' },
-    // { platform: 'LeetCode', username: 'HariDevex', url: 'https://leetcode.com/HariDevex', icon: '⚡' },
-    // { platform: 'HackerRank', username: 'HariDevex', url: 'https://hackerrank.com/HariDevex', icon: '🏆' },
   ],
   stats: [
     { value: 10, suffix: '+', label: 'Projects Built', context: 'Web apps, IoT prototypes, and tools' },

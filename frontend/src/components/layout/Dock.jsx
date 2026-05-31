@@ -68,7 +68,7 @@ const DOCK_ITEMS = [
   { id: 'contact', label: 'Contact', Icon: ContactIcon, action: 'scroll' },
 ];
 
-export default function Dock({ activeSection, contact }) {
+export default function Dock({ activeSection, contact, attached }) {
   const dockRef = useRef(null);
   const [isTouch, setIsTouch] = useState(true);
 
@@ -127,7 +127,7 @@ export default function Dock({ activeSection, contact }) {
   return (
     <motion.div
       ref={dockRef}
-      className="dock"
+      className={`dock ${attached ? 'dock--attached' : ''}`}
       initial={{ y: 80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, delay: 1, ease: 'easeOut' }}

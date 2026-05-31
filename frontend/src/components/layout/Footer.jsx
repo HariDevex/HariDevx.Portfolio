@@ -1,6 +1,8 @@
-export default function Footer({ contact }) {
+import { forwardRef } from 'react';
+
+const Footer = forwardRef(function Footer({ contact }, ref) {
   return (
-    <footer className="footer">
+    <footer ref={ref} className="footer">
       <div className="footer-links">
         <a href={contact.github} className="footer-link" target="_blank" rel="noreferrer">GitHub</a>
         <a href={contact.linkedin} className="footer-link" target="_blank" rel="noreferrer">LinkedIn</a>
@@ -10,4 +12,6 @@ export default function Footer({ contact }) {
       <p className="footer-text">Hariharan N &middot; {new Date().getFullYear()}</p>
     </footer>
   );
-}
+});
+
+export default Footer;

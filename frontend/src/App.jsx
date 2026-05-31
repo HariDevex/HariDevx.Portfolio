@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useState, useEffect, useRef } from 'react';
 import { portfolioData } from './content/portfolio';
 import { useActiveSection } from './hooks/useActiveSection';
 import { useTheme } from './hooks/useTheme';
@@ -28,7 +28,20 @@ function Loader() {
 export default function App() {
   const { theme, toggleTheme } = useTheme();
   const activeSection = useActiveSection();
+  const footerRef = useRef(null);
+  const [dockAttached, setDockAttached] = useState(false);
   const { hero, about, skills, education, experience, stats, featuredProject, projects, certifications, codingProfiles, contact } = portfolioData;
+
+  useEffect(() => {
+    const footer = footerRef.current;
+    if (!footer) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setDockAttached(entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+    observer.observe(footer);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="app">
@@ -55,8 +68,8 @@ export default function App() {
         <ContactForm contact={contact} resumeUrl={hero.resumeUrl} />
       </main>
 
-      <Dock activeSection={activeSection} contact={contact} />
-      <Footer contact={contact} />
+      <Dock activeSection={activeSection} contact={contact} attached={dockAttached} />
+      <Footer ref={footerRef} contact={contact} />
     </div>
   );
 }
