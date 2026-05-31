@@ -3,7 +3,9 @@ import { portfolioData } from './data/portfolio';
 import { useActiveSection } from './hooks/useActiveSection';
 
 import MouseGlow from './components/effects/MouseGlow';
+import ChromaGrid from './components/effects/ChromaGrid';
 import Navbar from './components/layout/Navbar';
+import Dock from './components/layout/Dock';
 import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
 import FeaturedProject from './components/sections/FeaturedProject';
@@ -28,6 +30,7 @@ export default function App() {
 
   return (
     <div className="app">
+      <ChromaGrid />
       <MouseGlow />
       <a href="#main" className="skip-link">Skip to content</a>
       <Navbar activeSection={activeSection} contact={contact} />
@@ -50,6 +53,7 @@ export default function App() {
         <ContactForm contact={contact} resumeUrl={hero.resumeUrl} />
       </main>
 
+      <Dock activeSection={activeSection} contact={contact} />
       <Footer contact={contact} />
     </div>
   );
