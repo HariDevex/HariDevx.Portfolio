@@ -77,7 +77,7 @@ export default function Hero({ hero, contact }) {
 
         <motion.div className="hero-image" variants={scaleIn}>
           <div className="hero-image-frame">
-            <img src="/images/hero-photo.webp" alt="Hariharan N" width="280" height="280" />
+            <img src="/images/hari.png" alt="Hariharan N" width="280" height="280" />
           </div>
         </motion.div>
       </motion.div>
