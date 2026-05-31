@@ -1,10 +1,14 @@
 import { lazy, Suspense, useState, useEffect, useRef } from 'react';
+import { AnimatePresence } from 'framer-motion';
 import { portfolioData } from './content/portfolio';
 import { useActiveSection } from './hooks/useActiveSection';
 import { useTheme } from './hooks/useTheme';
 
+import LoadingScreen from './components/loader/LoadingScreen';
+import Loader from './components/ui/Loader';
 import MouseGlow from './components/effects/MouseGlow';
 import ChromaGrid from './components/effects/ChromaGrid';
+import FloatingLines from './components/effects/FloatingLines';
 import Navbar from './components/layout/Navbar';
 import Dock from './components/layout/Dock';
 import Footer from './components/layout/Footer';
@@ -21,11 +25,9 @@ import ContactForm from './components/sections/ContactForm';
 
 const Projects = lazy(() => import('./components/sections/Projects'));
 
-function Loader() {
-  return <div className="section-loader" />;
-}
-
 export default function App() {
+  const [loading, setLoading] = useState(true);
+  const [appVisible, setAppVisible] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const activeSection = useActiveSection();
   const footerRef = useRef(null);
@@ -44,32 +46,55 @@ export default function App() {
   }, []);
 
   return (
-    <div className="app">
-      <ChromaGrid />
-      <MouseGlow />
-      <a href="#main" className="skip-link">Skip to content</a>
-      <Navbar activeSection={activeSection} contact={contact} theme={theme} toggleTheme={toggleTheme} />
+    <>
+      <AnimatePresence>
+        {loading && (
+          <LoadingScreen
+            onExit={() => setAppVisible(true)}
+            onComplete={() => { setAppVisible(true); setLoading(false); }}
+          />
+        )}
+      </AnimatePresence>
 
-      <main id="main">
-        <Hero hero={hero} contact={contact} />
-        <About about={about} />
-        <Skills skills={skills} />
-        <Experience experience={experience} />
-        <Education education={education} />
-        <Stats stats={stats} />
-        <CodingProfiles profiles={codingProfiles} />
-        <FeaturedProject project={featuredProject} />
+      <div className="app" style={{ opacity: appVisible ? 1 : 0, transition: 'opacity 0.5s ease' }}>
+        <div className="floating-lines-background">
+          <FloatingLines
+            enabledWaves={['top', 'middle', 'bottom']}
+            lineCount={[8, 12, 16]}
+            lineDistance={[10, 8, 6]}
+            bendRadius={6.0}
+            bendStrength={-0.6}
+            parallaxStrength={0.15}
+            animationSpeed={0.8}
+            mixBlendMode="screen"
+          />
+        </div>
+        <ChromaGrid />
+        <MouseGlow />
+        <a href="#main" className="skip-link">Skip to content</a>
+        <Navbar activeSection={activeSection} contact={contact} theme={theme} toggleTheme={toggleTheme} />
 
-        <Suspense fallback={<Loader />}>
-          <Projects projects={projects} />
-        </Suspense>
+        <main id="main">
+          <Hero hero={hero} contact={contact} enter={appVisible} />
+          <About about={about} />
+          <Skills skills={skills} />
+          <Experience experience={experience} />
+          <Education education={education} />
+          <Stats stats={stats} />
+          <CodingProfiles profiles={codingProfiles} />
+          <FeaturedProject project={featuredProject} />
 
-        <CertificationGallery certifications={certifications} />
-        <ContactForm contact={contact} resumeUrl={hero.resumeUrl} />
-      </main>
+          <Suspense fallback={<Loader />}>
+            <Projects projects={projects} />
+          </Suspense>
 
-      <Dock activeSection={activeSection} contact={contact} attached={dockAttached} />
-      <Footer ref={footerRef} contact={contact} />
-    </div>
+          <CertificationGallery certifications={certifications} />
+          <ContactForm contact={contact} resumeUrl={hero.resumeUrl} />
+        </main>
+
+        <Dock activeSection={activeSection} contact={contact} attached={dockAttached} />
+        <Footer ref={footerRef} contact={contact} />
+      </div>
+    </>
   );
 }

@@ -26,10 +26,10 @@ const scaleIn = {
   visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: 'easeOut' } },
 };
 
-export default function Hero({ hero, contact }) {
+export default function Hero({ hero, contact, enter }) {
   return (
     <section id="home" className="hero">
-      <motion.div className="hero-grid" variants={container} initial="hidden" animate="visible">
+      <motion.div className="hero-grid" variants={container} initial="hidden" animate={enter ? "visible" : "hidden"}>
         <div>
           <motion.div variants={fadeUp}>
             <Badge>{hero.availability}</Badge>

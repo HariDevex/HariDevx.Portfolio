@@ -4,7 +4,7 @@ import Section from '../ui/Section';
 
 function AnimatedStat({ value, suffix, label, context, index }) {
   const count = useMotionValue(0);
-  const spring = useSpring(count, { stiffness: 40, damping: 15 });
+  const spring = useSpring(count, { stiffness: 20, damping: 20 });
   const rounded = useTransform(spring, (v) => Math.round(v));
 
   useEffect(() => {

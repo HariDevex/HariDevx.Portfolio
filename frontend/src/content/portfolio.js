@@ -19,7 +19,14 @@ export const portfolioData = {
   },
   about: {
     summary:
-      'Electronics and Communication Engineering student at Anna University with a focus on frontend engineering. My engineering training teaches me to think in systems, not just components — I approach UI development the same way I approach circuit design: break down complexity, isolate variables, test systematically, and iterate.',
+      `I'm Hariharan, a final-year student from Tamil Nadu.
+
+I enjoy building web applications,
+experimenting with Linux,
+and breaking things until they work.
+
+Currently preparing for placements while
+improving my full-stack development skills.`,
     highlights: [
       'Built 10+ web projects with React, JavaScript, and modern CSS — achieving 90+ Lighthouse scores',
       'Engineering coursework in C++, Python, data structures, and embedded systems',
@@ -96,16 +103,16 @@ export const portfolioData = {
         'Managed full deployment pipeline: custom domains, Vercel hosting, CI preview deployments, and DNS configuration',
       ],
     },
-    {
-      role: 'Engineering Project Lead',
-      company: 'Academic Capstone',
-      period: '2023 – 2024',
-      achievements: [
-        'Led a 3-person team to build a piezoelectric footstep power generator — designed the energy harvesting circuit, wrote the Arduino firmware, and demonstrated functional power output at a department symposium',
-        'Developed an autonomous vacuum cleaner prototype with ultrasonic obstacle detection — programmed navigation logic on Arduino, integrated motor drivers, and tested in real environments',
-        'Presented technical architecture and results to faculty and ~50 students, translating complex hardware-software integration into accessible explanations',
-      ],
-    },
+    // {
+    //   role: 'Engineering Project Lead',
+    //   company: 'Academic Capstone',
+    //   period: '2023 – 2024',
+    //   achievements: [
+    //     'Led a 3-person team to build a piezoelectric footstep power generator — designed the energy harvesting circuit, wrote the Arduino firmware, and demonstrated functional power output at a department symposium',
+    //     'Developed an autonomous vacuum cleaner prototype with ultrasonic obstacle detection — programmed navigation logic on Arduino, integrated motor drivers, and tested in real environments',
+    //     'Presented technical architecture and results to faculty and ~50 students, translating complex hardware-software integration into accessible explanations',
+    //   ],
+    // },
   ],
   featuredProject: {
     title: 'E-Service Dashboard',
@@ -169,14 +176,15 @@ export const portfolioData = {
     { platform: 'GitHub', username: 'HariDevex', url: 'https://github.com/HariDevex', icon: '🖥️' },
   ],
   stats: [
-    { value: 10, suffix: '+', label: 'Projects Built', context: 'Web apps, IoT prototypes, and tools' },
-    { value: 15, suffix: '+', label: 'GitHub Repos', context: 'Public and private repositories' },
+    { value: 5, suffix: '+', label: 'Projects Built', context: 'Web apps, IoT prototypes, and tools' },
+    { value: 7, suffix: '+', label: 'GitHub Repos', context: 'Public and private repositories' },
     { value: 23, suffix: '', label: 'Certifications', context: 'Academic and professional workshops' },
-    { value: 2, suffix: '+', label: 'Years Learning', context: 'Self-taught alongside engineering degree' },
+    { value: 6, suffix: '+', label: 'Month Learning', context: 'Self-taught alongside engineering degree' },
   ],
   contact: {
     email: '052005hari@gmail.com',
     phone: '+91 7200550619',
+    whatsapp: 'https://wa.me/917200550619',
     linkedin: 'https://www.linkedin.com/in/mrnobody1305',
     github: 'https://github.com/HariDevex',
     formAction: '', // Set to your Formspree endpoint: https://formspree.io/f/your_form_id

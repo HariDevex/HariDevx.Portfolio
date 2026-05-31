@@ -75,7 +75,8 @@ export default function ContactForm({ contact, resumeUrl }) {
                 <button type="submit" className="btn btn--primary btn--large" disabled={status === 'sending'}>
                   {status === 'sending' ? 'Sending...' : 'Send Message'}
                 </button>
-                <a href={contact.linkedin} className="btn btn--secondary btn--large" target="_blank" rel="noreferrer">LinkedIn</a>
+                <a href={contact.linkedin} className="btn btn--linkedin btn--large" target="_blank" rel="noreferrer">LinkedIn</a>
+                <a href={contact.whatsapp} className="btn btn--whatsapp btn--large" target="_blank" rel="noreferrer">WhatsApp</a>
                 <a href={resumeUrl} className="btn btn--ghost btn--large" target="_blank" rel="noreferrer">Resume</a>
               </div>
               {status === 'error' && <p className="form-error">Something went wrong. Try emailing directly: <a href={`mailto:${contact.email}`} style={{ color: 'var(--accent)' }}>{contact.email}</a></p>}

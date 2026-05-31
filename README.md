@@ -23,7 +23,7 @@
 
 ## Overview
 
-Production-grade single-page portfolio built with **React 18** and **Vite**. Features animated scroll reveals, light/dark theme, interactive Dock navigation, and a recruiter-first section layout.
+Production-grade single-page portfolio built with **React 18** and **Vite**. Features a terminal-inspired animated loading screen, scroll reveals, light/dark theme, interactive Dock navigation, and a recruiter-first section layout.
 
 ---
 
@@ -62,13 +62,34 @@ Production-grade single-page portfolio built with **React 18** and **Vite**. Fea
 
 | Feature | Details |
 |---------|---------|
+| **Loading Screen** | Terminal-boot sequence → animated progress bar → brand reveal with letter-stagger animation (~3.5s, respects `prefers-reduced-motion`) |
 | **Light/Dark Theme** | Persisted in localStorage, respects `prefers-color-scheme`, no flash on load |
-| **Animations** | Framer Motion — staggered hero, count-up stats, scroll reveals, mouse glow |
+| **Animations** | Framer Motion — staggered hero, count-up stats, scroll reveals, mouse glow, loader phases |
 | **Dock Navigation** | macOS-style floating bottom nav with fisheye hover |
 | **Responsive** | Mobile-first, hamburger menu, touch-friendly targets |
-| **Accessibility** | Skip-to-content, `aria-current`, keyboard nav on lightbox |
+| **Accessibility** | Skip-to-content, `aria-current`, keyboard nav on lightbox, reduced-motion support |
 | **Performance** | 5s build, lazy-loaded sections, WebP images <10KB, vendor chunking |
 | **SEO** | Schema.org LD+JSON, Open Graph, sitemap, robots.txt |
+
+---
+
+## Loading Screen
+
+The portfolio opens with a **terminal-inspired 4-phase loading sequence** built with Framer Motion:
+
+| Phase | Component | Animation | Duration |
+|:-----:|-----------|-----------|:--------:|
+| 1 | **TerminalLines** | Typewriter effect — 4 shell commands (`whoami`, `initialize_portfolio`, `load_skills`, `start_server`) with blinking cursor | ~2.2s |
+| 2 | **ProgressBar** | Smooth 0→100% bar with gradient fill and animated percentage counter | ~1.3s |
+| 3 | **BrandReveal** | Letter-stagger reveal of "HARI DEVX" (blur→sharp, scale 0.8→1), then 3 subtitle lines slide up | ~1.5s |
+| 4 | **Exit** | Full-screen fade out → website appears | ~0.5s |
+
+**Design choices:**
+- Terminal window style with macOS-style traffic light dots reinforces the developer/Linux enthusiast identity
+- Commands are actual developer actions (`whoami`, `initialize_portfolio`) rather than generic "Loading..." text
+- The accent-colored progress bar and gradient brand text match the existing site design system
+- Entire sequence respects `prefers-reduced-motion` (skips immediately if enabled)
+- No new dependencies — all animations use the existing Framer Motion library
 
 ---
 
@@ -89,8 +110,9 @@ Production-grade single-page portfolio built with **React 18** and **Vite**. Fea
 │       ├── components/
 │       │   ├── effects/        # ChromaGrid, MouseGlow
 │       │   ├── layout/         # Navbar, Dock, Footer, ThemeToggle
+│       │   ├── loader/         # LoadingScreen, TerminalLines, ProgressBar, BrandReveal
 │       │   ├── sections/       # Hero, About, Skills, etc.
-│       │   └── ui/             # Badge, Button, Section, Tag
+│       │   └── ui/             # Badge, Button, Loader, Section, Tag
 │       ├── content/            # Portfolio data
 │       ├── hooks/              # useTheme, useActiveSection
 │       ├── styles/             # main.css (full design system)
