@@ -35,7 +35,6 @@ export default function MouseGlow() {
         height: '100%',
         pointerEvents: 'none',
         zIndex: 0,
-        background: useSpring(springX) && useSpring(springY) ? undefined : undefined,
       }}
     >
       <motion.div
