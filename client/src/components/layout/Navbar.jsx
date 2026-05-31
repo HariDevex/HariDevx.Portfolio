@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { NAV_ITEMS } from '../../constants/navigation';
 import { scrollToSection } from '../../utils/scrollTo';
+import ThemeToggle from './ThemeToggle';
 
 function MobileMenu({ onClose, activeSection, contact }) {
   useEffect(() => {
@@ -38,7 +39,7 @@ function MobileMenu({ onClose, activeSection, contact }) {
   );
 }
 
-export default function Navbar({ activeSection, contact }) {
+export default function Navbar({ activeSection, contact, theme, toggleTheme }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -69,6 +70,7 @@ export default function Navbar({ activeSection, contact }) {
                 {label}
               </a>
             ))}
+            <ThemeToggle theme={theme} toggle={toggleTheme} />
             <a href={contact.linkedin} className="navbar-social" target="_blank" rel="noreferrer">
               <span className="navbar-social-icon">in</span>
               LinkedIn

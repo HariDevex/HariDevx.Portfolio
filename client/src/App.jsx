@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { portfolioData } from './data/portfolio';
 import { useActiveSection } from './hooks/useActiveSection';
+import { useTheme } from './hooks/useTheme';
 
 import MouseGlow from './components/effects/MouseGlow';
 import ChromaGrid from './components/effects/ChromaGrid';
@@ -25,6 +26,7 @@ function Loader() {
 }
 
 export default function App() {
+  const { theme, toggleTheme } = useTheme();
   const activeSection = useActiveSection();
   const { hero, about, skills, education, experience, stats, featuredProject, projects, certifications, codingProfiles, contact } = portfolioData;
 
@@ -33,7 +35,7 @@ export default function App() {
       <ChromaGrid />
       <MouseGlow />
       <a href="#main" className="skip-link">Skip to content</a>
-      <Navbar activeSection={activeSection} contact={contact} />
+      <Navbar activeSection={activeSection} contact={contact} theme={theme} toggleTheme={toggleTheme} />
 
       <main id="main">
         <Hero hero={hero} contact={contact} />
