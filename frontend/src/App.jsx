@@ -39,13 +39,13 @@ export default function App() {
 
       <main id="main">
         <Hero hero={hero} contact={contact} />
-        <FeaturedProject project={featuredProject} />
         <About about={about} />
         <Skills skills={skills} />
         <Experience experience={experience} />
         <Education education={education} />
         <Stats stats={stats} />
         <CodingProfiles profiles={codingProfiles} />
+        <FeaturedProject project={featuredProject} />
 
         <Suspense fallback={<Loader />}>
           <Projects projects={projects} />
