@@ -1,211 +1,161 @@
 <div align="center">
-  
-![Banner](https://raw.githubusercontent.com/HarizenCodeDev/harizemcode.dev-Portfolio.dev/main/client/public/img/logobbg.png)
-
-# 💫 Mr. Hariharan N | Portfolio 💫
-
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-06b6d4?style=for-the-badge&logo=vercel)](https://HarizenCodeDev.github.io/harizemcode.dev-Portfolio.dev)
-[![GitHub stars](https://img.shields.io/github/stars/HarizenCodeDev/harizemcode.dev-Portfolio.dev?style=for-the-badge&color=8b5cf6)](https://github.com/HarizenCodeDev/harizemcode.dev-Portfolio.dev/stargazers)
-[![Followers](https://img.shields.io/github/followers/HarizenCodeDev?style=for-the-badge&color=ec4899)](https://github.com/HarizenCodeDev)
-[![License](https://img.shields.io/badge/License-MIT-10b981?style=for-the-badge)](LICENSE)
-
----
-
-## 🎬 Live Project Demo
-
-[![🎥 Watch Demo Video](https://img.youtube.com/vi/4K8sRLkcjM4/maxresdefault.jpg)](https://www.youtube.com/watch?v=4K8sRLkcjM4)
-
-> **Watch the full demo:** [https://youtu.be/4K8sRLkcjM4](https://youtu.be/4K8sRLkcjM4)
-
----
-
-### 📺 Alternative: Embed Video
-
-<iframe 
-  width="100%" 
-  height="400" 
-  src="https://www.youtube.com/embed/4K8sRLkcjM4" 
-  title="Portfolio Demo" 
-  frameborder="0" 
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-  allowfullscreen
-  style="border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5);"
-></iframe>
+  <br/>
+  <h1>Hariharan N · Portfolio</h1>
+  <p><strong>Frontend Developer · React · JavaScript</strong></p>
+  <p>
+    <a href="https://haridevx.vercel.app" target="_blank">
+      <img src="https://img.shields.io/badge/Live%20Site-haridevx.vercel.app-0ea5e9?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Site"/>
+    </a>
+    <a href="https://www.linkedin.com/in/mrnobody1305" target="_blank">
+      <img src="https://img.shields.io/badge/LinkedIn-Connect-0a66c2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>
+    </a>
+    <a href="mailto:052005hari@gmail.com">
+      <img src="https://img.shields.io/badge/Email-Contact-ea4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"/>
+    </a>
+    <a href="https://github.com/HariDevex/HariDevx.Portfolio">
+      <img src="https://img.shields.io/badge/GitHub-Repository-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub"/>
+    </a>
+  </p>
+  <br/>
+</div>
 
 ---
 
-## 🚀 Features
+## Overview
 
-### ✨ Animations & Interactions
-| Feature | Description |
-|---------|-------------|
-| 🌀 **Smooth Scrolling** | Seamless navigation between sections |
-| 🎨 **Framer Motion** | Stunning page transitions and micro-interactions |
-| ✦ **3D Card Effects** | Tilt cards on mouse hover |
-| 🌟 **Particle System** | Floating animated particles |
-| 💫 **Ripple Effects** | Beautiful button click animations |
-
-### 🎯 UI/UX
-| Feature | Description |
-|---------|-------------|
-| 📱 **Fully Responsive** | Perfect on all devices |
-| 🌙 **Dark Theme** | Modern glassmorphism design |
-| 🎭 **Custom Scrollbar** | Gradient styled scrollbar |
-| 🔝 **Back to Top** | Smooth scroll to top button |
-| 📊 **Scroll Progress** | Visual scroll indicator |
-
-### 🛠️ Tech Stack
-| Technology | Usage |
-|------------|-------|
-| ⚛️ React 18 | Modern React with hooks |
-| ⚡ Vite | Lightning fast build tool |
-| 🎨 Tailwind CSS | Utility-first styling |
-| 🎪 Framer Motion | Production-ready animations |
-| 🌐 Express.js | Lightweight API server |
-| 🍃 MongoDB | Database ready (optional) |
+Production-grade single-page portfolio built with **React 18** and **Vite**. Features animated scroll reveals, light/dark theme, interactive Dock navigation, and a recruiter-first section layout.
 
 ---
 
-## 🎨 Color Palette
+## Tech Stack
 
 <div align="center">
 
-| 🩵 Cyan | 💜 Violet | 💗 Pink | 💚 Emerald | 🖤 Dark |
-|---------|-----------|---------|------------|----------|
-| `#06b6d4` | `#8b5cf6` | `#ec4899` | `#10b981` | `#0a0a0f` |
+| | | |
+|:---:|:---:|:---:|
+| <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React"/> | <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite"/> | <img src="https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white" alt="Framer Motion"/> |
+| <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3"/> | <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel"/> | <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript"/> |
 
 </div>
 
 ---
 
-## 📂 Project Structure
+## Sections
+
+| # | Section | Purpose |
+|:-:|---------|---------|
+| 1 | **Hero** | Staggered entrance animation, tagline, CTA buttons |
+| 2 | **Featured Project** | Spotlight project shown immediately after hero |
+| 3 | **About** | Professional summary with system-thinking approach |
+| 4 | **Skills** | Tech stack with proficiency indicators |
+| 5 | **Experience** | Work history with achievements |
+| 6 | **Education** | Academic background |
+| 7 | **Stats** | Key metrics with count-up animation |
+| 8 | **Coding Profiles** | GitHub, LeetCode, HackerRank links |
+| 9 | **Projects** | Project cards with lazy loading |
+| 10 | **Certifications** | 23 certifications in grid lightbox |
+| 11 | **Contact** | Contact form with validation |
+
+---
+
+## Features
+
+| Feature | Details |
+|---------|---------|
+| **Light/Dark Theme** | Persisted in localStorage, respects `prefers-color-scheme`, no flash on load |
+| **Animations** | Framer Motion — staggered hero, count-up stats, scroll reveals, mouse glow |
+| **Dock Navigation** | macOS-style floating bottom nav with fisheye hover |
+| **Responsive** | Mobile-first, hamburger menu, touch-friendly targets |
+| **Accessibility** | Skip-to-content, `aria-current`, keyboard nav on lightbox |
+| **Performance** | 5s build, lazy-loaded sections, WebP images <10KB, vendor chunking |
+| **SEO** | Schema.org LD+JSON, Open Graph, sitemap, robots.txt |
+
+---
+
+## Project Structure
 
 ```
-📦 harizemcode.dev-Portfolio.dev/
-│
-├── 📂 client/                    # React Frontend
-│   ├── 📂 public/
-│   │   ├── 📂 img/             # Images & Logos
-│   │   ├── 📂 Doc/             # Documents
-│   │   └── 📂 vid/             # Videos ← HariDevxx.mp4
-│   ├── 📂 src/
-│   │   ├── 📄 App.jsx          # Main App Component
-│   │   ├── 📄 main.jsx         # Entry Point
-│   │   ├── 📄 mockData.js      # Portfolio Data
-│   │   └── 📂 styles/
-│   │       └── 📄 main.css     # Custom Styles
-│   └── 📄 package.json
-│
-├── 📂 server/                   # Express Backend
-│   ├── 📄 server.js             # API Server
-│   ├── 📂 data/
-│   │   └── 📄 portfolio.js     # Data Endpoints
-│   └── 📄 package.json
-│
-├── 📄 README.md                 # Documentation
-├── 📄 LICENSE                  # MIT License
-└── 📄 vercel.json            # Vercel Config
+.
+├── frontend/                    # React 18 + Vite application
+│   ├── public/
+│   │   ├── images/
+│   │   │   ├── logo/           # Tech stack icons
+│   │   │   ├── projects/       # Project thumbnails
+│   │   │   └── certificates/   # Certification scans
+│   │   ├── documents/          # Resume PDF
+│   │   ├── robots.txt
+│   │   └── sitemap.xml
+│   └── src/
+│       ├── components/
+│       │   ├── effects/        # ChromaGrid, MouseGlow
+│       │   ├── layout/         # Navbar, Dock, Footer, ThemeToggle
+│       │   ├── sections/       # Hero, About, Skills, etc.
+│       │   └── ui/             # Badge, Button, Section, Tag
+│       ├── content/            # Portfolio data
+│       ├── hooks/              # useTheme, useActiveSection
+│       ├── styles/             # main.css (full design system)
+│       └── utils/              # scrollTo helper
+├── package.json                # Root scripts → delegates to frontend/
+├── vercel.json                 # Deployment configuration
+└── .gitignore
 ```
 
 ---
 
-## 🏃‍♂️ Quick Start
+## Quick Start
 
-### Prerequisites
-- Node.js 18+
-- npm or yarn
-
-### Installation
+**Prerequisites:** Node.js 18+, npm
 
 ```bash
-# Clone the repository
-git clone https://github.com/HarizenCodeDev/harizemcode.dev-Portfolio.dev.git
-cd harizemcode.dev-Portfolio.dev
+git clone https://github.com/HariDevex/HariDevx.Portfolio.git
+cd HariDevx.Portfolio
 
-# Install client dependencies
-cd client && npm install
-
-# Install server dependencies
-cd ../server && npm install
+npm install          # installs frontend dependencies
+npm run dev          # starts Vite dev server at localhost:5173
 ```
 
-### Running Development Server
+**Build for production:**
 
 ```bash
-# Terminal 1 - Start API (Port 4000)
-cd server
-cp .env.example .env
-npm run dev
-
-# Terminal 2 - Start Frontend (Port 5173)
-cd client
-npm run dev
+npm run build        # outputs to frontend/dist/
+npm run preview      # preview the production build locally
 ```
 
-Visit **http://localhost:5173** 🎉
+---
 
-### Production Build
+## Deployment
 
-```bash
-cd client
-npm run build
-```
-
-Output will be in `client/dist/`
+Deployed via **Vercel** with automatic SPA rewrites. The `vercel.json` at project root handles build commands and output directory routing.
 
 ---
 
-## 🌐 API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/api/portfolio` | Get all portfolio data |
-| `GET` | `/api/contact` | Health check + MongoDB status |
-| `POST` | `/api/contact` | Submit contact form |
-
----
-
-## 📱 Sections
-
-| Section | Icon | Description |
-|---------|------|-------------|
-| 🏠 **Home** | 🏠 | Hero with animated intro |
-| 📝 **About** | 📝 | Executive summary |
-| 🎓 **Education** | 🎓 | Academic background |
-| 🛠️ **Skills** | 🛠️ | Technologies & tools |
-| 🏆 **Gallery** | 🏆 | Certificate showcase |
-| 💼 **Projects** | 💼 | Featured work |
-| 📧 **Contact** | 📧 | Get in touch |
-
----
-
-## 🤝 Connect With Me
+## Color Palette
 
 <div align="center">
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-06b6d4?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/mrnobody1305)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-8b5cf6?style=for-the-badge&logo=github)](https://github.com/MrNobody7200)
-[![Email](https://img.shields.io/badge/Email-Contact-ec4899?style=for-the-badge&logo=gmail)](mailto:052005hari@gmail.com)
-[![Discord](https://img.shields.io/badge/Discord-Join-10b981?style=for-the-badge&logo=discord)](https://discord.com)
+| Role | Hex | Usage |
+|:----:|:---:|:------|
+| <img src="https://via.placeholder.com/16/0d0d0d/0d0d0d?text=+" alt="#0d0d0d"/> `#0d0d0d` | Background | Dark theme base |
+| <img src="https://via.placeholder.com/16/f5f5f0/f5f5f0?text=+" alt="#f5f5f0"/> `#f5f5f0` | Background | Light theme base |
+| <img src="https://via.placeholder.com/16/0ea5e9/0ea5e9?text=+" alt="#0ea5e9"/> `#0ea5e9` | Accent | Links, highlights, gradients |
+| <img src="https://via.placeholder.com/16/f59e0b/f59e0b?text=+" alt="#f59e0b"/> `#f59e0b` | Warm Accent | Secondary highlights |
+| <img src="https://via.placeholder.com/16/a855f7/a855f7?text=+" alt="#a855f7"/> `#a855f7` | Violet | Chroma grid glow spots |
 
 </div>
 
 ---
 
-## 📄 License
+## License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is open source under the [MIT License](LICENSE).
 
 ---
 
 <div align="center">
-
-### ⭐ Show Some Love
-
-If you found this project useful, please give it a star! ⭐
-
-**Built with 💜 by Mr. Hariharan N**
-
-*Last updated: April 2026*
-
+  <p><strong>Built by <a href="https://github.com/HariDevex">Hariharan N</a></strong></p>
+  <p>
+    <a href="https://haridevx.vercel.app">Website</a> ·
+    <a href="https://www.linkedin.com/in/mrnobody1305">LinkedIn</a> ·
+    <a href="https://github.com/HariDevex">GitHub</a>
+  </p>
 </div>

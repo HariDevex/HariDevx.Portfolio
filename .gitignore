@@ -1,15 +1,13 @@
 # Dependencies
 node_modules/
-client/node_modules/
-server/node_modules/
+frontend/node_modules/
 
 # Build output
-client/dist/
-client/.vite/
+frontend/dist/
+frontend/.vite/
 
 # Env/config
 .env
-server/.env
 
 # OS/editor noise
 .DS_Store
