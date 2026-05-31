@@ -2,9 +2,9 @@ import { motion } from 'framer-motion';
 import Section from '../ui/Section';
 
 const SUMMARY_LINES = [
-  { cmd: 'whoami', output: 'Hariharan — final-year student from Tamil Nadu' },
-  { cmd: 'cat philosophy.txt', output: 'I enjoy building web applications, experimenting with Linux, and breaking things until they work.' },
-  { cmd: 'cat status.txt', output: 'Currently preparing for placements while improving my full-stack development skills.' },
+  { cmd: 'whoami', output: 'I\'m Hariharan,\na final-year student from Tamil Nadu.' },
+  { cmd: 'cat interests.txt', output: 'I enjoy building web applications,\nworking with Linux,\nand learning through projects.' },
+  { cmd: 'cat goals.txt', output: 'Currently focused on placements,\nfull-stack development,\nand improving problem-solving skills.' },
 ];
 
 export default function About({ about }) {

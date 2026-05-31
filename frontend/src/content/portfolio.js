@@ -12,7 +12,7 @@ export const portfolioData = {
     edu: 'B.E. ECE · Anna University',
     location: 'Tamil Nadu, India',
     gradYear: '2026',
-    valueProp: 'I build production-quality React applications with clean architecture and measurable performance. My electronics engineering background gives me a system-thinking approach to frontend development — I don\'t just build UIs, I build reliable systems.',
+    valueProp: 'Final Year CSE Student — Building React applications, Linux-based tools, and full-stack systems. Currently preparing for placements while shipping projects publicly.',
     availability: 'Seeking SWE Internships — Available Summer 2026',
     resumeUrl: '/documents/Hariharan.pdf',
     techStack: ['React', 'JavaScript', 'TypeScript', 'Tailwind CSS', 'Git'],
@@ -22,13 +22,14 @@ export const portfolioData = {
       `I'm Hariharan, a final-year student from Tamil Nadu.
 
 I enjoy building web applications,
-experimenting with Linux,
-and breaking things until they work.
+working with Linux,
+and learning through projects.
 
-Currently preparing for placements while
-improving my full-stack development skills.`,
+Currently focused on placements,
+full-stack development,
+and improving problem-solving skills.`,
     highlights: [
-      'Built 10+ web projects with React, JavaScript, and modern CSS — achieving 90+ Lighthouse scores',
+      'Built 5+ web projects with React, JavaScript, and modern CSS — achieving 90+ Lighthouse scores',
       'Engineering coursework in C++, Python, data structures, and embedded systems',
       'Self-taught frontend development alongside a full-time engineering curriculum — 3 years of consistent practice',
       'Experience with Git workflows, responsive design, REST APIs, and Vercel deployments',
@@ -145,6 +146,24 @@ improving my full-stack development skills.`,
       achievements: ['Responsive grid layout matching YouTube breakpoints', 'Semantic HTML structure', 'Optimized asset loading'],
     },
     {
+      title: 'Employee Management System',
+      description: 'Built authentication, attendance tracking, and role-based access. Reduced manual record handling through centralized management.',
+      techStack: ['React', 'Node.js', 'PosgreSQL'],
+      image: '/images/projects/EMS.png',
+      liveUrl: 'https://elegance-it-geo-infotech.vercel.app/login',
+      repoUrl: 'https://github.com/HariDevex/Elegance-IT-Geo-Infotech.git',
+      achievements: ['Role-based access control', 'Attendance tracking system', 'Centralized record management'],
+    },
+    {
+      title: 'Company Portal',
+      description: 'Designed and developed a responsive corporate website for Elegance IT Geo Infotech featuring service showcases, company profile, project portfolio, contact integration, and optimized user experience for potential clients and business partners.',
+      techStack: ['React', 'JavaScript', 'HTML5', 'CSS3'],
+      image: '/images/projects/ejs_portfolio.png',
+      liveUrl: 'https://elegance-it-geo-infotech.vercel.app/login',
+      repoUrl: 'https://github.com/HariDevex/Elegance-Portfolio',
+      achievements: ['Responsive grid layout matching YouTube breakpoints', 'Semantic HTML structure', 'Optimized asset loading'],
+    },
+    {
       title: 'Footstep Power Generator',
       description: 'IoT hardware prototype that converts mechanical energy from footsteps into electrical energy using piezoelectric sensor arrays and an Arduino microcontroller.',
       techStack: ['Arduino', 'C++', 'Sensors', 'Circuit Design'],
@@ -176,7 +195,7 @@ improving my full-stack development skills.`,
     { platform: 'GitHub', username: 'HariDevex', url: 'https://github.com/HariDevex', icon: '🖥️' },
   ],
   stats: [
-    { value: 5, suffix: '+', label: 'Projects Built', context: 'Web apps, IoT prototypes, and tools' },
+    { value: 6, suffix: '+', label: 'Projects Built', context: 'Web apps, IoT prototypes, and tools' },
     { value: 7, suffix: '+', label: 'GitHub Repos', context: 'Public and private repositories' },
     { value: 23, suffix: '', label: 'Certifications', context: 'Academic and professional workshops' },
     { value: 6, suffix: '+', label: 'Month Learning', context: 'Self-taught alongside engineering degree' },
