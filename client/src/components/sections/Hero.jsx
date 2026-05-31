@@ -1,25 +1,55 @@
+import { motion } from 'framer-motion';
 import Badge from '../ui/Badge';
 import Button from '../ui/Button';
 import Tag from '../ui/Tag';
 
+const container = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.12, delayChildren: 0.1 },
+  },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+};
+
+const fadeIn = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.5, ease: 'easeOut' } },
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: 'easeOut' } },
+};
+
 export default function Hero({ hero, contact }) {
   return (
     <section id="home" className="hero">
-      <div className="hero-grid">
+      <motion.div className="hero-grid" variants={container} initial="hidden" animate="visible">
         <div>
-          <Badge>{hero.availability}</Badge>
+          <motion.div variants={fadeUp}>
+            <Badge>{hero.availability}</Badge>
+          </motion.div>
 
-          <h1 className="hero-title text-hero">{hero.name}</h1>
+          <motion.h1 className="hero-title text-hero" variants={fadeUp}>
+            {hero.name}
+          </motion.h1>
 
-          <div className="hero-tech">
+          <motion.div className="hero-tech" variants={fadeUp}>
             {hero.techStack.map((t) => (
               <Tag key={t} variant="accent">{t}</Tag>
             ))}
-          </div>
+          </motion.div>
 
-          <p className="hero-subtitle">{hero.valueProp}</p>
+          <motion.p className="hero-subtitle" variants={fadeUp}>
+            {hero.valueProp}
+          </motion.p>
 
-          <p className="hero-meta">
+          <motion.p className="hero-meta" variants={fadeIn}>
             <span>{hero.title}</span>
             <span className="hero-meta-sep">/</span>
             <span>{hero.edu}</span>
@@ -27,9 +57,9 @@ export default function Hero({ hero, contact }) {
             <span>{hero.location}</span>
             <span className="hero-meta-sep">/</span>
             <span>Grad {hero.gradYear}</span>
-          </p>
+          </motion.p>
 
-          <div className="hero-actions">
+          <motion.div className="hero-actions" variants={fadeUp}>
             <Button href={hero.resumeUrl} variant="primary" size="large" target="_blank" rel="noreferrer">
               Download Resume
             </Button>
@@ -42,15 +72,15 @@ export default function Hero({ hero, contact }) {
             <Button href="#contact" variant="ghost" size="large">
               Get in Touch →
             </Button>
-          </div>
+          </motion.div>
         </div>
 
-        <div className="hero-image">
+        <motion.div className="hero-image" variants={scaleIn}>
           <div className="hero-image-frame">
             <img src="/img/hero-photo.webp" alt="Hariharan N" width="280" height="280" />
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

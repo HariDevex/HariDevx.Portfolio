@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { portfolioData } from './data/portfolio';
 import { useActiveSection } from './hooks/useActiveSection';
 
+import MouseGlow from './components/effects/MouseGlow';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
@@ -27,6 +28,7 @@ export default function App() {
 
   return (
     <div className="app">
+      <MouseGlow />
       <a href="#main" className="skip-link">Skip to content</a>
       <Navbar activeSection={activeSection} contact={contact} />
 

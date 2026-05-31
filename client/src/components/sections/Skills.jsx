@@ -32,8 +32,15 @@ export default function Skills({ skills }) {
         </div>
 
         <div className="skills-grid">
-          {skills.map(({ category, items, logo }) => (
-            <div key={category} className="skill-card">
+          {skills.map(({ category, items, logo }, i) => (
+            <motion.div
+              key={category}
+              className="skill-card"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ delay: i * 0.08, duration: 0.4 }}
+            >
               <div className="skill-header">
                 {logo && <img src={logo} alt={category} className="skill-logo" width={24} height={24} />}
                 <p className="skill-category">{category}</p>
@@ -43,7 +50,7 @@ export default function Skills({ skills }) {
                   <SkillTag key={item.name || item} name={item.name || item} proficiency={item.proficiency} />
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </motion.div>

@@ -40,10 +40,18 @@ function MobileMenu({ onClose, activeSection, contact }) {
 
 export default function Navbar({ activeSection, contact }) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   return (
     <>
-      <nav className="navbar">
+      <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
         <div className="navbar-inner">
           <a href="#home" className="navbar-brand" onClick={(e) => { e.preventDefault(); scrollToSection('home'); }}>
             Hariharan<span className="navbar-brand-accent">.N</span>

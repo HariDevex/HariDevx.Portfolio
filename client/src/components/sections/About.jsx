@@ -5,10 +5,10 @@ export default function About({ about }) {
   return (
     <Section id="about">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.6 }}
       >
         <div className="section-header">
           <span className="text-label section-label">About</span>

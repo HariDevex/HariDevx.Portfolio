@@ -4,7 +4,7 @@ export const portfolioData = {
     description:
       'Frontend developer specializing in React, JavaScript, and modern CSS. Electronics & Communication Engineering graduate seeking SWE internships.',
     url: 'https://haridevx.vercel.app',
-    image: '/img/haridevx.png',
+    image: '/img/og-image.webp',
   },
   hero: {
     name: 'Hariharan N',
