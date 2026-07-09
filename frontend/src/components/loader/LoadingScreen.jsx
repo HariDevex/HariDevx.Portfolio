@@ -98,18 +98,18 @@ export default function LoadingScreen({ onComplete, onExit }) {
     >
       <div className="loading-aurora-bg">
         <SoftAurora
-          speed={1.2}
-          scale={1.8}
-          brightness={1.2}
-          color1="#06B6D4"
+          speed={2}
+          scale={2}
+          brightness={1.0}
+          color1="#7415dc"
           color2="#e100ff"
-          noiseFrequency={1.5}
-          noiseAmplitude={6}
+          noiseFrequency={1}
+          noiseAmplitude={3.5}
           bandHeight={0.5}
-          bandSpread={0.8}
-          octaveDecay={0.15}
-          layerOffset={0.05}
-          colorSpeed={0.8}
+          bandSpread={0.6}
+          octaveDecay={0.1}
+          layerOffset={0}
+          colorSpeed={1.8}
           enableMouseInteraction={false}
         />
       </div>

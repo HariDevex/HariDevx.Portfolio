@@ -7,8 +7,8 @@ import { useTheme } from './hooks/useTheme';
 import LoadingScreen from './components/loader/LoadingScreen';
 import Loader from './components/ui/Loader';
 import MouseGlow from './components/effects/MouseGlow';
-import ChromaGrid from './components/effects/ChromaGrid';
-import FloatingLines from './components/effects/FloatingLines';
+
+import SoftAurora from './components/effects/SoftAurora';
 import Navbar from './components/layout/Navbar';
 import Dock from './components/layout/Dock';
 import Footer from './components/layout/Footer';
@@ -57,19 +57,25 @@ export default function App() {
       </AnimatePresence>
 
       <div className="app" style={{ opacity: appVisible ? 1 : 0, transition: 'opacity 0.5s ease' }}>
-        <div className="floating-lines-background">
-          <FloatingLines
-            enabledWaves={['top', 'middle', 'bottom']}
-            lineCount={[8, 12, 16]}
-            lineDistance={[10, 8, 6]}
-            bendRadius={6.0}
-            bendStrength={-0.6}
-            parallaxStrength={0.15}
-            animationSpeed={0.8}
-            mixBlendMode={theme === 'dark' ? 'screen' : 'normal'}
+        <div className="soft-aurora-background">
+          <SoftAurora
+            speed={2}
+            scale={2}
+            brightness={1.0}
+            color1="#7415dc"
+            color2="#e100ff"
+            noiseFrequency={1}
+            noiseAmplitude={3.5}
+            bandHeight={0.5}
+            bandSpread={0.6}
+            octaveDecay={0.1}
+            layerOffset={0}
+            colorSpeed={1.8}
+            enableMouseInteraction={true}
+            mouseInfluence={1}
           />
         </div>
-        <ChromaGrid />
+        <div className="app-background-overlay" />
         <MouseGlow />
         <a href="#main" className="skip-link">Skip to content</a>
         <Navbar activeSection={activeSection} contact={contact} theme={theme} toggleTheme={toggleTheme} />

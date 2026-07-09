@@ -37,13 +37,13 @@ and improving problem-solving skills.`,
   },
   education: [
     {
-      degree: 'B.E. in Electronics & Communication Engineering',
+      degree: '$_ B.E. in Electronics & Communication Engineering',
       school: 'Study World College of Engineering (Anna University)',
       years: '2022 – 2026',
       score: 'CGPA: 7.8 / 10',
     },
     {
-      degree: 'Higher Secondary (HSC)',
+      degree: '$_ Higher Secondary (HSC)',
       school: 'Shree B.C.R Mat Hr Sec School, Dharmapuri',
       years: '2020 – 2022',
       score: '57%',
@@ -94,9 +94,9 @@ and improving problem-solving skills.`,
   ],
   experience: [
     {
-      role: 'Frontend Developer (Freelance)',
+      role: '$_ Frontend Developer (Freelance)',
       company: 'Self-Employed',
-      period: '2024 – Present',
+      period: '2026 – Present',
       achievements: [
         'Built responsive portfolio sites and landing pages using React, consistently achieving 90+ Lighthouse scores across performance, accessibility, and SEO',
         'Created reusable component libraries that cut repeat work by 40% — standardized buttons, cards, forms, and layout primitives across projects',
@@ -104,16 +104,21 @@ and improving problem-solving skills.`,
         'Managed full deployment pipeline: custom domains, Vercel hosting, CI preview deployments, and DNS configuration',
       ],
     },
-    // {
-    //   role: 'Engineering Project Lead',
-    //   company: 'Academic Capstone',
-    //   period: '2023 – 2024',
-    //   achievements: [
-    //     'Led a 3-person team to build a piezoelectric footstep power generator — designed the energy harvesting circuit, wrote the Arduino firmware, and demonstrated functional power output at a department symposium',
-    //     'Developed an autonomous vacuum cleaner prototype with ultrasonic obstacle detection — programmed navigation logic on Arduino, integrated motor drivers, and tested in real environments',
-    //     'Presented technical architecture and results to faculty and ~50 students, translating complex hardware-software integration into accessible explanations',
-    //   ],
-    // },
+    {
+      role: '$_ Full Stack Engineer (Internship)',
+      company: 'Elegance Geo Infotech',
+      period: 'January 2026 – July 2026',
+      achievements: [
+        'Built a full-stack Employee Management System on the PERN stack (PostgreSQL, Express, React, Node.js):',
+        'Implemented JWT-based authentication with bcrypt password hashing and role-based access control across 6 roles (Root, Admin, Manager, Team Lead, HR, Developer)',
+        ' Designed and built 20+ REST API endpoints covering employee records, attendance tracking, leave request/approval workflows, and company announcements',
+        'Built a real-time dashboard with data visualizations (Recharts) surfacing attendance and workforce statistics',
+        'Developed a direct/group messaging feature for internal team communication',
+        'Used Knex.js for PostgreSQL schema migrations and query building',
+        'Built the frontend in React 18 with React Router and Tailwind CSS, integrating directly with backend APIs',
+        'Tech: React, Node.js, Express, PostgreSQL, Knex.js, JWT, Tailwind CSS'
+      ],
+    },
   ],
   featuredProject: {
     title: 'E-Service Dashboard',
