@@ -14,7 +14,7 @@ export const portfolioData = {
     gradYear: '2026',
     valueProp: 'Final Year ECE Student — Building React applications, Linux-based tools, and full-stack systems. Currently preparing for placements while shipping projects publicly.',
     availability: 'Full Stack Developer — Open to Full-Time Opportunities',
-    resumeUrl: '/documents/Hariharan.pdf',
+    resumeUrl: '/documents/Hariharan.pdf#Hariharan_Resume',
     techStack: ['React', 'JavaScript', 'Node.js', 'Tailwind CSS', 'Git'],
   },
   about: {
@@ -194,11 +194,6 @@ and improving problem-solving skills.`,
   certifications: {
     title: 'Certifications & Workshops',
     description: 'Academic and professional certifications earned alongside my engineering degree.',
-    images: [
-      ...Array.from({ length: 21 }, (_, i) => `/images/certificates/cer.${String(i + 1).padStart(2, '0')}.jpg`),
-      '/images/certificates/cer.22.jpeg',
-      '/images/certificates/cer.23.jpeg',
-    ],
   },
   codingProfiles: [
     { platform: 'GitHub', username: 'HariDevex', url: 'https://github.com/HariDevex', icon: '🖥️' },
@@ -206,7 +201,7 @@ and improving problem-solving skills.`,
   stats: [
     { value: 6, suffix: '+', label: 'Projects Built', context: 'Web apps, IoT prototypes, and tools' },
     { value: 7, suffix: '+', label: 'GitHub Repos', context: 'Public and private repositories' },
-    { value: 6, suffix: '', label: 'Certifications', context: 'Academic and professional workshops' },
+    { value: 6, suffix: '+', label: 'Certifications', context: 'Academic and professional workshops' },
     { value: 6, suffix: '+', label: 'Month Learning', context: 'Self-taught alongside engineering degree' },
   ],
   contact: {

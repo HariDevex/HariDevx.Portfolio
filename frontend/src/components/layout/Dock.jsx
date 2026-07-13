@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { NAV_ITEMS } from '../../constants/navigation';
 import { scrollToSection } from '../../utils/scrollTo';
@@ -60,7 +61,7 @@ function ContactIcon() {
 }
 
 const DOCK_ITEMS = [
-  { id: 'home', label: 'Home', Icon: HomeIcon, action: 'scroll' },
+  { id: 'Home', label: 'Home', Icon: HomeIcon, action: 'scroll' },
   { id: 'featured', label: 'Projects', Icon: ProjectsIcon, action: 'scroll' },
   { id: 'github', label: 'GitHub', Icon: GitHubIcon, action: 'link' },
   { id: 'linkedin', label: 'LinkedIn', Icon: LinkedInIcon, action: 'link' },
@@ -71,6 +72,8 @@ const DOCK_ITEMS = [
 export default function Dock({ activeSection, contact, attached }) {
   const dockRef = useRef(null);
   const [isTouch, setIsTouch] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0);
@@ -115,12 +118,18 @@ export default function Dock({ activeSection, contact, attached }) {
 
   const handleClick = (item) => {
     if (item.action === 'scroll') {
-      scrollToSection(item.id);
+      if (item.id === 'contact') {
+        navigate('/contact');
+      } else if (location.pathname === '/') {
+        scrollToSection(item.id);
+      } else {
+        navigate('/', { state: { scrollTo: item.id } });
+      }
     } else if (item.action === 'link') {
       if (item.id === 'github') window.open(contact.github, '_blank', 'noreferrer');
       if (item.id === 'linkedin') window.open(contact.linkedin, '_blank', 'noreferrer');
     } else if (item.action === 'resume') {
-      window.open('/documents/Hariharan.pdf', '_blank', 'noreferrer');
+      window.open('/documents/Hariharan.pdf#Hariharan_Resume', '_blank', 'noreferrer');
     }
   };
 

@@ -9,7 +9,7 @@ const SUMMARY_LINES = [
 
 export default function About({ about }) {
   return (
-    <Section id="about">
+    <Section id="About">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

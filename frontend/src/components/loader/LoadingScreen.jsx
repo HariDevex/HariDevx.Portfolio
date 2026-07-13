@@ -5,12 +5,12 @@ import ProgressBar from './ProgressBar';
 import BrandReveal from './BrandReveal';
 import SoftAurora from '../effects/SoftAurora';
 
-const MAX_DURATION = 5000;
+const MAX_DURATION = 3000;
 
 const PHASE_DURATIONS = {
-  terminal: 2200,
-  progress: 2300,
-  brand: 1500,
+  terminal: 1100,
+  progress: 1000,
+  brand: 900,
   exit: 500,
 };
 

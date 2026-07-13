@@ -14,7 +14,7 @@ const charVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { delay: i * 0.04, duration: 0.4, ease: 'easeOut' },
+    transition: { delay: i * 0.02, duration: 0.25, ease: 'easeOut' },
   }),
 };
 
@@ -23,7 +23,7 @@ const subtitleVariants = {
   visible: (i) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: 0.6 + i * 0.12, duration: 0.4, ease: 'easeOut' },
+    transition: { delay: 0.3 + i * 0.06, duration: 0.25, ease: 'easeOut' },
   }),
 };
 
@@ -48,7 +48,7 @@ export default function BrandReveal({ onComplete }) {
         doneRef.current = true;
         onComplete?.();
       }
-    }, 1800);
+    }, 900);
     return () => clearTimeout(timer);
   }, [onComplete]);
 

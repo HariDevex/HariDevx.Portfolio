@@ -3,14 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const LINES = [
   { cmd: 'whoami', output: 'Hariharan' },
-  { cmd: 'initialize_portfolio', output: 'Loading projects...' },
-  { cmd: 'load_skills', output: 'Loading experience...' },
-  { cmd: 'start_server', output: 'Portfolio ready' },
+  { cmd: 'initialize_portfolio', output: 'Loading...' },
+  { cmd: 'start_server', output: 'Ready!' },
 ];
 
-const CMD_DELAY = 350;
-const CHAR_DELAY = 45;
-const OUTPUT_VISIBLE_DELAY = 300;
+const CMD_DELAY = 80;
+const CHAR_DELAY = 16;
+const OUTPUT_VISIBLE_DELAY = 60;
 
 function TypewriterText({ text, startDelay, onComplete }) {
   const [displayed, setDisplayed] = useState('');

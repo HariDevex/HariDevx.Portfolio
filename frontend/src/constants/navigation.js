@@ -1,10 +1,10 @@
 export const NAV_ITEMS = [
-  { label: 'About', id: 'about' },
-  { label: 'Skills', id: 'skills' },
-  { label: 'Experience', id: 'experience' },
-  { label: 'Projects', id: 'projects' },
-  { label: 'Certs', id: 'certifications' },
-  { label: 'Contact', id: 'contact' },
+  { label: 'About', id: 'About' },
+  { label: 'Skills', id: 'Skills' },
+  { label: 'Experience', id: 'Experience' },
+  { label: 'Projects', id: 'Projects' },
+  { label: 'Certs', id: 'Certificates' },
+  { label: 'Contact', id: 'Contact', path: '/contact' },
 ];
 
-export const SECTION_IDS = ['home', ...NAV_ITEMS.map((n) => n.id)];
+export const SECTION_IDS = ['Home', ...NAV_ITEMS.filter((n) => !n.path).map((n) => n.id)];

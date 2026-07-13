@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Section from '../ui/Section';
 
 export default function ContactForm({ contact, resumeUrl }) {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState('idle');
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -31,7 +33,7 @@ export default function ContactForm({ contact, resumeUrl }) {
   };
 
   return (
-    <Section id="contact">
+    <Section id="Contact">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -39,6 +41,13 @@ export default function ContactForm({ contact, resumeUrl }) {
         transition={{ duration: 0.6 }}
       >
         <div className="section-header">
+          <button
+            className="btn btn--ghost"
+            onClick={() => navigate('/')}
+            style={{ marginBottom: 16 }}
+          >
+            ← Back to Portfolio
+          </button>
           <span className="text-label section-label">Contact</span>
           <h2 className="section-title text-display">Get in Touch</h2>
         </div>

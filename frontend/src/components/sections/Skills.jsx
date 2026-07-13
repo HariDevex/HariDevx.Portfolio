@@ -18,7 +18,7 @@ function SkillTag({ name, proficiency }) {
 
 export default function Skills({ skills }) {
   return (
-    <Section id="skills">
+    <Section id="Skills">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

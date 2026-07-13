@@ -1,9 +1,12 @@
 import { lazy, Suspense, useState, useEffect, useRef } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { portfolioData } from './content/portfolio';
 import { useActiveSection } from './hooks/useActiveSection';
 import { useTheme } from './hooks/useTheme';
+import { scrollToSection } from './utils/scrollTo';
 
+import ScrollToTop from './components/ScrollToTop';
 import LoadingScreen from './components/loader/LoadingScreen';
 import Loader from './components/ui/Loader';
 import MouseGlow from './components/effects/MouseGlow';
@@ -25,6 +28,35 @@ import ContactForm from './components/sections/ContactForm';
 
 const Projects = lazy(() => import('./components/sections/Projects'));
 
+function HomePage({ appVisible, enter }) {
+  const { hero, about, skills, education, experience, stats, featuredProject, projects, certifications, codingProfiles } = portfolioData;
+  return (
+    <main id="main">
+      <Hero hero={hero} contact={portfolioData.contact} enter={enter} />
+      <About about={about} />
+      <Skills skills={skills} />
+      <Experience experience={experience} />
+      <Education education={education} />
+      <Stats stats={stats} />
+      <CodingProfiles profiles={codingProfiles} />
+      <FeaturedProject project={featuredProject} />
+      <Suspense fallback={<Loader />}>
+        <Projects projects={projects} />
+      </Suspense>
+      <CertificationGallery title={certifications.title} description={certifications.description} />
+    </main>
+  );
+}
+
+function ContactPage() {
+  const { contact, hero } = portfolioData;
+  return (
+    <main id="main">
+      <ContactForm contact={contact} resumeUrl={hero.resumeUrl} />
+    </main>
+  );
+}
+
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [appVisible, setAppVisible] = useState(false);
@@ -32,7 +64,9 @@ export default function App() {
   const activeSection = useActiveSection();
   const footerRef = useRef(null);
   const [dockAttached, setDockAttached] = useState(false);
-  const { hero, about, skills, education, experience, stats, featuredProject, projects, certifications, codingProfiles, contact } = portfolioData;
+  const { contact } = portfolioData;
+  const location = useLocation();
+  const isHome = location.pathname === '/';
 
   useEffect(() => {
     const footer = footerRef.current;
@@ -45,10 +79,22 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (location.state?.scrollTo) {
+      const id = location.state.scrollTo;
+      window.history.replaceState({}, '');
+      requestAnimationFrame(() => {
+        scrollToSection(id);
+      });
+    }
+  }, [location.state]);
+
   return (
     <>
+      <ScrollToTop />
+
       <AnimatePresence>
-        {loading && (
+        {loading && isHome && (
           <LoadingScreen
             onExit={() => setAppVisible(true)}
             onComplete={() => { setAppVisible(true); setLoading(false); }}
@@ -56,7 +102,7 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      <div className="app" style={{ opacity: appVisible ? 1 : 0, transition: 'opacity 0.5s ease' }}>
+      <div className="app" style={{ opacity: appVisible || !isHome ? 1 : 0, transition: 'opacity 0.5s ease' }}>
         <div className="soft-aurora-background">
           <SoftAurora
             speed={2}
@@ -80,23 +126,10 @@ export default function App() {
         <a href="#main" className="skip-link">Skip to content</a>
         <Navbar activeSection={activeSection} contact={contact} theme={theme} toggleTheme={toggleTheme} />
 
-        <main id="main">
-          <Hero hero={hero} contact={contact} enter={appVisible} />
-          <About about={about} />
-          <Skills skills={skills} />
-          <Experience experience={experience} />
-          <Education education={education} />
-          <Stats stats={stats} />
-          <CodingProfiles profiles={codingProfiles} />
-          <FeaturedProject project={featuredProject} />
-
-          <Suspense fallback={<Loader />}>
-            <Projects projects={projects} />
-          </Suspense>
-
-          <CertificationGallery certifications={certifications} />
-          <ContactForm contact={contact} resumeUrl={hero.resumeUrl} />
-        </main>
+        <Routes>
+          <Route path="/" element={<HomePage appVisible={appVisible} enter={appVisible} />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
 
         <Dock activeSection={activeSection} contact={contact} attached={dockAttached} />
         <Footer ref={footerRef} contact={contact} />

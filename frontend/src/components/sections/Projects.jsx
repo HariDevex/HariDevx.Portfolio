@@ -50,7 +50,7 @@ function ProjectCard({ title, description, techStack, image, liveUrl, repoUrl, a
 
 export default function Projects({ projects }) {
   return (
-    <Section id="projects">
+    <Section id="Projects">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

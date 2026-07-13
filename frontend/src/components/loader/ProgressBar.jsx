@@ -15,17 +15,17 @@ export default function ProgressBar({ onComplete }) {
   );
 
   useEffect(() => {
-    const timer = setTimeout(() => setPhase('running'), 400);
+    const timer = setTimeout(() => setPhase('running'), 200);
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
     if (phase !== 'running') return;
     const controls = animate(progress, 100, {
-      duration: 1.3,
+      duration: 0.7,
       ease: 'easeInOut',
       onComplete: () => {
-        setTimeout(() => onComplete?.(), 200);
+        setTimeout(() => onComplete?.(), 100);
       },
     });
     return () => controls.stop();

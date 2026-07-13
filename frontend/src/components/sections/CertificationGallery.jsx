@@ -2,6 +2,16 @@ import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Section from '../ui/Section';
 
+const imageModules = import.meta.glob('../../assets/certificates/*', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+});
+
+const certifications = Object.entries(imageModules)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([, url]) => url);
+
 const INITIAL_COUNT = 8;
 
 function Lightbox({ images, currentIndex, onClose, onPrev, onNext }) {
@@ -33,21 +43,21 @@ function Lightbox({ images, currentIndex, onClose, onPrev, onNext }) {
   );
 }
 
-export default function CertificationGallery({ certifications }) {
+export default function CertificationGallery({ title, description }) {
   const [showAll, setShowAll] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(null);
-  const visibleImages = showAll ? certifications.images : certifications.images.slice(0, INITIAL_COUNT);
+  const visibleImages = showAll ? certifications : certifications.slice(0, INITIAL_COUNT);
 
   const handlePrev = useCallback(() => {
-    setLightboxIndex((prev) => (prev > 0 ? prev - 1 : certifications.images.length - 1));
-  }, [certifications.images.length]);
+    setLightboxIndex((prev) => (prev > 0 ? prev - 1 : certifications.length - 1));
+  }, []);
 
   const handleNext = useCallback(() => {
-    setLightboxIndex((prev) => (prev < certifications.images.length - 1 ? prev + 1 : 0));
-  }, [certifications.images.length]);
+    setLightboxIndex((prev) => (prev < certifications.length - 1 ? prev + 1 : 0));
+  }, []);
 
   return (
-    <Section id="certifications">
+    <Section id="Certificates">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -56,8 +66,8 @@ export default function CertificationGallery({ certifications }) {
       >
         <div className="section-header">
           <span className="text-label section-label">Certifications</span>
-          <h2 className="section-title text-display">{certifications.title}</h2>
-          <p className="section-desc">{certifications.description}</p>
+          <h2 className="section-title text-display">{title}</h2>
+          <p className="section-desc">{description}</p>
         </div>
 
         <div className="gallery-grid" role="list" aria-label="Certification gallery">
@@ -77,13 +87,13 @@ export default function CertificationGallery({ certifications }) {
           ))}
         </div>
 
-        {certifications.images.length > INITIAL_COUNT && (
+        {certifications.length > INITIAL_COUNT && (
           <div style={{ textAlign: 'center', marginTop: 24 }}>
             <button
               className="btn btn--ghost"
               onClick={() => setShowAll((prev) => !prev)}
             >
-              {showAll ? `Show less` : `Show all ${certifications.images.length} certifications`}
+              {showAll ? 'Show less' : `Show all ${certifications.length} certifications`}
             </button>
           </div>
         )}
@@ -92,7 +102,7 @@ export default function CertificationGallery({ certifications }) {
       <AnimatePresence>
         {lightboxIndex !== null && (
           <Lightbox
-            images={certifications.images}
+            images={certifications}
             currentIndex={lightboxIndex}
             onClose={() => setLightboxIndex(null)}
             onPrev={handlePrev}

@@ -28,7 +28,7 @@ const scaleIn = {
 
 export default function Hero({ hero, contact, enter }) {
   return (
-    <section id="home" className="hero">
+    <section id="Home" className="hero">
       <motion.div className="hero-grid" variants={container} initial="hidden" animate={enter ? "visible" : "hidden"}>
         <div>
           <motion.div variants={fadeUp}>

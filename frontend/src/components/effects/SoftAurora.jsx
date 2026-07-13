@@ -173,6 +173,8 @@ export default function SoftAurora({
     let program;
     let currentMouse = [0.5, 0.5];
     let targetMouse = [0.5, 0.5];
+    let animationFrameId;
+    let contextLost = false;
 
     function handleMouseMove(e) {
       const rect = gl.canvas.getBoundingClientRect();
@@ -186,7 +188,23 @@ export default function SoftAurora({
       targetMouse = [0.5, 0.5];
     }
 
+    function handleContextLost(e) {
+      e.preventDefault();
+      contextLost = true;
+      cancelAnimationFrame(animationFrameId);
+    }
+
+    function handleContextRestored() {
+      contextLost = false;
+      resize();
+      animationFrameId = requestAnimationFrame(update);
+    }
+
+    gl.canvas.addEventListener('webglcontextlost', handleContextLost);
+    gl.canvas.addEventListener('webglcontextrestored', handleContextRestored);
+
     function resize() {
+      if (contextLost) return;
       renderer.setSize(container.offsetWidth, container.offsetHeight);
       if (program) {
         program.uniforms.uResolution.value = [gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height];
@@ -228,9 +246,8 @@ export default function SoftAurora({
       gl.canvas.addEventListener('mouseleave', handleMouseLeave);
     }
 
-    let animationFrameId;
-
     function update(time) {
+      if (contextLost) return;
       animationFrameId = requestAnimationFrame(update);
       program.uniforms.uTime.value = time * 0.001;
 
@@ -251,12 +268,13 @@ export default function SoftAurora({
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', resize);
+      gl.canvas.removeEventListener('webglcontextlost', handleContextLost);
+      gl.canvas.removeEventListener('webglcontextrestored', handleContextRestored);
       if (enableMouseInteraction) {
         gl.canvas.removeEventListener('mousemove', handleMouseMove);
         gl.canvas.removeEventListener('mouseleave', handleMouseLeave);
       }
       container.removeChild(gl.canvas);
-      gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
   }, [speed, scale, brightness, color1, color2, noiseFrequency, noiseAmplitude, bandHeight, bandSpread, octaveDecay, layerOffset, colorSpeed, enableMouseInteraction, mouseInfluence]);
 
