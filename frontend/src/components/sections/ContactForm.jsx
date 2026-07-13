@@ -45,7 +45,7 @@ export default function ContactForm({ contact, resumeUrl }) {
 
         <div className="contact-form-wrapper">
           <p className="contact-form-text text-body">
-            Looking for a frontend engineering intern starting Summer 2026?
+            Looking for a Full Stack engineering position?
             Drop me a message and I&apos;ll get back to you within 24 hours.
           </p>
 
