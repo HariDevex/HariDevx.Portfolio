@@ -12,6 +12,7 @@ import Loader from './components/ui/Loader';
 import MouseGlow from './components/effects/MouseGlow';
 
 import SoftAurora from './components/effects/SoftAurora';
+import Scene3D from './components/3d/Scene3D';
 import Navbar from './components/layout/Navbar';
 import Dock from './components/layout/Dock';
 import Footer from './components/layout/Footer';
@@ -123,6 +124,7 @@ export default function App() {
         </div>
         <div className="app-background-overlay" />
         <MouseGlow />
+        <Scene3D theme={theme} />
         <a href="#main" className="skip-link">Skip to content</a>
         <Navbar activeSection={activeSection} contact={contact} theme={theme} toggleTheme={toggleTheme} />
 
