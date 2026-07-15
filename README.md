@@ -7,8 +7,8 @@
   <p><strong>✨ Electronics & Communication Engineering Graduate · Full Stack Developer · WebGL Creator ✨</strong></p>
 
   <p>
-    <a href="https://haridevx.vercel.app" target="_blank">
-      <img src="https://img.shields.io/badge/Live%20Demo-haridevx.vercel.app-0ea5e9?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Site"/>
+    <a href="https://hari-devx-portfolio.vercel.app" target="_blank">
+      <img src="https://img.shields.io/badge/Live%20Demo-hari--devx--portfolio.vercel.app-0ea5e9?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Site"/>
     </a>
     <a href="https://www.linkedin.com/in/haridevx" target="_blank">
       <img src="https://img.shields.io/badge/LinkedIn-Connect%20%E2%9E%9F-0a66c2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"/>
@@ -196,7 +196,7 @@ Define custom variables inside your workspace styles to alter the full theme ins
 <div align="center">
   <p><strong>Made with 💙 by <a href="https://github.com/HariDevex">Hariharan N</a></strong></p>
   <p>
-    <a href="https://haridevx.vercel.app">Website</a> ·
+    <a href="https://hari-devx-portfolio.vercel.app">Website</a> ·
     <a href="https://www.linkedin.com/in/haridevx">LinkedIn</a> ·
     <a href="https://github.com/HariDevex">GitHub</a>
   </p>

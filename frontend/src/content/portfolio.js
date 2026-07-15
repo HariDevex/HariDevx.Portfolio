@@ -3,7 +3,7 @@ export const portfolioData = {
     title: 'Hariharan N — Full Stack Developer',
     description:
       'Full Stack developer specializing in React, Node.js/Express, and PostgreSQL. Electronics & Communication Engineering graduate open to full-time Full Stack Developer roles.',
-    url: 'https://haridevx.vercel.app/',
+    url: 'https://hari-devx-portfolio.vercel.app/',
     image: '/images/og-image.webp',
   },
   hero: {
