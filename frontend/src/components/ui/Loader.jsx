@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 const SIZES = {
   sm: { ring: 20, border: 2 },
@@ -11,7 +11,7 @@ export default function Loader({ size = 'md', text, className = '' }) {
 
   return (
     <div className={`loader ${className}`} data-size={size}>
-      <motion.div
+      <m.div
         className="loader-ring"
         style={{ width: dims.ring, height: dims.ring }}
         animate={{ rotate: 360 }}
@@ -21,11 +21,11 @@ export default function Loader({ size = 'md', text, className = '' }) {
           className="loader-ring-track"
           style={{ borderWidth: dims.border }}
         />
-        <motion.div
+        <m.div
           className="loader-ring-fill"
           style={{ borderWidth: dims.border }}
         />
-      </motion.div>
+      </m.div>
       {text && <p className="loader-text">{text}</p>}
     </div>
   );

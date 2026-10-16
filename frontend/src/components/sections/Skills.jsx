@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Section from '../ui/Section';
 
 const profColors = {
@@ -19,7 +19,7 @@ function SkillTag({ name, proficiency }) {
 export default function Skills({ skills }) {
   return (
     <Section id="Skills">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
@@ -33,7 +33,7 @@ export default function Skills({ skills }) {
 
         <div className="skills-grid">
           {skills.map(({ category, items, logo }, i) => (
-            <motion.div
+            <m.div
               key={category}
               className="skill-card"
               initial={{ opacity: 0, y: 16 }}
@@ -50,10 +50,10 @@ export default function Skills({ skills }) {
                   <SkillTag key={item.name || item} name={item.name || item} proficiency={item.proficiency} />
                 ))}
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
-      </motion.div>
+      </m.div>
     </Section>
   );
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 
 const LINES = [
   { cmd: 'whoami', output: 'Hariharan' },
@@ -7,9 +7,9 @@ const LINES = [
   { cmd: 'start_server', output: 'Ready!' },
 ];
 
-const CMD_DELAY = 80;
-const CHAR_DELAY = 16;
-const OUTPUT_VISIBLE_DELAY = 60;
+const CMD_DELAY = 40;
+const CHAR_DELAY = 10;
+const OUTPUT_VISIBLE_DELAY = 30;
 
 function TypewriterText({ text, startDelay, onComplete }) {
   const [displayed, setDisplayed] = useState('');
@@ -62,11 +62,9 @@ export default function TerminalLines({ onAllComplete }) {
   }, [onAllComplete]);
 
   return (
-    <motion.div
+    <m.div
       className="terminal-window"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3 }}
+      initial={false}
     >
       <div className="terminal-header">
         <span className="terminal-dot" style={{ background: '#ef4444' }} />
@@ -77,12 +75,13 @@ export default function TerminalLines({ onAllComplete }) {
       <div className="terminal-body">
         <AnimatePresence>
           {LINES.slice(0, visibleLines).map((line, i) => (
-            <motion.div
+            <m.div
               key={i}
               className="terminal-line"
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.25, ease: 'easeOut' }}
+              style={{ willChange: 'opacity, transform' }}
             >
               <span className="terminal-prompt">$</span>{' '}
               <span className="terminal-cmd">{line.cmd}</span>
@@ -94,10 +93,10 @@ export default function TerminalLines({ onAllComplete }) {
                   onComplete={() => handleLineComplete(i)}
                 />
               </span>
-            </motion.div>
+            </m.div>
           ))}
         </AnimatePresence>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

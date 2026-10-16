@@ -1,7 +1,8 @@
 import { lazy, Suspense, useState, useEffect, useRef } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, LazyMotion, domAnimation } from 'framer-motion';
 import { portfolioData } from './content/portfolio';
+import { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion';
 import { useActiveSection } from './hooks/useActiveSection';
 import { useTheme } from './hooks/useTheme';
 import { scrollToSection } from './utils/scrollTo';
@@ -12,7 +13,6 @@ import Loader from './components/ui/Loader';
 import MouseGlow from './components/effects/MouseGlow';
 
 import SoftAurora from './components/effects/SoftAurora';
-import Scene3D from './components/3d/Scene3D';
 import Navbar from './components/layout/Navbar';
 import Dock from './components/layout/Dock';
 import Footer from './components/layout/Footer';
@@ -28,6 +28,7 @@ import CertificationGallery from './components/sections/CertificationGallery';
 import ContactForm from './components/sections/ContactForm';
 
 const Projects = lazy(() => import('./components/sections/Projects'));
+const Scene3D = lazy(() => import('./components/3d/Scene3D'));
 
 function HomePage({ appVisible, enter }) {
   const { hero, about, skills, education, experience, stats, featuredProject, projects, certifications, codingProfiles } = portfolioData;
@@ -61,6 +62,8 @@ function ContactPage() {
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [appVisible, setAppVisible] = useState(false);
+  const [show3D, setShow3D] = useState(false);
+  const reducedMotion = usePrefersReducedMotion();
   const { theme, toggleTheme } = useTheme();
   const activeSection = useActiveSection();
   const footerRef = useRef(null);
@@ -81,6 +84,33 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    if (reducedMotion) return undefined;
+    if (!(appVisible || !isHome)) return undefined;
+    let idleId;
+    let timeoutId;
+    let cancelled = false;
+    const start = () => {
+      if (!cancelled) setShow3D(true);
+    };
+    const schedule = () => {
+      if (typeof window.requestIdleCallback === 'function') {
+        idleId = window.requestIdleCallback(start, { timeout: 2000 });
+      } else {
+        timeoutId = setTimeout(start, 300);
+      }
+    };
+    const onLoad = () => schedule();
+    if (document.readyState === 'complete') schedule();
+    else window.addEventListener('load', onLoad, { once: true });
+    return () => {
+      cancelled = true;
+      window.removeEventListener('load', onLoad);
+      if (idleId) window.cancelIdleCallback?.(idleId);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [appVisible, isHome, reducedMotion]);
+
+  useEffect(() => {
     if (location.state?.scrollTo) {
       const id = location.state.scrollTo;
       window.history.replaceState({}, '');
@@ -91,7 +121,7 @@ export default function App() {
   }, [location.state]);
 
   return (
-    <>
+    <LazyMotion features={domAnimation}>
       <ScrollToTop />
 
       <AnimatePresence>
@@ -103,7 +133,7 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      <div className="app" style={{ opacity: appVisible || !isHome ? 1 : 0, transition: 'opacity 0.5s ease' }}>
+      <div className="app" style={{ opacity: 1 }}>
         <div className="soft-aurora-background">
           <SoftAurora
             speed={2}
@@ -124,18 +154,20 @@ export default function App() {
         </div>
         <div className="app-background-overlay" />
         <MouseGlow />
-        <Scene3D theme={theme} />
+        <Suspense fallback={null}>
+          {show3D && <Scene3D theme={theme} />}
+        </Suspense>
         <a href="#main" className="skip-link">Skip to content</a>
         <Navbar activeSection={activeSection} contact={contact} theme={theme} toggleTheme={toggleTheme} />
 
         <Routes>
-          <Route path="/" element={<HomePage appVisible={appVisible} enter={appVisible} />} />
+          <Route path="/" element={<HomePage appVisible={appVisible} enter={true} />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
 
         <Dock activeSection={activeSection} contact={contact} attached={dockAttached} />
         <Footer ref={footerRef} contact={contact} />
       </div>
-    </>
+    </LazyMotion>
   );
 }

@@ -1,10 +1,10 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Section from '../ui/Section';
 
 export default function Education({ education }) {
   return (
     <Section id="education">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, x: 16 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, margin: '-60px' }}
@@ -29,7 +29,7 @@ export default function Education({ education }) {
             </div>
           ))}
         </div>
-      </motion.div>
+      </m.div>
     </Section>
   );
 }

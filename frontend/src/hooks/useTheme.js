@@ -8,7 +8,10 @@ export function useTheme() {
   });
 
   const applyTheme = useCallback((t) => {
-    document.documentElement.setAttribute('data-theme', t);
+    const root = document.documentElement;
+    root.classList.add('theme-transition');
+    root.setAttribute('data-theme', t);
+    setTimeout(() => root.classList.remove('theme-transition'), 300);
     localStorage.setItem('theme', t);
   }, []);
 

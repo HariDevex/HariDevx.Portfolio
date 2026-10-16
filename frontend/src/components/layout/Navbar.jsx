@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { NAV_ITEMS } from '../../constants/navigation';
 import { scrollToSection } from '../../utils/scrollTo';
 import ThemeToggle from './ThemeToggle';
@@ -33,7 +33,7 @@ function MobileMenu({ onClose, activeSection, contact }) {
   };
 
   return (
-    <motion.div
+    <m.div
       className="mobile-menu"
       role="dialog"
       aria-modal="true"
@@ -57,7 +57,7 @@ function MobileMenu({ onClose, activeSection, contact }) {
         <a href={contact.linkedin} className="mobile-cta" target="_blank" rel="noreferrer">LinkedIn</a>
         <a href="/documents/Hariharan.pdf#Hariharan_Resume" className="mobile-cta" target="_blank" rel="noreferrer">Resume</a>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 

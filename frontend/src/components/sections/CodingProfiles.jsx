@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Section from '../ui/Section';
 import Button from '../ui/Button';
 
@@ -13,7 +13,7 @@ const icons = {
 export default function CodingProfiles({ profiles }) {
   return (
     <Section id="coding">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 28 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
@@ -27,7 +27,7 @@ export default function CodingProfiles({ profiles }) {
 
         <div className="coding-grid">
           {profiles.map((p) => (
-            <motion.div
+            <m.div
               key={p.platform}
               className="coding-card"
               initial={{ opacity: 0, y: 10 }}
@@ -41,10 +41,10 @@ export default function CodingProfiles({ profiles }) {
               <Button href={p.url} variant="secondary" target="_blank" rel="noreferrer">
                 View Profile
               </Button>
-            </motion.div>
+            </m.div>
           ))}
         </div>
-      </motion.div>
+      </m.div>
     </Section>
   );
 }

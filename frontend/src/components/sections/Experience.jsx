@@ -1,10 +1,10 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Section from '../ui/Section';
 
 export default function Experience({ experience }) {
   return (
     <Section id="Experience">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
@@ -17,7 +17,7 @@ export default function Experience({ experience }) {
 
         <div className="exp-grid">
           {experience.map((exp, i) => (
-            <motion.div
+            <m.div
               key={i}
               className="exp-card"
               initial={{ opacity: 0, x: -10 }}
@@ -35,10 +35,10 @@ export default function Experience({ experience }) {
                   <li key={a} className="exp-item">{a}</li>
                 ))}
               </ul>
-            </motion.div>
+            </m.div>
           ))}
         </div>
-      </motion.div>
+      </m.div>
     </Section>
   );
 }

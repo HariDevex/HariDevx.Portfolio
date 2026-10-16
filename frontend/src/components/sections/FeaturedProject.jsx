@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Section from '../ui/Section';
 import Tag from '../ui/Tag';
 import Button from '../ui/Button';
@@ -6,7 +6,7 @@ import Button from '../ui/Button';
 export default function FeaturedProject({ project }) {
   return (
     <Section id="featured">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
@@ -60,7 +60,7 @@ export default function FeaturedProject({ project }) {
             </div>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </Section>
   );
 }

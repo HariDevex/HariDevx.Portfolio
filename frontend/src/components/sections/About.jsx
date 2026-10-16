@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Section from '../ui/Section';
 
 const SUMMARY_LINES = [
@@ -10,7 +10,7 @@ const SUMMARY_LINES = [
 export default function About({ about }) {
   return (
     <Section id="About">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
@@ -30,7 +30,7 @@ export default function About({ about }) {
           </div>
           <div className="terminal-body">
             {SUMMARY_LINES.map((line, i) => (
-              <motion.div
+              <m.div
                 key={i}
                 className="terminal-line"
                 initial={{ opacity: 0 }}
@@ -40,11 +40,11 @@ export default function About({ about }) {
               >
                 <span className="terminal-prompt">$</span>{' '}
                 <span className="terminal-cmd">{line.cmd}</span>
-              </motion.div>
+              </m.div>
             ))}
 
             {SUMMARY_LINES.map((line, i) => (
-              <motion.p
+              <m.p
                 key={`out-${i}`}
                 className="terminal-about-output"
                 initial={{ opacity: 0 }}
@@ -53,10 +53,10 @@ export default function About({ about }) {
                 transition={{ delay: 0.3 + i * 0.2, duration: 0.4 }}
               >
                 {line.output}
-              </motion.p>
+              </m.p>
             ))}
 
-            <motion.div
+            <m.div
               className="terminal-line"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -65,11 +65,11 @@ export default function About({ about }) {
             >
               <span className="terminal-prompt">$</span>{' '}
               <span className="terminal-cmd">ls achievements/</span>
-            </motion.div>
+            </m.div>
 
             <div className="about-terminal-highlights">
               {about.highlights.map((h, i) => (
-                <motion.div
+                <m.div
                   key={h}
                   className="terminal-highlight-line"
                   initial={{ opacity: 0, x: -8 }}
@@ -79,11 +79,11 @@ export default function About({ about }) {
                 >
                   <span className="terminal-about-arrow">→</span>
                   <span className="terminal-about-text">{h}</span>
-                </motion.div>
+                </m.div>
               ))}
             </div>
 
-            <motion.div
+            <m.div
               className="terminal-line"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -92,10 +92,10 @@ export default function About({ about }) {
             >
               <span className="terminal-prompt">$</span>{' '}
               <span className="terminal-cmd" style={{ color: 'var(--green)' }}>ready_for_interviews</span>
-            </motion.div>
+            </m.div>
           </div>
         </div>
-      </motion.div>
+      </m.div>
     </Section>
   );
 }

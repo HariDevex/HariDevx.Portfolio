@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import Section from '../ui/Section';
 
 const imageModules = import.meta.glob('../../assets/certificates/*', {
@@ -27,7 +27,7 @@ function Lightbox({ images, currentIndex, onClose, onPrev, onNext }) {
   }, [handleKeyDown]);
 
   return (
-    <motion.div
+    <m.div
       className="lightbox"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -39,7 +39,7 @@ function Lightbox({ images, currentIndex, onClose, onPrev, onNext }) {
       <button className="lightbox-close" onClick={onClose} aria-label="Close">✕</button>
       <img src={images[currentIndex]} alt={`Certificate ${currentIndex + 1}`} onClick={(e) => e.stopPropagation()} />
       <p className="lightbox-counter">{currentIndex + 1} / {images.length}</p>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -58,7 +58,7 @@ export default function CertificationGallery({ title, description }) {
 
   return (
     <Section id="Certificates">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
@@ -72,7 +72,7 @@ export default function CertificationGallery({ title, description }) {
 
         <div className="gallery-grid" role="list" aria-label="Certification gallery">
           {visibleImages.map((src, i) => (
-            <motion.div
+            <m.div
               key={src}
               className="gallery-item"
               role="listitem"
@@ -83,7 +83,7 @@ export default function CertificationGallery({ title, description }) {
               onClick={() => setLightboxIndex(i)}
             >
               <img src={src} alt={`Certification ${i + 1}`} loading="lazy" />
-            </motion.div>
+            </m.div>
           ))}
         </div>
 
@@ -97,7 +97,7 @@ export default function CertificationGallery({ title, description }) {
             </button>
           </div>
         )}
-      </motion.div>
+      </m.div>
 
       <AnimatePresence>
         {lightboxIndex !== null && (

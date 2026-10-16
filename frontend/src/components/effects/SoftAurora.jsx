@@ -116,7 +116,7 @@ float auroraGlow(float t, vec2 shift) {
   float amp = uNoiseAmp;
   vec2 samplePos = uv * uScale;
 
-  for (float i = 0.0; i < 3.0; i += 1.0) {
+  for (float i = 0.0; i < 2.0; i += 1.0) {
     noiseVal += perlin3D(amp, freq, samplePos.x, samplePos.y, t);
     amp *= uOctaveDecay;
     freq *= 2.0;
@@ -166,7 +166,11 @@ export default function SoftAurora({
   useEffect(() => {
     if (!containerRef.current) return;
     const container = containerRef.current;
-    const renderer = new Renderer({ alpha: true, premultipliedAlpha: false });
+    const renderer = new Renderer({
+      alpha: true,
+      premultipliedAlpha: false,
+      dpr: Math.min(window.devicePixelRatio || 1, 1) * 0.5,
+    });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
 
@@ -175,6 +179,8 @@ export default function SoftAurora({
     let targetMouse = [0.5, 0.5];
     let animationFrameId;
     let contextLost = false;
+    let lastFrame = 0;
+    const frameInterval = 1000 / 30;
 
     function handleMouseMove(e) {
       const rect = gl.canvas.getBoundingClientRect();
@@ -249,6 +255,9 @@ export default function SoftAurora({
     function update(time) {
       if (contextLost) return;
       animationFrameId = requestAnimationFrame(update);
+      if (document.hidden) return;
+      if (time - lastFrame < frameInterval) return;
+      lastFrame = time;
       program.uniforms.uTime.value = time * 0.001;
 
       if (enableMouseInteraction) {
@@ -263,7 +272,13 @@ export default function SoftAurora({
 
       renderer.render({ scene: mesh });
     }
-    animationFrameId = requestAnimationFrame(update);
+
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      program.uniforms.uTime.value = 4;
+      renderer.render({ scene: mesh });
+    } else {
+      animationFrameId = requestAnimationFrame(update);
+    }
 
     return () => {
       cancelAnimationFrame(animationFrameId);

@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import { m, useMotionValue, useTransform, animate } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 export default function ProgressBar({ onComplete }) {
@@ -15,40 +15,42 @@ export default function ProgressBar({ onComplete }) {
   );
 
   useEffect(() => {
-    const timer = setTimeout(() => setPhase('running'), 200);
+    const timer = setTimeout(() => setPhase('running'), 120);
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
     if (phase !== 'running') return;
     const controls = animate(progress, 100, {
-      duration: 0.7,
+      duration: 0.45,
       ease: 'easeInOut',
       onComplete: () => {
-        setTimeout(() => onComplete?.(), 100);
+        setTimeout(() => onComplete?.(), 60);
       },
     });
     return () => controls.stop();
   }, [phase, progress, onComplete]);
 
   return (
-    <motion.div
+    <m.div
       className="progress-wrapper"
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.35, ease: 'easeOut' }}
+      exit={{ opacity: 0, y: -8 }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+      style={{ willChange: 'opacity, transform' }}
     >
       <div className="progress-container">
         <div className="progress-percentage">
           {displayValue}%
         </div>
         <div className="progress-track">
-          <motion.div className="progress-fill" style={{ width }} />
+          <m.div className="progress-fill" style={{ width }} />
         </div>
         <div className="progress-label">
           Initializing portfolio...
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

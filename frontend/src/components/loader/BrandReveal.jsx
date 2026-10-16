@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { useEffect, useRef, useMemo } from 'react';
 
 const WORDS = ['HARI', 'DEVX'];
@@ -48,16 +48,17 @@ export default function BrandReveal({ onComplete }) {
         doneRef.current = true;
         onComplete?.();
       }
-    }, 900);
+    }, 500);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
   return (
-    <motion.div
+    <m.div
       className="brand-container"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.25 }}
+      style={{ willChange: 'opacity' }}
       onAnimationComplete={() => {
         if (!doneRef.current) {
           doneRef.current = true;
@@ -68,7 +69,7 @@ export default function BrandReveal({ onComplete }) {
       <div className="brand-text">
         <div className="brand-word">
           {flatChars.map(({ char, globalIndex, key }) => (
-            <motion.span
+            <m.span
               key={key}
               className={`brand-char${char === ' ' ? ' brand-char-space' : ''}`}
               custom={globalIndex}
@@ -77,14 +78,14 @@ export default function BrandReveal({ onComplete }) {
               animate="visible"
             >
               {char === ' ' ? '\u00A0' : char}
-            </motion.span>
+            </m.span>
           ))}
         </div>
       </div>
 
       <div className="brand-subtitles">
         {SUBTITLES.map((text, i) => (
-          <motion.p
+          <m.p
             key={text}
             className="brand-subtitle"
             custom={i}
@@ -93,9 +94,9 @@ export default function BrandReveal({ onComplete }) {
             animate="visible"
           >
             {text}
-          </motion.p>
+          </m.p>
         ))}
       </div>
-    </motion.div>
+    </m.div>
   );
 }

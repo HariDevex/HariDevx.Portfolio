@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { NAV_ITEMS } from '../../constants/navigation';
 import { scrollToSection } from '../../utils/scrollTo';
 
@@ -134,7 +134,7 @@ export default function Dock({ activeSection, contact, attached }) {
   };
 
   return (
-    <motion.div
+    <m.div
       ref={dockRef}
       className={`dock ${attached ? 'dock--attached' : ''}`}
       initial={{ y: 80, opacity: 0 }}
@@ -159,6 +159,6 @@ export default function Dock({ activeSection, contact, attached }) {
           </button>
         );
       })}
-    </motion.div>
+    </m.div>
   );
 }

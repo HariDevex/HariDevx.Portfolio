@@ -52,7 +52,7 @@ and improving problem-solving skills.`,
   skills: [
     {
       category: 'Frontend',
-      logo: '/images/logo/html.png',
+      logo: '/images/logo/html.webp',
       items: [
         { name: 'React', proficiency: 'proficient' },
         { name: 'JavaScript (ES6+)', proficiency: 'proficient' },
@@ -72,7 +72,7 @@ and improving problem-solving skills.`,
     },
     {
       category: 'Tools',
-      logo: '/images/logo/git.png',
+      logo: '/images/logo/git.webp',
       items: [
         { name: 'Git', proficiency: 'proficient' },
         { name: 'GitHub', proficiency: 'proficient' },

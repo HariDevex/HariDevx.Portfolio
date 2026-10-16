@@ -1,11 +1,11 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Section from '../ui/Section';
 import Tag from '../ui/Tag';
 import Button from '../ui/Button';
 
 function ProjectCard({ title, description, techStack, image, liveUrl, repoUrl, achievements, index }) {
   return (
-    <motion.article
+    <m.article
       className="project-card"
       initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -41,17 +41,19 @@ function ProjectCard({ title, description, techStack, image, liveUrl, repoUrl, a
           {liveUrl && liveUrl !== '#' && (
             <Button href={liveUrl} variant="secondary" target="_blank" rel="noreferrer">Live Demo</Button>
           )}
-          <Button href={repoUrl} variant="ghost" target="_blank" rel="noreferrer">GitHub</Button>
+          {repoUrl && (
+            <Button href={repoUrl} variant="ghost" target="_blank" rel="noreferrer">GitHub</Button>
+          )}
         </div>
       </div>
-    </motion.article>
+    </m.article>
   );
 }
 
 export default function Projects({ projects }) {
   return (
     <Section id="Projects">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
@@ -68,7 +70,7 @@ export default function Projects({ projects }) {
             <ProjectCard key={project.title} {...project} index={i} />
           ))}
         </div>
-      </motion.div>
+      </m.div>
     </Section>
   );
 }

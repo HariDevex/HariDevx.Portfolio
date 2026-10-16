@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import Section from '../ui/Section';
 
 export default function ContactForm({ contact, resumeUrl }) {
@@ -34,7 +34,7 @@ export default function ContactForm({ contact, resumeUrl }) {
 
   return (
     <Section id="Contact">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
@@ -92,7 +92,7 @@ export default function ContactForm({ contact, resumeUrl }) {
             </form>
           )}
         </div>
-      </motion.div>
+      </m.div>
     </Section>
   );
 }

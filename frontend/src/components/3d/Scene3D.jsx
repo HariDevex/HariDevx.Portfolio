@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Float, Stars, MeshDistortMaterial } from '@react-three/drei';
+import { MeshDistortMaterial } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -55,7 +55,7 @@ function MorphingShape({ scrollValues, theme }) {
 
   return (
     <mesh ref={meshRef}>
-      <torusKnotGeometry args={[1, 0.35, 150, 20]} />
+      <torusKnotGeometry args={[1, 0.35, 120, 16]} />
       <MeshDistortMaterial
         color="#0ea5e9"
         attach="material"
@@ -71,7 +71,7 @@ function MorphingShape({ scrollValues, theme }) {
 // Particle System that speeds up and rotates based on scrolling
 function ParticleSystem({ scrollValues, theme }) {
   const pointsRef = useRef();
-  const particleCount = 350;
+  const particleCount = 200;
 
   // Create static buffer positions
   const positions = useRef(
@@ -158,6 +158,21 @@ function FloatingNodes({ scrollValues }) {
       </mesh>
     </group>
   );
+}
+
+// Drives the render loop on demand at a capped frame rate, and stops
+// invalidating entirely while the tab is hidden to save CPU/GPU.
+function FrameThrottle({ fps = 30 }) {
+  const invalidate = useThree((state) => state.invalidate);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (!document.hidden) invalidate();
+    }, 1000 / fps);
+    return () => clearInterval(id);
+  }, [fps, invalidate]);
+
+  return null;
 }
 
 export default function Scene3D({ theme }) {
@@ -389,9 +404,11 @@ export default function Scene3D({ theme }) {
       }}
     >
       <Canvas
+        frameloop="demand"
         gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
-        dpr={[1, 2]}
+        dpr={typeof window !== 'undefined' ? Math.min(window.devicePixelRatio || 1, 1.25) * 0.85 : 1}
       >
+        <FrameThrottle fps={30} />
         <ambientLight intensity={theme === 'dark' ? 0.35 : 0.75} />
         
         <directionalLight 

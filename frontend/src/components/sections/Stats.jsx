@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { m, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Section from '../ui/Section';
 
 function AnimatedStat({ value, suffix, label, context, index }) {
@@ -13,7 +13,7 @@ function AnimatedStat({ value, suffix, label, context, index }) {
   }, [value, index, count]);
 
   return (
-    <motion.div
+    <m.div
       className="stat-card"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -21,18 +21,18 @@ function AnimatedStat({ value, suffix, label, context, index }) {
       transition={{ delay: index * 0.1, duration: 0.5 }}
     >
       <p className="stat-value">
-        <motion.span>{rounded}</motion.span>{suffix}
+        <m.span>{rounded}</m.span>{suffix}
       </p>
       <p className="stat-label">{label}</p>
       <p className="stat-context">{context}</p>
-    </motion.div>
+    </m.div>
   );
 }
 
 export default function Stats({ stats }) {
   return (
     <Section id="stats">
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
@@ -48,7 +48,7 @@ export default function Stats({ stats }) {
             <AnimatedStat key={stat.label} {...stat} index={i} />
           ))}
         </div>
-      </motion.div>
+      </m.div>
     </Section>
   );
 }

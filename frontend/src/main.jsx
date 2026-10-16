@@ -14,3 +14,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </React.StrictMode>,
 );
+
+const bootLoader = document.getElementById('boot-loader');
+if (bootLoader) {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      bootLoader.remove();
+    });
+  });
+}

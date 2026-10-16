@@ -28,8 +28,8 @@
 
     <link rel="icon" type="image/png" href="/images/favicon.png" />
     <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/headland-one-latin.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/lora-latin.woff2" crossorigin />
 
     <script type="application/ld+json">
     {
@@ -59,6 +59,23 @@
     </script>
   </head>
   <body>
+    <div id="boot-loader" class="loading-screen" aria-hidden="true">
+      <div class="loading-aurora-bg"></div>
+      <div class="loading-aurora-overlay"></div>
+      <div class="loading-content">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <span class="terminal-dot" style="background:#ef4444"></span>
+            <span class="terminal-dot" style="background:#f59e0b"></span>
+            <span class="terminal-dot" style="background:#10b981"></span>
+            <span class="terminal-title">bash — hari@devx:~/portfolio</span>
+          </div>
+          <div class="terminal-body">
+            <div class="terminal-line"><span class="terminal-prompt">$</span><span class="terminal-cursor"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

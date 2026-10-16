@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { m, useMotionValue, useSpring } from 'framer-motion';
 
 export default function MouseGlow() {
   const [isTouch, setIsTouch] = useState(true);
@@ -26,7 +26,7 @@ export default function MouseGlow() {
   if (isTouch) return null;
 
   return (
-    <motion.div
+    <m.div
       style={{
         position: 'fixed',
         top: 0,
@@ -37,7 +37,7 @@ export default function MouseGlow() {
         zIndex: 0,
       }}
     >
-      <motion.div
+      <m.div
         style={{
           position: 'absolute',
           width: 400,
@@ -50,6 +50,6 @@ export default function MouseGlow() {
           translateY: '-50%',
         }}
       />
-    </motion.div>
+    </m.div>
   );
 }

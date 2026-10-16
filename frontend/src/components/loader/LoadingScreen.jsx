@@ -1,17 +1,17 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import TerminalLines from './TerminalLines';
 import ProgressBar from './ProgressBar';
 import BrandReveal from './BrandReveal';
 import SoftAurora from '../effects/SoftAurora';
 
-const MAX_DURATION = 3000;
+const MAX_DURATION = 2200;
 
 const PHASE_DURATIONS = {
   terminal: 1100,
   progress: 1000,
   brand: 900,
-  exit: 500,
+  exit: 350,
 };
 
 function useReducedMotion() {
@@ -72,29 +72,29 @@ export default function LoadingScreen({ onComplete, onExit }) {
   }, []);
 
   const handleTerminalComplete = useCallback(() => {
-    safeSetPhase('progress');
-  }, [safeSetPhase]);
+    setPhase('progress');
+  }, []);
 
   const handleProgressComplete = useCallback(() => {
-    safeSetPhase('brand');
-  }, [safeSetPhase]);
+    setPhase('brand');
+  }, []);
 
   const handleBrandComplete = useCallback(() => {
     setTimeout(() => {
-      safeSetPhase('exit');
+      setPhase('exit');
       safeExit();
       setTimeout(safeComplete, PHASE_DURATIONS.exit);
-    }, 500);
-  }, [safeSetPhase, safeExit, safeComplete]);
+    }, 150);
+  }, [safeExit, safeComplete]);
 
   if (reduceMotion) return null;
 
   return (
-    <motion.div
+    <m.div
       className="loading-screen"
       initial={{ opacity: 1 }}
       animate={{ opacity: phase === 'exit' ? 0 : 1 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}
     >
       <div className="loading-aurora-bg">
         <SoftAurora
@@ -114,22 +114,23 @@ export default function LoadingScreen({ onComplete, onExit }) {
         />
       </div>
       <div className="loading-aurora-overlay" />
-      <div className="loading-content">
-        <AnimatePresence mode="wait">
+      <div className="loading-content" style={{ willChange: 'opacity' }}>
+        <AnimatePresence mode="wait" initial={false}>
           {phase === 'terminal' && (
-            <motion.div
+            <m.div
               key="terminal"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.25 }}
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+              style={{ willChange: 'opacity, transform' }}
             >
               <TerminalLines onAllComplete={handleTerminalComplete} />
-            </motion.div>
+            </m.div>
           )}
 
           {phase === 'progress' && (
-            <motion.div
+            <m.div
               key="progress"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -137,11 +138,11 @@ export default function LoadingScreen({ onComplete, onExit }) {
               transition={{ duration: 0.25 }}
             >
               <ProgressBar onComplete={handleProgressComplete} />
-            </motion.div>
+            </m.div>
           )}
 
           {phase === 'brand' && (
-            <motion.div
+            <m.div
               key="brand"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -149,11 +150,11 @@ export default function LoadingScreen({ onComplete, onExit }) {
               transition={{ duration: 0.25 }}
             >
               <BrandReveal onComplete={handleBrandComplete} />
-            </motion.div>
+            </m.div>
           )}
 
           {phase === 'exit' && (
-            <motion.div
+            <m.div
               key="exit"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -163,6 +164,6 @@ export default function LoadingScreen({ onComplete, onExit }) {
           )}
         </AnimatePresence>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
