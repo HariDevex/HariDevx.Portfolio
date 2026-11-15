@@ -247,6 +247,7 @@ and improving problem-solving skills.`,
   },
   codingProfiles: [
     { platform: 'GitHub', username: 'HariDevex', url: 'https://github.com/HariDevex', icon: '🖥️' },
+    { platform: 'Vercel', username: 'harizencodedevs-projects', url: 'https://vercel.com/harizencodedevs-projects', icon: '▲' },
   ],
   stats: [
     { value: 8, suffix: '+', label: 'Projects Built', context: 'Web apps and developer tools' },
