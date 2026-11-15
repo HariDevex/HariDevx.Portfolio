@@ -14,9 +14,20 @@ export default function ContactForm({ contact, resumeUrl }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!contact.formAction) {
+      const subject = encodeURIComponent(`Portfolio contact from ${formData.name}`);
+      const body = encodeURIComponent(
+        `${formData.message}\n\nFrom: ${formData.name} <${formData.email}>`,
+      );
+      window.location.href = `mailto:${contact.email}?subject=${subject}&body=${body}`;
+      setStatus('mailto');
+      return;
+    }
+
     setStatus('sending');
     try {
-      const res = await fetch(contact.formAction || '/api/contact', {
+      const res = await fetch(contact.formAction, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -58,11 +69,21 @@ export default function ContactForm({ contact, resumeUrl }) {
             Drop me a message and I&apos;ll get back to you within 24 hours.
           </p>
 
-          {status === 'sent' ? (
+          {status === 'sent' || status === 'mailto' ? (
             <div className="contact-form-success">
               <span className="contact-form-success-icon">✓</span>
-              <p>Thanks! I&apos;ll respond within 24 hours.</p>
-              <p className="text-small">In the meantime, check my <a href={contact.github} target="_blank" rel="noreferrer" style={{ color: 'var(--accent)' }}>GitHub</a>.</p>
+              <p>
+                {status === 'mailto'
+                  ? 'Your email app should open with the message ready to send.'
+                  : 'Thanks! I\u2019ll respond within 24 hours.'}
+              </p>
+              <p className="text-small">
+                {status === 'mailto' ? (
+                  <>If it doesn&apos;t open, email me directly at <a href={`mailto:${contact.email}`} style={{ color: 'var(--accent)' }}>{contact.email}</a>.</>
+                ) : (
+                  <>In the meantime, check my <a href={contact.github} target="_blank" rel="noreferrer" style={{ color: 'var(--accent)' }}>GitHub</a>.</>
+                )}
+              </p>
             </div>
           ) : (
             <form className="contact-form" onSubmit={handleSubmit}>

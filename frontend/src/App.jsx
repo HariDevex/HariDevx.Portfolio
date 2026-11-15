@@ -30,6 +30,15 @@ import ContactForm from './components/sections/ContactForm';
 const Projects = lazy(() => import('./components/sections/Projects'));
 const Scene3D = lazy(() => import('./components/3d/Scene3D'));
 
+const SITE_URL = 'https://hari-devx-portfolio.vercel.app';
+
+function detectCrawler() {
+  if (typeof navigator === 'undefined') return false;
+  return /bot|crawl|spider|slurp|bingpreview|headless|lighthouse|google-inspectiontool/i.test(
+    navigator.userAgent,
+  );
+}
+
 function HomePage({ appVisible, enter }) {
   const { hero, about, skills, education, experience, stats, featuredProject, projects, certifications, codingProfiles } = portfolioData;
   return (
@@ -60,8 +69,9 @@ function ContactPage() {
 }
 
 export default function App() {
-  const [loading, setLoading] = useState(true);
-  const [appVisible, setAppVisible] = useState(false);
+  const isCrawler = detectCrawler();
+  const [loading, setLoading] = useState(!isCrawler);
+  const [appVisible, setAppVisible] = useState(isCrawler);
   const [show3D, setShow3D] = useState(false);
   const reducedMotion = usePrefersReducedMotion();
   const { theme, toggleTheme } = useTheme();
@@ -109,6 +119,18 @@ export default function App() {
       if (timeoutId) clearTimeout(timeoutId);
     };
   }, [appVisible, isHome, reducedMotion]);
+
+  useEffect(() => {
+    const path = location.pathname === '/' ? '/' : location.pathname;
+    const href = `${SITE_URL}${path}`;
+    let canonical = document.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.setAttribute('rel', 'canonical');
+      document.head.appendChild(canonical);
+    }
+    canonical.setAttribute('href', href);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (location.state?.scrollTo) {

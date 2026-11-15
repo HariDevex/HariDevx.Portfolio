@@ -1,0 +1,19 @@
+SEO / content pass — status
+
+[x] 1. Meta description updated to the exact requested text in frontend/index.html (name=description, og:description, twitter:description), portfolioData.seo.description, and JSON-LD description.
+[x] 2. projects array in frontend/src/content/portfolio.js replaced with the curated 8-project list.
+[x] 3. Placeholders normalized. All live URLs verified reachable; Jambhavan (jsp-olive.vercel.app) returned 404 (Vercel DEPLOYMENT_NOT_FOUND) so liveUrl was set to null. Test counts/flows use real values or null.
+[x] 4. Missing project images resolved via existing assets or null.
+[x] 5. Build-time Vite SEO fallback plugin created (frontend/vite-plugin-seo-fallback.js) injecting semantic static HTML + noscript + critical CSS.
+[x] 6. Canonical added (with per-route update in App.jsx), absolute OG/Twitter images, og:site_name/locale/alt.
+[x] 7. Canonical host unified to https://hari-devx-portfolio.vercel.app; sitemap.xml and robots.txt fixed.
+[x] 8. JSON-LD Person enhanced + project ItemList added (8 projects).
+[x] 9. Dead/duplicate files removed (portfolioo.js, duplicate root google verification html). public/google79e27f9e855c9123.html retained because it is served for verification.
+[x] 10. Contact form falls back to mailto when no API/Formspree formAction is configured.
+[x] 11. Loading screen minimized for crawlers via user-agent detection in App.jsx.
+[x] 12. SEO regression check added (frontend/scripts/check-seo.mjs) and wired into build via postbuild; also exposed as npm run check:seo.
+[x] 13. Build + SEO check pass (20 required strings, no placeholders). dist/index.html, sitemap.xml, robots.txt, canonical, OG image, resume, and local assets verified. All external project/repo links return 200 except npm.npmjs.com (403 bot protection; registry.npmjs.org returns 200 for v1.0.3) and the removed Jambhavan deployment (now null).
+
+Remaining / optional:
+[ ] Deploy the updated frontend so the live site reflects these changes.
+[ ] Re-check Jambhavan deploy; if a public Vercel or custom domain is restored, set projects[5].liveUrl again.
