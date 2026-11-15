@@ -59,12 +59,6 @@ export default function BrandReveal({ onComplete }) {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.25 }}
       style={{ willChange: 'opacity' }}
-      onAnimationComplete={() => {
-        if (!doneRef.current) {
-          doneRef.current = true;
-          onComplete?.();
-        }
-      }}
     >
       <div className="brand-text">
         <div className="brand-word">

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { m, AnimatePresence } from 'framer-motion';
+import { m } from 'framer-motion';
 
 const LINES = [
   { cmd: 'whoami', output: 'Hariharan' },
@@ -14,17 +14,29 @@ const OUTPUT_VISIBLE_DELAY = 420;
 function TypewriterText({ text, startDelay, onComplete }) {
   const [displayed, setDisplayed] = useState('');
   const [done, setDone] = useState(false);
+  const [started, setStarted] = useState(false);
   const onCompleteRef = useRef(onComplete);
 
   useEffect(() => {
     onCompleteRef.current = onComplete;
-  });
+  }, [onComplete]);
 
   useEffect(() => {
-    const startTimeout = setTimeout(() => {
+    let startTimeout;
+    let interval;
+    let cancelled = false;
+
+    setDisplayed('');
+    setDone(false);
+    setStarted(false);
+
+    startTimeout = setTimeout(() => {
+      if (cancelled) return;
+      setStarted(true);
       let i = 0;
-      const interval = setInterval(() => {
-        i++;
+      interval = setInterval(() => {
+        if (cancelled) return;
+        i += 1;
         setDisplayed(text.slice(0, i));
         if (i >= text.length) {
           clearInterval(interval);
@@ -32,15 +44,19 @@ function TypewriterText({ text, startDelay, onComplete }) {
           onCompleteRef.current?.();
         }
       }, CHAR_DELAY);
-      return () => clearInterval(interval);
     }, startDelay);
-    return () => clearTimeout(startTimeout);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(startTimeout);
+      if (interval) clearInterval(interval);
+    };
   }, [text, startDelay]);
 
   return (
-    <span>
+    <span className="terminal-typed">
       {displayed}
-      {!done && <span className="terminal-cursor" />}
+      {started && !done && <span className="terminal-cursor" />}
     </span>
   );
 }
@@ -73,29 +89,26 @@ export default function TerminalLines({ onAllComplete }) {
         <span className="terminal-title">bash — hari@devx:~/portfolio</span>
       </div>
       <div className="terminal-body">
-        <AnimatePresence>
-          {LINES.slice(0, visibleLines).map((line, i) => (
-            <m.div
-              key={i}
-              className="terminal-line"
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.25, ease: 'easeOut' }}
-              style={{ willChange: 'opacity, transform' }}
-            >
-              <span className="terminal-prompt">$</span>{' '}
-              <span className="terminal-cmd">{line.cmd}</span>
-              <span className="terminal-output">
-                {' // '}
-                <TypewriterText
-                  text={line.output}
-                  startDelay={CMD_DELAY}
-                  onComplete={() => handleLineComplete(i)}
-                />
-              </span>
-            </m.div>
-          ))}
-        </AnimatePresence>
+        {LINES.slice(0, visibleLines).map((line, i) => (
+          <m.div
+            key={i}
+            className="terminal-line"
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+          >
+            <span className="terminal-prompt">$</span>
+            <span className="terminal-cmd">{line.cmd}</span>
+            <span className="terminal-output">
+              <span className="terminal-output-sep"> // </span>
+              <TypewriterText
+                text={line.output}
+                startDelay={CMD_DELAY}
+                onComplete={() => handleLineComplete(i)}
+              />
+            </span>
+          </m.div>
+        ))}
       </div>
     </m.div>
   );
