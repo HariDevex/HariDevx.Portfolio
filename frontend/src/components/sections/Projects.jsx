@@ -14,7 +14,7 @@ function ProjectCard({ title, description, techStack, image, liveUrl, repoUrl, a
     >
       <div className="project-image">
         {image ? (
-          <img src={image} alt={title} loading="lazy" />
+          <img src={image} alt={title} loading="lazy" decoding="async" />
         ) : (
           <span className="project-placeholder">Project</span>
         )}

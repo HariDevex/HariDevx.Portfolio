@@ -21,7 +21,7 @@ export default function FeaturedProject({ project }) {
         <div className="case-study">
           <div className="case-visual">
             {project.image ? (
-              <img src={project.image} alt={project.title} loading="lazy" />
+              <img src={project.image} alt={project.title} loading="lazy" decoding="async" />
             ) : (
               <span className="case-placeholder">Project Screenshot</span>
             )}

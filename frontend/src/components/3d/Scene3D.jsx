@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { MeshDistortMaterial } from '@react-three/drei';
-import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -430,18 +429,6 @@ export default function Scene3D({ theme }) {
         <ParticleSystem scrollValues={scrollValues} theme={theme} />
         
         <CameraController scrollValues={scrollValues} />
-
-        {/* Postprocessing glow effect */}
-        {theme === 'dark' && (
-          <EffectComposer>
-            <Bloom 
-              luminanceThreshold={0.25} 
-              luminanceSmoothing={0.9} 
-              height={300} 
-              intensity={0.65} 
-            />
-          </EffectComposer>
-        )}
       </Canvas>
     </div>
   );

@@ -8,9 +8,26 @@ const imageModules = import.meta.glob('../../assets/certificates/*', {
   import: 'default',
 });
 
+const thumbModules = import.meta.glob('../../assets/certificates/thumbs/*', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+});
+
+function baseName(path) {
+  return path.split('/').pop().replace(/\.[^.]+$/, '');
+}
+
+const thumbByKey = Object.fromEntries(
+  Object.entries(thumbModules).map(([path, url]) => [baseName(path), url]),
+);
+
 const certifications = Object.entries(imageModules)
   .sort(([a], [b]) => a.localeCompare(b))
-  .map(([, url]) => url);
+  .map(([path, full]) => ({
+    full,
+    thumb: thumbByKey[baseName(path)] || full,
+  }));
 
 const INITIAL_COUNT = 8;
 
@@ -37,7 +54,7 @@ function Lightbox({ images, currentIndex, onClose, onPrev, onNext }) {
       aria-modal="true"
     >
       <button className="lightbox-close" onClick={onClose} aria-label="Close">✕</button>
-      <img src={images[currentIndex]} alt={`Certificate ${currentIndex + 1}`} onClick={(e) => e.stopPropagation()} />
+      <img src={images[currentIndex].full} alt={`Certificate ${currentIndex + 1}`} decoding="async" onClick={(e) => e.stopPropagation()} />
       <p className="lightbox-counter">{currentIndex + 1} / {images.length}</p>
     </m.div>
   );
@@ -71,9 +88,9 @@ export default function CertificationGallery({ title, description }) {
         </div>
 
         <div className="gallery-grid" role="list" aria-label="Certification gallery">
-          {visibleImages.map((src, i) => (
+          {visibleImages.map((image, i) => (
             <m.div
-              key={src}
+              key={image.full}
               className="gallery-item"
               role="listitem"
               initial={{ opacity: 0, scale: 0.95 }}
@@ -82,7 +99,7 @@ export default function CertificationGallery({ title, description }) {
               transition={{ delay: (i % INITIAL_COUNT) * 0.03, duration: 0.3 }}
               onClick={() => setLightboxIndex(i)}
             >
-              <img src={src} alt={`Certification ${i + 1}`} loading="lazy" />
+              <img src={image.thumb} alt={`Certification ${i + 1}`} loading="lazy" decoding="async" />
             </m.div>
           ))}
         </div>

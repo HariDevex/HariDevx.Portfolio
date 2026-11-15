@@ -48,7 +48,7 @@ export default function BrandReveal({ onComplete }) {
         doneRef.current = true;
         onComplete?.();
       }
-    }, 500);
+    }, 350);
     return () => clearTimeout(timer);
   }, [onComplete]);
 

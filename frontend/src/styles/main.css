@@ -865,11 +865,13 @@ body, .navbar, .navbar--scrolled, .mobile-menu, .dock, .dock-label,
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 960px) {
   .navbar-links { display: none; }
   .navbar-hamburger { display: flex; }
+}
 
-    .section { padding: 48px 0; }
+@media (max-width: 768px) {
+  .section { padding: 48px 0; }
   .about-grid { grid-template-columns: 1fr; gap: 32px; }
   .edu-card { grid-template-columns: 1fr; text-align: left; }
   .edu-right { text-align: left; }

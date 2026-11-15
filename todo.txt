@@ -1,36 +1,5 @@
-SEO / content pass — status
-
-[x] 1. Meta description updated to the exact requested text in frontend/index.html (name=description, og:description, twitter:description), portfolioData.seo.description, and JSON-LD description.
-[x] 2. projects array in frontend/src/content/portfolio.js replaced with the curated 8-project list.
-[x] 3. Placeholders normalized. All live URLs verified reachable; Jambhavan (jsp-olive.vercel.app) returned 404 (Vercel DEPLOYMENT_NOT_FOUND) so liveUrl was set to null. Test counts/flows use real values or null.
-[x] 4. Missing project images resolved via existing assets or null.
-[x] 5. Build-time Vite SEO fallback plugin created (frontend/vite-plugin-seo-fallback.js) injecting semantic static HTML + noscript + critical CSS.
-[x] 6. Canonical added (with per-route update in App.jsx), absolute OG/Twitter images, og:site_name/locale/alt.
-[x] 7. Canonical host unified to https://hari-devx-portfolio.vercel.app; sitemap.xml and robots.txt fixed.
-[x] 8. JSON-LD Person enhanced + project ItemList added (8 projects).
-[x] 9. Dead/duplicate files removed (portfolioo.js, duplicate root google verification html). public/google79e27f9e855c9123.html retained because it is served for verification.
-[x] 10. Contact form falls back to mailto when no API/Formspree formAction is configured.
-[x] 11. Loading screen minimized for crawlers via user-agent detection in App.jsx.
-[x] 12. SEO regression check added (frontend/scripts/check-seo.mjs) and wired into build via postbuild; also exposed as npm run check:seo.
-[x] 13. Build + SEO check pass (20 required strings, no placeholders). dist/index.html, sitemap.xml, robots.txt, canonical, OG image, resume, and local assets verified. All external project/repo links return 200 except npm.npmjs.com (403 bot protection; registry.npmjs.org returns 200 for v1.0.3) and the removed Jambhavan deployment (now null).
-
-Post-deploy:
-[x] Deployed the updated frontend. Live site verified: new meta description, canonical, SEO static fallback, ItemList, sitemap, robots.txt, google verification, resume, and OG image all present/200.
-[x] Re-checked Jambhavan deploy: jsp-olive.vercel.app still returns 404, and the jambhvan-software-systems alias is behind a Vercel login, so projects[5].liveUrl stays null.
-
-AI work rules:
-[x] Created local-only AGENTS.md with always-on rules (no git staging/commits/pushes/deploys, mandatory todo.txt updates, build + SEO gate, content/SEO sync, link verification).
-[x] Added AGENTS.md to .git/info/exclude so it is never uploaded. Verified with git check-ignore; working tree has no staged changes.
-[x] Ran npm run build successfully after the cleanup; SEO postbuild check passed (20 required strings, no placeholders).
-
-Cleanup:
-[x] Removed unused component barrels: src/components/index.js, effects/layout/loader/sections/ui index.js.
-[x] Removed unused components: effects/ChromaGrid.jsx, effects/FloatingLines.jsx, effects/FloatingLines.css.
-[x] Removed unused assets: duplicate resume (Hariharan1.pdf), hero-photo.webp, proimg.jpeg.pp3, unused logos (css/webp, figma, github, js, ps), unused project images (ecommerce, ejs_portfolio, footstep, it, Portfolio, portfolio, vacuum, youtube), and unused public/images/certificates duplicate set.
-[x] Updated README and frontend/README component listings to drop removed ChromaGrid reference.
-[ ] No commit/push performed; all deletions are unstaged for review.
-
-Build warnings:
-[x] Fixed invalid `::moz-selection` pseudo-element in frontend/src/styles/main.css by correcting it to `::-moz-selection`.
-[x] Re-ran npm run build; the moz-selection warning is gone and the SEO postbuild check passes.
-[ ] Remaining advisory: Scene3D chunk is ~1.07 MB (three.js/drei). No action taken; can code-split or raise chunkSizeWarningLimit if desired.
+Status (2026-11-15)
+- [x] Required work completed and rechecked (build + SEO postbuild pass: 20 required strings, no placeholders).
+- [ ] No commit/push/deploy performed; all changes remain unstaged/uncommitted for local review (intentional per AGENTS).
+- [ ] Optional follow-ups: remove unused `frontend/public/images/projects/*.png` originals (#56), lazy-load below-the-fold/content-visibility (#57), reduce `Scene3D` chunk (~1.00 MB, #36/#58).
+- Note: `@react-three/postprocessing` remains in `frontend/package.json` deps but is unused in `Scene3D`.

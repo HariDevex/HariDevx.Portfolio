@@ -5,13 +5,13 @@ import ProgressBar from './ProgressBar';
 import BrandReveal from './BrandReveal';
 import SoftAurora from '../effects/SoftAurora';
 
-const MAX_DURATION = 2200;
+const MAX_DURATION = 1500;
 
 const PHASE_DURATIONS = {
-  terminal: 1100,
-  progress: 1000,
-  brand: 900,
-  exit: 350,
+  terminal: 700,
+  progress: 500,
+  brand: 400,
+  exit: 220,
 };
 
 function useReducedMotion() {
@@ -84,7 +84,7 @@ export default function LoadingScreen({ onComplete, onExit }) {
       setPhase('exit');
       safeExit();
       setTimeout(safeComplete, PHASE_DURATIONS.exit);
-    }, 150);
+    }, 80);
   }, [safeExit, safeComplete]);
 
   if (reduceMotion) return null;

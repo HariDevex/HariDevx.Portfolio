@@ -31,12 +31,39 @@ const Projects = lazy(() => import('./components/sections/Projects'));
 const Scene3D = lazy(() => import('./components/3d/Scene3D'));
 
 const SITE_URL = 'https://hari-devx-portfolio.vercel.app';
+const INTRO_KEY = 'portfolio-intro-seen';
 
 function detectCrawler() {
   if (typeof navigator === 'undefined') return false;
   return /bot|crawl|spider|slurp|bingpreview|headless|lighthouse|google-inspectiontool/i.test(
     navigator.userAgent,
   );
+}
+
+function hasSeenIntro() {
+  try {
+    return sessionStorage.getItem(INTRO_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+function markIntroSeen() {
+  try {
+    sessionStorage.setItem(INTRO_KEY, '1');
+  } catch {
+    // Storage can be unavailable in private browsing; the intro is optional.
+  }
+}
+
+function supports3D() {
+  if (typeof window === 'undefined') return false;
+  if (window.matchMedia?.('(max-width: 768px)').matches) return false;
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  if (connection?.saveData) return false;
+  if (typeof navigator.deviceMemory === 'number' && navigator.deviceMemory < 4) return false;
+  if (typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency < 4) return false;
+  return true;
 }
 
 function HomePage({ appVisible, enter }) {
@@ -70,8 +97,9 @@ function ContactPage() {
 
 export default function App() {
   const isCrawler = detectCrawler();
-  const [loading, setLoading] = useState(!isCrawler);
-  const [appVisible, setAppVisible] = useState(isCrawler);
+  const [skipIntro] = useState(() => isCrawler || hasSeenIntro());
+  const [loading, setLoading] = useState(!skipIntro);
+  const [appVisible, setAppVisible] = useState(skipIntro);
   const [show3D, setShow3D] = useState(false);
   const reducedMotion = usePrefersReducedMotion();
   const { theme, toggleTheme } = useTheme();
@@ -94,7 +122,7 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    if (reducedMotion) return undefined;
+    if (reducedMotion || !supports3D()) return undefined;
     if (!(appVisible || !isHome)) return undefined;
     let idleId;
     let timeoutId;
@@ -132,6 +160,12 @@ export default function App() {
     canonical.setAttribute('href', href);
   }, [location.pathname]);
 
+  const finishIntro = () => {
+    markIntroSeen();
+    setAppVisible(true);
+    setLoading(false);
+  };
+
   useEffect(() => {
     if (location.state?.scrollTo) {
       const id = location.state.scrollTo;
@@ -150,31 +184,35 @@ export default function App() {
         {loading && isHome && (
           <LoadingScreen
             onExit={() => setAppVisible(true)}
-            onComplete={() => { setAppVisible(true); setLoading(false); }}
+            onComplete={finishIntro}
           />
         )}
       </AnimatePresence>
 
       <div className="app" style={{ opacity: 1 }}>
-        <div className="soft-aurora-background">
-          <SoftAurora
-            speed={2}
-            scale={2}
-            brightness={1.0}
-            color1="#7415dc"
-            color2="#e100ff"
-            noiseFrequency={1}
-            noiseAmplitude={3.5}
-            bandHeight={0.5}
-            bandSpread={0.6}
-            octaveDecay={0.1}
-            layerOffset={0}
-            colorSpeed={1.8}
-            enableMouseInteraction={true}
-            mouseInfluence={1}
-          />
-        </div>
-        <div className="app-background-overlay" />
+        {(appVisible || !isHome) && (
+          <>
+            <div className="soft-aurora-background">
+              <SoftAurora
+                speed={2}
+                scale={2}
+                brightness={1.0}
+                color1="#7415dc"
+                color2="#e100ff"
+                noiseFrequency={1}
+                noiseAmplitude={3.5}
+                bandHeight={0.5}
+                bandSpread={0.6}
+                octaveDecay={0.1}
+                layerOffset={0}
+                colorSpeed={1.8}
+                enableMouseInteraction={true}
+                mouseInfluence={1}
+              />
+            </div>
+            <div className="app-background-overlay" />
+          </>
+        )}
         <MouseGlow />
         <Suspense fallback={null}>
           {show3D && <Scene3D theme={theme} />}
