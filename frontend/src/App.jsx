@@ -167,6 +167,14 @@ export default function App() {
   };
 
   useEffect(() => {
+    if (!loading || !isHome) return undefined;
+    const timer = setTimeout(() => {
+      finishIntro();
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, [loading, isHome]);
+
+  useEffect(() => {
     if (location.state?.scrollTo) {
       const id = location.state.scrollTo;
       window.history.replaceState({}, '');
