@@ -7,9 +7,9 @@ const LINES = [
   { cmd: 'start_server', output: 'Ready!' },
 ];
 
-const CMD_DELAY = 180;
-const CHAR_DELAY = 45;
-const OUTPUT_VISIBLE_DELAY = 320;
+const CMD_DELAY = 250;
+const CHAR_DELAY = 55;
+const OUTPUT_VISIBLE_DELAY = 420;
 
 function TypewriterText({ text, startDelay, onComplete }) {
   const [displayed, setDisplayed] = useState('');

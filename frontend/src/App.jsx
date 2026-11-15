@@ -176,7 +176,7 @@ export default function App() {
     if (!loading || !isHome) return undefined;
     const timer = setTimeout(() => {
       finishIntro();
-    }, 6000);
+    }, 9500);
     return () => clearTimeout(timer);
   }, [loading, isHome]);
 
