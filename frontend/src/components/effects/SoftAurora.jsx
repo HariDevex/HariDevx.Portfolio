@@ -211,7 +211,11 @@ export default function SoftAurora({
 
     function resize() {
       if (contextLost) return;
-      renderer.setSize(container.offsetWidth, container.offsetHeight);
+      const width = container.offsetWidth;
+      const height = container.offsetHeight;
+      if (width <= 0 || height <= 0) return;
+      renderer.setSize(width, height);
+      gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
       if (program) {
         program.uniforms.uResolution.value = [gl.canvas.width, gl.canvas.height, gl.canvas.width / gl.canvas.height];
       }
@@ -256,6 +260,7 @@ export default function SoftAurora({
       if (contextLost) return;
       animationFrameId = requestAnimationFrame(update);
       if (document.hidden) return;
+      if (gl.drawingBufferWidth <= 0 || gl.drawingBufferHeight <= 0) return;
       if (time - lastFrame < frameInterval) return;
       lastFrame = time;
       program.uniforms.uTime.value = time * 0.001;

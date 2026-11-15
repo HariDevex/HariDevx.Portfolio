@@ -1,8 +1,9 @@
 Status (2026-11-15)
 - [x] Required work completed and rechecked (build + SEO postbuild pass: 20 required strings, no placeholders).
 - [x] Removed unused font preloads (`headland-one-latin.woff2`, `lora-latin.woff2`) from `frontend/index.html` to address local-preview "preloaded but not used" console warnings; fonts still load via `@font-face`.
-- [x] Added app-level intro failsafe in `frontend/src/App.jsx` (force-complete loading after 2500ms on home) to prevent Vercel/production visitors getting stuck on the loading screen if loader animations/callbacks fail. `npm run build` + SEO check pass.
+- [x] Added app-level intro failsafe in `frontend/src/App.jsx` (force-complete loading after 2500ms on home) to prevent Vercel/production visitors getting stuck on the loading screen if loader animations/callbacks fail.
+- [x] Suppressed the `THREE.Clock` deprecation console warning in `frontend/src/main.jsx` (workaround; root cause is inside `@react-three/fiber`/three internals, not app source). Hardened `SoftAurora` WebGL resize/render guards and viewport handling in `frontend/src/components/effects/SoftAurora.jsx` to reduce WebGL viewport/draw warnings. `npm run build` + SEO check pass.
 - [ ] No commit/push/deploy performed; all changes remain unstaged/uncommitted for local review (intentional per AGENTS).
-- [ ] Optional follow-ups: remove unused `frontend/public/images/projects/*.png` originals (#56), lazy-load below-the-fold/content-visibility (#57), reduce `Scene3D` chunk (~1.00 MB, #36/#58).
+- [ ] Optional follow-ups: remove unused `frontend/public/images/projects/*.png` originals (#56), lazy-load below-the-fold/content-visibility (#57), reduce `Scene3D` chunk (~1.00 MB, #36/#58); upgrade `three`/`@react-three/fiber`/`@react-three/drei` if a true fix for the Clock deprecation is desired (requires dependency review).
 - Note: `@react-three/postprocessing` remains in `frontend/package.json` deps but is unused in `Scene3D`.
-- Local console notes: `THREE.Clock` deprecation and WebGL `drawElementsInstanced` viewport warning originate from three/r3f/WebGL runtime behavior (not directly from app source here); `installHook.js.map` / `<anonymous code>` source-map error is typically devtools/extension noise.
+- Local console notes: `installHook.js.map` / `<anonymous code>` source-map errors are typically browser DevTools/extension noise and not fixable in app code. WebGL viewport warnings may still appear in some environments if emitted by other canvases/drivers.
