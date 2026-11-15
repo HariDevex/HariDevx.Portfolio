@@ -29,8 +29,7 @@ src/
 │   │   └── ...           # CameraController, MorphingShape, FloatingNodes
 │   ├── effects/          # WebGL & Canvas visual backdrops
 │   │   ├── SoftAurora    # OGL WebGL fragment shader aurora
-│   │   ├── MouseGlow     # Spring-dampened pointer glow circle
-│   │   └── ChromaGrid    # Static neon background blur hotspots
+│   │   └── MouseGlow     # Spring-dampened pointer glow circle
 │   ├── layout/           # Global wrappers (Navbar, Dock navigation)
 │   ├── loader/           # Terminal-theme boot loader phases
 │   └── sections/         # Profile content sections (Hero, About, Skills...)

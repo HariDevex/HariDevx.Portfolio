@@ -158,7 +158,7 @@ Define custom variables inside your workspace styles to alter the full theme ins
 │   └── src/
 │       ├── components/
 │       │   ├── 3d/               # Scene3D, CameraController, MorphingShape
-│       │   ├── effects/          # SoftAurora WebGL, MouseGlow, ChromaGrid
+│       │   ├── effects/          # SoftAurora WebGL, MouseGlow
 │       │   ├── loader/           # LoadingScreen terminal components
 │       │   └── sections/         # Hero, About, Skills, Projects, Certs
 │       ├── content/              # Data configuration models

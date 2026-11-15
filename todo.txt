@@ -17,3 +17,20 @@ SEO / content pass — status
 Post-deploy:
 [x] Deployed the updated frontend. Live site verified: new meta description, canonical, SEO static fallback, ItemList, sitemap, robots.txt, google verification, resume, and OG image all present/200.
 [x] Re-checked Jambhavan deploy: jsp-olive.vercel.app still returns 404, and the jambhvan-software-systems alias is behind a Vercel login, so projects[5].liveUrl stays null.
+
+AI work rules:
+[x] Created local-only AGENTS.md with always-on rules (no git staging/commits/pushes/deploys, mandatory todo.txt updates, build + SEO gate, content/SEO sync, link verification).
+[x] Added AGENTS.md to .git/info/exclude so it is never uploaded. Verified with git check-ignore; working tree has no staged changes.
+[x] Ran npm run build successfully after the cleanup; SEO postbuild check passed (20 required strings, no placeholders).
+
+Cleanup:
+[x] Removed unused component barrels: src/components/index.js, effects/layout/loader/sections/ui index.js.
+[x] Removed unused components: effects/ChromaGrid.jsx, effects/FloatingLines.jsx, effects/FloatingLines.css.
+[x] Removed unused assets: duplicate resume (Hariharan1.pdf), hero-photo.webp, proimg.jpeg.pp3, unused logos (css/webp, figma, github, js, ps), unused project images (ecommerce, ejs_portfolio, footstep, it, Portfolio, portfolio, vacuum, youtube), and unused public/images/certificates duplicate set.
+[x] Updated README and frontend/README component listings to drop removed ChromaGrid reference.
+[ ] No commit/push performed; all deletions are unstaged for review.
+
+Build warnings:
+[x] Fixed invalid `::moz-selection` pseudo-element in frontend/src/styles/main.css by correcting it to `::-moz-selection`.
+[x] Re-ran npm run build; the moz-selection warning is gone and the SEO postbuild check passes.
+[ ] Remaining advisory: Scene3D chunk is ~1.07 MB (three.js/drei). No action taken; can code-split or raise chunkSizeWarningLimit if desired.
