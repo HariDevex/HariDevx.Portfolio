@@ -10,24 +10,24 @@ import { scrollToSection } from './utils/scrollTo';
 import ScrollToTop from './components/ScrollToTop';
 import LoadingScreen from './components/loader/LoadingScreen';
 import Loader from './components/ui/Loader';
-import MouseGlow from './components/effects/MouseGlow';
 
 import SoftAurora from './components/effects/SoftAurora';
 import Navbar from './components/layout/Navbar';
 import Dock from './components/layout/Dock';
 import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
-import FeaturedProject from './components/sections/FeaturedProject';
 import About from './components/sections/About';
 import Skills from './components/sections/Skills';
 import Experience from './components/sections/Experience';
 import Education from './components/sections/Education';
-import Stats from './components/sections/Stats';
-import CodingProfiles from './components/sections/CodingProfiles';
-import CertificationGallery from './components/sections/CertificationGallery';
+import FeaturedProject from './components/sections/FeaturedProject';
 import ContactForm from './components/sections/ContactForm';
 
+const Stats = lazy(() => import('./components/sections/Stats'));
+const CodingProfiles = lazy(() => import('./components/sections/CodingProfiles'));
 const Projects = lazy(() => import('./components/sections/Projects'));
+const CertificationGallery = lazy(() => import('./components/sections/CertificationGallery'));
+const MouseGlow = lazy(() => import('./components/effects/MouseGlow'));
 const Scene3D = lazy(() => import('./components/3d/Scene3D'));
 
 const SITE_URL = 'https://hari-devx-portfolio.vercel.app';
@@ -75,13 +75,19 @@ function HomePage({ appVisible, enter }) {
       <Skills skills={skills} />
       <Experience experience={experience} />
       <Education education={education} />
-      <Stats stats={stats} />
-      <CodingProfiles profiles={codingProfiles} />
+      <Suspense fallback={<Loader />}>
+        <Stats stats={stats} />
+      </Suspense>
+      <Suspense fallback={<Loader />}>
+        <CodingProfiles profiles={codingProfiles} />
+      </Suspense>
       <FeaturedProject project={featuredProject} />
       <Suspense fallback={<Loader />}>
         <Projects projects={projects} />
       </Suspense>
-      <CertificationGallery title={certifications.title} description={certifications.description} />
+      <Suspense fallback={<Loader />}>
+        <CertificationGallery title={certifications.title} description={certifications.description} />
+      </Suspense>
     </main>
   );
 }
@@ -170,7 +176,7 @@ export default function App() {
     if (!loading || !isHome) return undefined;
     const timer = setTimeout(() => {
       finishIntro();
-    }, 2500);
+    }, 6000);
     return () => clearTimeout(timer);
   }, [loading, isHome]);
 
@@ -191,7 +197,6 @@ export default function App() {
       <AnimatePresence>
         {loading && isHome && (
           <LoadingScreen
-            onExit={() => setAppVisible(true)}
             onComplete={finishIntro}
           />
         )}
@@ -221,7 +226,9 @@ export default function App() {
             <div className="app-background-overlay" />
           </>
         )}
-        <MouseGlow />
+        <Suspense fallback={null}>
+          <MouseGlow />
+        </Suspense>
         <Suspense fallback={null}>
           {show3D && <Scene3D theme={theme} />}
         </Suspense>

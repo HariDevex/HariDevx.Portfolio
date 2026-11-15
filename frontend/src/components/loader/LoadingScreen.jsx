@@ -5,13 +5,13 @@ import ProgressBar from './ProgressBar';
 import BrandReveal from './BrandReveal';
 import SoftAurora from '../effects/SoftAurora';
 
-const MAX_DURATION = 1500;
+const MAX_DURATION = 5200;
 
 const PHASE_DURATIONS = {
-  terminal: 700,
-  progress: 500,
-  brand: 400,
-  exit: 220,
+  terminal: 2200,
+  progress: 1400,
+  brand: 1400,
+  exit: 320,
 };
 
 function useReducedMotion() {
@@ -26,8 +26,7 @@ function useReducedMotion() {
   return reduced;
 }
 
-function forceComplete(onComplete, onExit) {
-  onExit?.();
+function forceComplete(onComplete) {
   onComplete?.();
 }
 
@@ -48,24 +47,20 @@ export default function LoadingScreen({ onComplete, onExit }) {
     }
   }, [onComplete]);
 
-  const safeExit = useCallback(() => {
-    if (!completedRef.current) onExit?.();
-  }, [onExit]);
-
   // Safety timeout — force-finish regardless of animation state
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (!completedRef.current) forceComplete(onComplete, onExit);
+      if (!completedRef.current) forceComplete(onComplete);
     }, MAX_DURATION);
     return () => clearTimeout(timer);
-  }, [onComplete, onExit]);
+  }, [onComplete]);
 
   useEffect(() => {
     if (reduceMotion) {
-      forceComplete(onComplete, onExit);
+      forceComplete(onComplete);
       return;
     }
-  }, [reduceMotion, onComplete, onExit]);
+  }, [reduceMotion, onComplete]);
 
   const safeSetPhase = useCallback((p) => {
     if (mountedRef.current) setPhase(p);
@@ -82,10 +77,9 @@ export default function LoadingScreen({ onComplete, onExit }) {
   const handleBrandComplete = useCallback(() => {
     setTimeout(() => {
       setPhase('exit');
-      safeExit();
-      setTimeout(safeComplete, PHASE_DURATIONS.exit);
-    }, 80);
-  }, [safeExit, safeComplete]);
+      setTimeout(safeComplete, PHASE_DURATIONS.exit + 80);
+    }, 500);
+  }, [safeComplete]);
 
   if (reduceMotion) return null;
 

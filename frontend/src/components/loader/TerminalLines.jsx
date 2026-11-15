@@ -7,9 +7,9 @@ const LINES = [
   { cmd: 'start_server', output: 'Ready!' },
 ];
 
-const CMD_DELAY = 20;
-const CHAR_DELAY = 6;
-const OUTPUT_VISIBLE_DELAY = 15;
+const CMD_DELAY = 180;
+const CHAR_DELAY = 45;
+const OUTPUT_VISIBLE_DELAY = 320;
 
 function TypewriterText({ text, startDelay, onComplete }) {
   const [displayed, setDisplayed] = useState('');
@@ -57,7 +57,7 @@ export default function TerminalLines({ onAllComplete }) {
     if (nextVisible <= LINES.length) {
       setTimeout(() => setVisibleLines(nextVisible), OUTPUT_VISIBLE_DELAY);
     } else {
-      setTimeout(() => onAllComplete?.(), OUTPUT_VISIBLE_DELAY);
+      setTimeout(() => onAllComplete?.(), 450);
     }
   }, [onAllComplete]);
 

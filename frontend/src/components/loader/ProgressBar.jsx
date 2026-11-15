@@ -22,10 +22,10 @@ export default function ProgressBar({ onComplete }) {
   useEffect(() => {
     if (phase !== 'running') return;
     const controls = animate(progress, 100, {
-      duration: 0.3,
+      duration: 1.4,
       ease: 'easeInOut',
       onComplete: () => {
-        setTimeout(() => onComplete?.(), 30);
+        setTimeout(() => onComplete?.(), 180);
       },
     });
     return () => controls.stop();
