@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState, useEffect, useRef } from 'react';
+import { lazy, Suspense, useState, useEffect, useRef, useCallback } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, LazyMotion, domAnimation } from 'framer-motion';
 import { portfolioData } from './content/portfolio';
@@ -132,11 +132,11 @@ export default function App() {
     canonical.setAttribute('href', href);
   }, [location.pathname]);
 
-  const finishIntro = () => {
+  const finishIntro = useCallback(() => {
     markIntroSeen();
     setAppVisible(true);
     setLoading(false);
-  };
+  }, []);
 
   useEffect(() => {
     const bootLoader = document.getElementById('boot-loader');
@@ -161,7 +161,7 @@ export default function App() {
       finishIntro();
     }, 13000);
     return () => clearTimeout(timer);
-  }, [loading, isHome]);
+  }, [loading, isHome, finishIntro]);
 
   useEffect(() => {
     if (location.state?.scrollTo) {
