@@ -11,7 +11,7 @@ const PHASE_DURATIONS = {
   terminal: 2200,
   progress: 1400,
   brand: 1400,
-  exit: 320,
+  exit: 180,
 };
 
 function useReducedMotion() {
@@ -75,8 +75,8 @@ export default function LoadingScreen({ onComplete, onExit }) {
   const handleBrandComplete = useCallback(() => {
     setTimeout(() => {
       setPhase('exit');
-      setTimeout(safeComplete, PHASE_DURATIONS.exit + 80);
-    }, 500);
+      setTimeout(safeComplete, PHASE_DURATIONS.exit + 40);
+    }, 180);
   }, [safeComplete]);
 
   if (reduceMotion) return null;
@@ -86,7 +86,7 @@ export default function LoadingScreen({ onComplete, onExit }) {
       className="loading-screen"
       initial={{ opacity: 1 }}
       animate={{ opacity: phase === 'exit' ? 0 : 1 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
     >
       <div className="loading-aurora-bg">
         <SoftAurora

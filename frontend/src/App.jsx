@@ -186,29 +186,25 @@ export default function App() {
       </AnimatePresence>
 
       <div className="app" style={{ opacity: 1 }}>
-        {(appVisible || !isHome) && (
-          <>
-            <div className="soft-aurora-background">
-              <SoftAurora
-                speed={2}
-                scale={2}
-                brightness={1.0}
-                color1="#7415dc"
-                color2="#e100ff"
-                noiseFrequency={1}
-                noiseAmplitude={3.5}
-                bandHeight={0.5}
-                bandSpread={0.6}
-                octaveDecay={0.1}
-                layerOffset={0}
-                colorSpeed={1.8}
-                enableMouseInteraction={true}
-                mouseInfluence={1}
-              />
-            </div>
-            <div className="app-background-overlay" />
-          </>
-        )}
+        <div className="soft-aurora-background">
+          <SoftAurora
+            speed={2}
+            scale={2}
+            brightness={1.0}
+            color1="#7415dc"
+            color2="#e100ff"
+            noiseFrequency={1}
+            noiseAmplitude={3.5}
+            bandHeight={0.5}
+            bandSpread={0.6}
+            octaveDecay={0.1}
+            layerOffset={0}
+            colorSpeed={1.8}
+            enableMouseInteraction={true}
+            mouseInfluence={1}
+          />
+        </div>
+        <div className="app-background-overlay" />
         <Suspense fallback={null}>
           <MouseGlow />
         </Suspense>
