@@ -1,13 +1,14 @@
 import { m } from 'framer-motion';
 import Section from '../ui/Section';
 
-const SUMMARY_LINES = [
-  { cmd: 'whoami', output: 'I\'m Hariharan,\na final-year student from Tamil Nadu.' },
-  { cmd: 'cat interests.txt', output: 'I enjoy building web applications,\nworking with Linux,\nand learning through projects.' },
-  { cmd: 'cat goals.txt', output: 'Currently focused on placements,\nfull-stack development,\nand improving problem-solving skills.' },
-];
+const COMMANDS = ['whoami', 'cat interests.txt', 'cat goals.txt'];
 
 export default function About({ about }) {
+  const summaryBlocks = String(about.summary || '')
+    .split(/\n{2,}/)
+    .map((block) => block.trim())
+    .filter(Boolean);
+
   return (
     <Section id="About">
       <m.div
@@ -29,9 +30,9 @@ export default function About({ about }) {
             <span className="terminal-title">bash — hari@devx:~/about</span>
           </div>
           <div className="terminal-body">
-            {SUMMARY_LINES.map((line, i) => (
+            {summaryBlocks.map((block, i) => (
               <m.div
-                key={i}
+                key={`cmd-${i}`}
                 className="terminal-line"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -39,11 +40,11 @@ export default function About({ about }) {
                 transition={{ delay: i * 0.2, duration: 0.3 }}
               >
                 <span className="terminal-prompt">$</span>{' '}
-                <span className="terminal-cmd">{line.cmd}</span>
+                <span className="terminal-cmd">{COMMANDS[i] || 'cat about.txt'}</span>
               </m.div>
             ))}
 
-            {SUMMARY_LINES.map((line, i) => (
+            {summaryBlocks.map((block, i) => (
               <m.p
                 key={`out-${i}`}
                 className="terminal-about-output"
@@ -52,7 +53,7 @@ export default function About({ about }) {
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 + i * 0.2, duration: 0.4 }}
               >
-                {line.output}
+                {block}
               </m.p>
             ))}
 

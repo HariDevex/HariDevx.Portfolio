@@ -178,20 +178,7 @@ and improving problem-solving skills.`,
         'Persistent dark/light theme and fully responsive layout',
       ],
     },
-    {
-      title: 'J Visual Studio — Client Website',
-      description: 'Production website for a photography & design studio with 7 service pages, a filterable gallery, an interactive custom-frame configurator, and WhatsApp-based booking.',
-      techStack: ['Next.js 16', 'React 19', 'Framer Motion', 'CSS Modules', 'Vercel'],
-      image: '/images/projects/J_Visual_Studio.webp',
-      liveUrl: 'https://j-visula-studio.vercel.app',
-      repoUrl: 'https://github.com/HariDevex/j-visula-studio.git',
-      achievements: [
-        'Built and deployed end-to-end for a real client',
-        'Next.js App Router with 8 routes, including dynamic service pages',
-        'Custom-frame configurator and filterable gallery',
-        'WhatsApp-native booking form (no backend required)',
-      ],
-    },
+
     {
       title: 'HDX Style — CSS Framework (npm package)',
       description: 'Utility-first CSS framework with a design system, published on npm as @haridevx/hdx-style. Includes a class parser, design tokens, dark mode, a plugin API and Tailwind CSS integration.',

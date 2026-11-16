@@ -11,6 +11,8 @@ export function useTheme() {
     const root = document.documentElement;
     root.classList.add('theme-transition');
     root.setAttribute('data-theme', t);
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) metaTheme.setAttribute('content', t === 'dark' ? '#07070d' : '#f5f5f0');
     setTimeout(() => root.classList.remove('theme-transition'), 300);
     localStorage.setItem('theme', t);
   }, []);

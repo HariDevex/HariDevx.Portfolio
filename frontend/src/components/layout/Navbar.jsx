@@ -87,7 +87,18 @@ export default function Navbar({ activeSection, contact, theme, toggleTheme }) {
     <>
       <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
         <div className="navbar-inner">
-          <a href="#Home" className="navbar-brand" onClick={(e) => { e.preventDefault(); scrollToSection('Home'); }}>
+          <a
+            href="/"
+            className="navbar-brand"
+            onClick={(e) => {
+              e.preventDefault();
+              if (location.pathname === '/') {
+                scrollToSection('Home');
+              } else {
+                navigate('/');
+              }
+            }}
+          >
             Hariharan<span className="navbar-brand-accent">.N</span>
           </a>
 

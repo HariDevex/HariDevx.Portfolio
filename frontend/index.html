@@ -56,15 +56,7 @@
       "seeks": { "@type": "Demand", "name": "Full-time Full Stack Developer role" }
     }
     </script>
-    <script>
-      (function() {
-        var theme = localStorage.getItem('theme');
-        if (theme !== 'light' && theme !== 'dark') {
-          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
-        document.documentElement.setAttribute('data-theme', theme);
-      })();
-    </script>
+    <script src="/theme-init.js"></script>
   </head>
   <body>
     <div id="boot-loader" class="loading-screen" aria-hidden="true">

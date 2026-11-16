@@ -92,12 +92,19 @@ export default function CertificationGallery({ title, description }) {
             <m.div
               key={image.full}
               className="gallery-item"
-              role="listitem"
+              role="listitem button"
+              tabIndex={0}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: (i % INITIAL_COUNT) * 0.03, duration: 0.3 }}
               onClick={() => setLightboxIndex(i)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setLightboxIndex(i);
+                }
+              }}
             >
               <img src={image.thumb} alt={`Certification ${i + 1}`} loading="lazy" decoding="async" />
             </m.div>

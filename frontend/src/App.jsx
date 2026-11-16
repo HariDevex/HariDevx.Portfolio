@@ -2,7 +2,6 @@ import { lazy, Suspense, useState, useEffect, useRef } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, LazyMotion, domAnimation } from 'framer-motion';
 import { portfolioData } from './content/portfolio';
-import { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion';
 import { useActiveSection } from './hooks/useActiveSection';
 import { useTheme } from './hooks/useTheme';
 import { scrollToSection } from './utils/scrollTo';
@@ -28,7 +27,6 @@ const CodingProfiles = lazy(() => import('./components/sections/CodingProfiles')
 const Projects = lazy(() => import('./components/sections/Projects'));
 const CertificationGallery = lazy(() => import('./components/sections/CertificationGallery'));
 const MouseGlow = lazy(() => import('./components/effects/MouseGlow'));
-const Scene3D = lazy(() => import('./components/3d/Scene3D'));
 
 const SITE_URL = 'https://hari-devx-portfolio.vercel.app';
 const INTRO_KEY = 'portfolio-intro-seen';
@@ -56,18 +54,15 @@ function markIntroSeen() {
   }
 }
 
-function supports3D() {
-  if (typeof window === 'undefined') return false;
-  if (window.matchMedia?.('(max-width: 768px)').matches) return false;
-  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-  if (connection?.saveData) return false;
-  if (typeof navigator.deviceMemory === 'number' && navigator.deviceMemory < 4) return false;
-  if (typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency < 4) return false;
-  return true;
-}
-
-function HomePage({ appVisible, enter }) {
+function HomePage({ enter }) {
   const { hero, about, skills, education, experience, stats, featuredProject, projects, certifications, codingProfiles } = portfolioData;
+  const listedProjects = projects.filter((project) => {
+    if (project.title === featuredProject.title) return false;
+    if (featuredProject.repoUrl && project.repoUrl === featuredProject.repoUrl) return false;
+    if (featuredProject.liveUrl && project.liveUrl === featuredProject.liveUrl) return false;
+    return true;
+  });
+
   return (
     <main id="main">
       <Hero hero={hero} contact={portfolioData.contact} enter={enter} />
@@ -83,7 +78,7 @@ function HomePage({ appVisible, enter }) {
       </Suspense>
       <FeaturedProject project={featuredProject} />
       <Suspense fallback={<Loader />}>
-        <Projects projects={projects} />
+        <Projects projects={listedProjects} />
       </Suspense>
       <Suspense fallback={<Loader />}>
         <CertificationGallery title={certifications.title} description={certifications.description} />
@@ -106,8 +101,6 @@ export default function App() {
   const [skipIntro] = useState(() => isCrawler || hasSeenIntro());
   const [loading, setLoading] = useState(!skipIntro);
   const [appVisible, setAppVisible] = useState(skipIntro);
-  const [show3D, setShow3D] = useState(false);
-  const reducedMotion = usePrefersReducedMotion();
   const { theme, toggleTheme } = useTheme();
   const activeSection = useActiveSection();
   const footerRef = useRef(null);
@@ -126,33 +119,6 @@ export default function App() {
     observer.observe(footer);
     return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    if (reducedMotion || !supports3D()) return undefined;
-    if (!(appVisible || !isHome)) return undefined;
-    let idleId;
-    let timeoutId;
-    let cancelled = false;
-    const start = () => {
-      if (!cancelled) setShow3D(true);
-    };
-    const schedule = () => {
-      if (typeof window.requestIdleCallback === 'function') {
-        idleId = window.requestIdleCallback(start, { timeout: 2000 });
-      } else {
-        timeoutId = setTimeout(start, 300);
-      }
-    };
-    const onLoad = () => schedule();
-    if (document.readyState === 'complete') schedule();
-    else window.addEventListener('load', onLoad, { once: true });
-    return () => {
-      cancelled = true;
-      window.removeEventListener('load', onLoad);
-      if (idleId) window.cancelIdleCallback?.(idleId);
-      if (timeoutId) clearTimeout(timeoutId);
-    };
-  }, [appVisible, isHome, reducedMotion]);
 
   useEffect(() => {
     const path = location.pathname === '/' ? '/' : location.pathname;
@@ -229,14 +195,11 @@ export default function App() {
         <Suspense fallback={null}>
           <MouseGlow />
         </Suspense>
-        <Suspense fallback={null}>
-          {show3D && <Scene3D theme={theme} />}
-        </Suspense>
         <a href="#main" className="skip-link">Skip to content</a>
         <Navbar activeSection={activeSection} contact={contact} theme={theme} toggleTheme={toggleTheme} />
 
         <Routes>
-          <Route path="/" element={<HomePage appVisible={appVisible} enter={true} />} />
+          <Route path="/" element={<HomePage enter={true} />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
 

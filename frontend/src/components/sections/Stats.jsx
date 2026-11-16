@@ -1,19 +1,21 @@
-import { useEffect } from 'react';
-import { m, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+import { m, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Section from '../ui/Section';
 
 function AnimatedStat({ value, suffix, label, context, index }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-40px' });
   const count = useMotionValue(0);
   const spring = useSpring(count, { stiffness: 20, damping: 20 });
   const rounded = useTransform(spring, (v) => Math.round(v));
 
   useEffect(() => {
-    const timer = setTimeout(() => count.set(value), 200 + index * 150);
-    return () => clearTimeout(timer);
-  }, [value, index, count]);
+    if (inView) count.set(value);
+  }, [inView, value, count]);
 
   return (
     <m.div
+      ref={ref}
       className="stat-card"
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}

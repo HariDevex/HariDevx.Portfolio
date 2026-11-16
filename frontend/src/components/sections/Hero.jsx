@@ -69,7 +69,7 @@ export default function Hero({ hero, contact, enter }) {
             <Button href={contact.linkedin} variant="secondary" size="large" target="_blank" rel="noreferrer">
               LinkedIn
             </Button>
-            <Button href="#contact" variant="ghost" size="large">
+            <Button href="/contact" variant="ghost" size="large">
               Get in Touch →
             </Button>
           </m.div>
