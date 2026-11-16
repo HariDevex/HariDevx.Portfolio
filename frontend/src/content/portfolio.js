@@ -98,6 +98,14 @@ and improving problem-solving skills.`,
       ],
     },
     {
+      category: 'Testing & QA',
+      items: [
+        { name: 'Playwright', proficiency: 'familiar' },
+        { name: 'Manual Testing', proficiency: 'proficient' },
+        { name: 'QA', proficiency: 'familiar' },
+      ],
+    },
+    {
       category: 'Hardware & IoT',
       items: [
         { name: 'Arduino', proficiency: 'proficient' },
