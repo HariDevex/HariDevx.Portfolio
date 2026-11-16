@@ -99,8 +99,8 @@ function ContactPage() {
 export default function App() {
   const isCrawler = detectCrawler();
   const [skipIntro] = useState(() => isCrawler || hasSeenIntro());
-  const [loading, setLoading] = useState(!skipIntro);
-  const [appVisible, setAppVisible] = useState(skipIntro);
+  const [loading, setLoading] = useState(() => !isCrawler && !hasSeenIntro());
+  const [appVisible, setAppVisible] = useState(() => isCrawler || hasSeenIntro());
   const { theme, toggleTheme } = useTheme();
   const activeSection = useActiveSection();
   const footerRef = useRef(null);
@@ -137,6 +137,23 @@ export default function App() {
     setAppVisible(true);
     setLoading(false);
   };
+
+  useEffect(() => {
+    const bootLoader = document.getElementById('boot-loader');
+    if (!bootLoader) return;
+    if (loading && isHome) {
+      bootLoader.remove();
+      return;
+    }
+    bootLoader.remove();
+  }, [loading, isHome]);
+
+  useEffect(() => {
+    if (!isHome) {
+      setAppVisible(true);
+      setLoading(false);
+    }
+  }, [isHome]);
 
   useEffect(() => {
     if (!loading || !isHome) return undefined;

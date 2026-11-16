@@ -41,26 +41,24 @@ export default function LoadingScreen({ onComplete, onExit }) {
   }, []);
 
   const safeComplete = useCallback(() => {
-    if (mountedRef.current && !completedRef.current) {
-      completedRef.current = true;
-      onComplete?.();
-    }
+    if (!mountedRef.current || completedRef.current) return;
+    completedRef.current = true;
+    onComplete?.();
   }, [onComplete]);
 
   // Safety timeout — force-finish regardless of animation state
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (!completedRef.current) forceComplete(onComplete);
+      safeComplete();
     }, MAX_DURATION);
     return () => clearTimeout(timer);
-  }, [onComplete]);
+  }, [safeComplete]);
 
   useEffect(() => {
     if (reduceMotion) {
-      forceComplete(onComplete);
-      return;
+      safeComplete();
     }
-  }, [reduceMotion, onComplete]);
+  }, [reduceMotion, safeComplete]);
 
   const safeSetPhase = useCallback((p) => {
     if (mountedRef.current) setPhase(p);
